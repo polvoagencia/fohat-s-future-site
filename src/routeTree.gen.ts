@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as CatalogoDeLocacaoRouteImport } from './routes/catalogo-de-locacao'
+import { Route as CasesTelaBrasilRouteImport } from './routes/cases-tela-brasil'
 import { Route as CasesRouteImport } from './routes/cases'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
@@ -23,6 +24,11 @@ const LeadsRoute = LeadsRouteImport.update({
 const CatalogoDeLocacaoRoute = CatalogoDeLocacaoRouteImport.update({
   id: '/catalogo-de-locacao',
   path: '/catalogo-de-locacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasesTelaBrasilRoute = CasesTelaBrasilRouteImport.update({
+  id: '/cases-tela-brasil',
+  path: '/cases-tela-brasil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CasesRoute = CasesRouteImport.update({
@@ -44,6 +50,7 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cases': typeof CasesRoute
+  '/cases-tela-brasil': typeof CasesTelaBrasilRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
   '/leads': typeof LeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cases': typeof CasesRoute
+  '/cases-tela-brasil': typeof CasesTelaBrasilRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
   '/leads': typeof LeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cases': typeof CasesRoute
+  '/cases-tela-brasil': typeof CasesTelaBrasilRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
   '/leads': typeof LeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
@@ -68,15 +77,23 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cases'
+    | '/cases-tela-brasil'
     | '/catalogo-de-locacao'
     | '/leads'
     | '/api/public/leads'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cases' | '/catalogo-de-locacao' | '/leads' | '/api/public/leads'
+  to:
+    | '/'
+    | '/cases'
+    | '/cases-tela-brasil'
+    | '/catalogo-de-locacao'
+    | '/leads'
+    | '/api/public/leads'
   id:
     | '__root__'
     | '/'
     | '/cases'
+    | '/cases-tela-brasil'
     | '/catalogo-de-locacao'
     | '/leads'
     | '/api/public/leads'
@@ -85,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CasesRoute: typeof CasesRoute
+  CasesTelaBrasilRoute: typeof CasesTelaBrasilRoute
   CatalogoDeLocacaoRoute: typeof CatalogoDeLocacaoRoute
   LeadsRoute: typeof LeadsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
@@ -104,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/catalogo-de-locacao'
       fullPath: '/catalogo-de-locacao'
       preLoaderRoute: typeof CatalogoDeLocacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cases-tela-brasil': {
+      id: '/cases-tela-brasil'
+      path: '/cases-tela-brasil'
+      fullPath: '/cases-tela-brasil'
+      preLoaderRoute: typeof CasesTelaBrasilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cases': {
@@ -133,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CasesRoute: CasesRoute,
+  CasesTelaBrasilRoute: CasesTelaBrasilRoute,
   CatalogoDeLocacaoRoute: CatalogoDeLocacaoRoute,
   LeadsRoute: LeadsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
