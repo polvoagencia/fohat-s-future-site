@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      leads: {
+        Row: {
+          created_at: string
+          email: string | null
+          empresa: string | null
+          frente: string | null
+          id: string
+          itens_catalogo: string[]
+          local: string | null
+          mensagem: string | null
+          nome: string | null
+          orcamento: string | null
+          origem: string
+          payload: Json
+          prazo: string | null
+          telefone: string | null
+          tipo_projeto: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          empresa?: string | null
+          frente?: string | null
+          id?: string
+          itens_catalogo?: string[]
+          local?: string | null
+          mensagem?: string | null
+          nome?: string | null
+          orcamento?: string | null
+          origem?: string
+          payload?: Json
+          prazo?: string | null
+          telefone?: string | null
+          tipo_projeto?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          empresa?: string | null
+          frente?: string | null
+          id?: string
+          itens_catalogo?: string[]
+          local?: string | null
+          mensagem?: string | null
+          nome?: string | null
+          orcamento?: string | null
+          origem?: string
+          payload?: Json
+          prazo?: string | null
+          telefone?: string | null
+          tipo_projeto?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
