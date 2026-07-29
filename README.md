@@ -1,24 +1,38 @@
-# FOHAT's Future Site
+# FOHAT Site
 
-Faremos o site da FOHAT.  Por hora, apenas aguarde.
+Projeto estático multipágina preparado para Vite e para sincronização com um projeto Lovable.
 
-This project was built with [Lovable](https://lovable.dev).
+## Rotas
 
-## Build with Lovable
+- `/` — Home institucional
+- `/catalogo-de-locacao/` — Catálogo completo
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/d367100c-9723-49b8-a94d-088d9955f965).
+## Rodar localmente
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+npm install
 npm run dev
 ```
+
+## Gerar versão de produção
+
+```bash
+npm run build
+npm run preview
+```
+
+## Subir para o Lovable
+
+1. Crie um projeto novo no Lovable.
+2. No projeto, acesse `Settings → Connectors → GitHub`.
+3. Conecte o projeto a um repositório GitHub criado pelo próprio Lovable.
+4. Substitua os arquivos do repositório pelo conteúdo desta pasta.
+5. Faça commit e push para a branch `main`.
+6. Aguarde a sincronização no Lovable.
+7. No Lovable, abra `Publish`, revise a URL e publique.
+
+## Observações
+
+- O catálogo e a home compartilham a seleção de equipamentos via `localStorage`.
+- O botão de orçamento no catálogo retorna para a home com o briefing aberto.
+- O WhatsApp ainda usa um número placeholder e deve ser substituído antes da publicação.
