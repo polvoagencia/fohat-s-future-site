@@ -1,0 +1,42 @@
+FOHAT — CORREÇÃO DO REPOSITÓRIO
+
+PROBLEMA ENCONTRADO
+- O index.html da raiz foi enviado com zero bytes.
+- O HTML anterior tinha aproximadamente 11 MB porque as mídias estavam embutidas em Base64.
+
+O QUE FOI CORRIGIDO
+- index.html restaurado e reduzido para aproximadamente 337 KB.
+- Imagens, logos e vídeo extraídos para public/assets.
+- Catálogo preservado em catalogo-de-locacao/index.html.
+- Rotas:
+  /
+  /catalogo-de-locacao/
+- Vite alinhado à versão usada pelo projeto Lovable.
+
+COMO SUBSTITUIR PELO GITHUB WEB
+
+1. Extraia este ZIP.
+2. Abra:
+   https://github.com/polvoagencia/fohat-s-future-site
+3. Envie TODO o conteúdo da pasta extraída para a raiz do repositório.
+4. A estrutura final deve ficar assim:
+
+   index.html
+   package.json
+   vite.config.js
+   .gitignore
+   README.md
+   catalogo-de-locacao/
+     index.html
+   public/
+     assets/
+       arquivos de imagem, SVG e vídeo
+
+5. Faça o commit na branch main.
+6. Aguarde a sincronização no Lovable.
+7. No Lovable, use Publish ou Update.
+
+ATENÇÃO
+- Não envie a pasta fohat-repositorio-corrigido como uma subpasta.
+- Os arquivos precisam ficar diretamente na raiz do repositório.
+- O número do WhatsApp ainda é placeholder: 5500000000000.
