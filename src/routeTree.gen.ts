@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CatalogoDeLocacaoRouteImport } from './routes/catalogo-de-locacao'
+import { Route as CasesRouteImport } from './routes/cases'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 
 const CatalogoDeLocacaoRoute = CatalogoDeLocacaoRouteImport.update({
   id: '/catalogo-de-locacao',
   path: '/catalogo-de-locacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasesRoute = CasesRouteImport.update({
+  id: '/cases',
+  path: '/cases',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,30 +37,34 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cases': typeof CasesRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cases': typeof CasesRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cases': typeof CasesRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo-de-locacao' | '/api/public/leads'
+  fullPaths: '/' | '/cases' | '/catalogo-de-locacao' | '/api/public/leads'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo-de-locacao' | '/api/public/leads'
-  id: '__root__' | '/' | '/catalogo-de-locacao' | '/api/public/leads'
+  to: '/' | '/cases' | '/catalogo-de-locacao' | '/api/public/leads'
+  id: '__root__' | '/' | '/cases' | '/catalogo-de-locacao' | '/api/public/leads'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CasesRoute: typeof CasesRoute
   CatalogoDeLocacaoRoute: typeof CatalogoDeLocacaoRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/catalogo-de-locacao'
       fullPath: '/catalogo-de-locacao'
       preLoaderRoute: typeof CatalogoDeLocacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cases': {
+      id: '/cases'
+      path: '/cases'
+      fullPath: '/cases'
+      preLoaderRoute: typeof CasesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CasesRoute: CasesRoute,
   CatalogoDeLocacaoRoute: CatalogoDeLocacaoRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
 }
