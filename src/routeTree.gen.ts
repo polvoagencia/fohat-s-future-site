@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as CatalogoDeLocacaoRouteImport } from './routes/catalogo-de-locacao'
 import { Route as CasesRouteImport } from './routes/cases'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 
+const LeadsRoute = LeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CatalogoDeLocacaoRoute = CatalogoDeLocacaoRouteImport.update({
   id: '/catalogo-de-locacao',
   path: '/catalogo-de-locacao',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cases': typeof CasesRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
+  '/leads': typeof LeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cases': typeof CasesRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
+  '/leads': typeof LeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
 }
 export interface FileRoutesById {
@@ -52,25 +60,45 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/cases': typeof CasesRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
+  '/leads': typeof LeadsRoute
   '/api/public/leads': typeof ApiPublicLeadsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/cases' | '/catalogo-de-locacao' | '/api/public/leads'
+  fullPaths:
+    | '/'
+    | '/cases'
+    | '/catalogo-de-locacao'
+    | '/leads'
+    | '/api/public/leads'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/cases' | '/catalogo-de-locacao' | '/api/public/leads'
-  id: '__root__' | '/' | '/cases' | '/catalogo-de-locacao' | '/api/public/leads'
+  to: '/' | '/cases' | '/catalogo-de-locacao' | '/leads' | '/api/public/leads'
+  id:
+    | '__root__'
+    | '/'
+    | '/cases'
+    | '/catalogo-de-locacao'
+    | '/leads'
+    | '/api/public/leads'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CasesRoute: typeof CasesRoute
   CatalogoDeLocacaoRoute: typeof CatalogoDeLocacaoRoute
+  LeadsRoute: typeof LeadsRoute
   ApiPublicLeadsRoute: typeof ApiPublicLeadsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/catalogo-de-locacao': {
       id: '/catalogo-de-locacao'
       path: '/catalogo-de-locacao'
@@ -106,6 +134,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CasesRoute: CasesRoute,
   CatalogoDeLocacaoRoute: CatalogoDeLocacaoRoute,
+  LeadsRoute: LeadsRoute,
   ApiPublicLeadsRoute: ApiPublicLeadsRoute,
 }
 export const routeTree = rootRouteImport
