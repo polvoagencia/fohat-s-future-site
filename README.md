@@ -1,38 +1,29 @@
-# FOHAT Site
+# Welcome to your Lovable project
 
-Projeto estático multipágina preparado para Vite e para sincronização com um projeto Lovable.
+This project was built with [Lovable](https://lovable.dev).
 
-## Rotas
+## Build with Lovable
 
-- `/` — Home institucional
-- `/catalogo-de-locacao/` — Catálogo completo
+Open your project in the [Lovable editor](https://lovable.dev) and keep building.
 
-## Rodar localmente
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
+- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
 
-```bash
-npm install
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+
+```sh
+git clone <this-repository-url>
+cd <repository-name>
+npm i
 npm run dev
 ```
 
-## Gerar versão de produção
+## Built with
 
-```bash
-npm run build
-npm run preview
-```
-
-## Subir para o Lovable
-
-1. Crie um projeto novo no Lovable.
-2. No projeto, acesse `Settings → Connectors → GitHub`.
-3. Conecte o projeto a um repositório GitHub criado pelo próprio Lovable.
-4. Substitua os arquivos do repositório pelo conteúdo desta pasta.
-5. Faça commit e push para a branch `main`.
-6. Aguarde a sincronização no Lovable.
-7. No Lovable, abra `Publish`, revise a URL e publique.
-
-## Observações
-
-- O catálogo e a home compartilham a seleção de equipamentos via `localStorage`.
-- O botão de orçamento no catálogo retorna para a home com o briefing aberto.
-- O WhatsApp ainda usa um número placeholder e deve ser substituído antes da publicação.
+- TanStack Start
+- TypeScript
+- React
+- Tailwind CSS
