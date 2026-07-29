@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#07111f" name="theme-color"/>
+<meta name="description" content="Catálogo completo de locação de tecnologia da FOHAT para eventos, feiras, congressos e ativações.">
+  <title>Catálogo de locação | FOHAT</title>
+<style>
+    :root {
+      --ink: #07111f;
+      --surface: #0b1828;
+      --surface-2: #0e1d30;
+      --cyan: #9ee7ff;
+      --blue: #5d8dff;
+      --line: rgba(168,203,240,.13);
+      --copy: rgba(235,244,255,.62);
+      --ease: cubic-bezier(.22,.8,.24,1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      color: white;
+      background:
+        radial-gradient(circle at 75% 0%, rgba(93,141,255,.13), transparent 28%),
+        linear-gradient(180deg, #07111f, #07111f);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .mono {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: .11em;
+    }
+    .shell { width: min(1240px, calc(100vw - 36px)); margin-inline: auto; }
+    .site-header {
+      position: sticky;
+      z-index: 90;
+      top: 0;
+      height: 72px;
+      padding: 0 max(18px, calc((100vw - 1240px) / 2));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(7,17,31,.84);
+      backdrop-filter: blur(20px);
+    }
+    .brand-logo { display: block; width: 140px; height: auto; }
+    .header-actions { display: flex; align-items: center; gap: 9px; }
+    .header-button {
+      min-height: 42px;
+      padding: 0 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.04);
+      font-size: 11px;
+      font-weight: 800;
+      transition: .24s ease;
+    }
+    .header-button:hover { color: var(--ink); border-color: var(--cyan); background: var(--cyan); }
+    .header-button.whatsapp { color: white; border-color: #18a84d; background: #18a84d; }
+    .catalog-hero {
+      position: relative;
+      padding: clamp(76px, 10vw, 136px) 0 72px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(168,203,240,.08);
+    }
+    .catalog-hero::before {
+      content: "";
+      position: absolute;
+      right: -12vw;
+      top: -28vw;
+      width: 62vw;
+      aspect-ratio: 1;
+      border: 1px solid rgba(158,231,255,.1);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 54px rgba(158,231,255,.02),
+        0 0 0 118px rgba(93,141,255,.018);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(280px,.8fr);
+      gap: 70px;
+      align-items: end;
+    }
+    .hero-kicker { color: var(--cyan); font-size: 10px; }
+    .catalog-hero h1 {
+      margin: 20px 0 0;
+      max-width: 12ch;
+      font-size: clamp(55px, 8vw, 112px);
+      line-height: .86;
+      letter-spacing: -.075em;
+    }
+    .hero-copy {
+      color: var(--copy);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .hero-copy strong { color: white; }
+    .hero-stats {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 10px;
+    }
+    .hero-stat {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+    }
+    .hero-stat strong { display: block; font-size: 24px; }
+    .hero-stat span { display: block; margin-top: 5px; color: rgba(255,255,255,.38); font-size: 10px; }
+    .catalog-content { padding: 54px 0 120px; }
+    .catalog-toolbar {
+      position: sticky;
+      z-index: 50;
+      top: 82px;
+      margin-bottom: 24px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(11,24,40,.9);
+      backdrop-filter: blur(18px);
+    }
+    .filters {
+      min-width: 0;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-button {
+      flex: 0 0 auto;
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: rgba(255,255,255,.42);
+      background: transparent;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .filter-button:hover,
+    .filter-button.active {
+      color: white;
+      border-color: rgba(158,231,255,.17);
+      background: rgba(158,231,255,.075);
+    }
+    .catalog-search {
+      flex: 0 1 250px;
+      min-width: 180px;
+      height: 40px;
+      padding: 0 13px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      color: white;
+      background: rgba(255,255,255,.035);
+      outline: none;
+    }
+    .catalog-search:focus { border-color: rgba(158,231,255,.4); }
+    .catalog-search::placeholder { color: rgba(255,255,255,.28); }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 17px;
+    }
+    .catalog-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background: rgba(11,24,40,.74);
+      box-shadow: 0 22px 60px rgba(0,0,0,.16);
+      transition: transform .4s var(--ease), border-color .3s, opacity .25s;
+    }
+    .catalog-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(158,231,255,.3);
+    }
+    .catalog-card.filtered { display: none; }
+    .catalog-visual {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 70% 25%, rgba(93,141,255,.28), transparent 34%),
+        linear-gradient(145deg, #0d1d31, #081524);
+    }
+    .catalog-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .09;
+      background-image:
+        linear-gradient(rgba(255,255,255,.28) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.28) 1px, transparent 1px);
+      background-size: 34px 34px;
+    }
+    .visual-code {
+      position: absolute;
+      z-index: 2;
+      left: 14px;
+      top: 14px;
+      color: rgba(255,255,255,.35);
+      font-size: 7px;
+    }
+    .visual-icon {
+      position: relative;
+      z-index: 2;
+      width: 96px;
+      height: 96px;
+      padding: 15px;
+      border: 1px solid rgba(158,231,255,.19);
+      border-radius: 28px;
+      color: var(--cyan);
+      background: rgba(158,231,255,.055);
+      box-shadow: 0 22px 60px rgba(0,0,0,.24), inset 0 0 34px rgba(93,141,255,.08);
+    }
+    .visual-icon svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .availability {
+      position: absolute;
+      z-index: 2;
+      left: 14px;
+      bottom: 13px;
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 999px;
+      color: rgba(255,255,255,.55);
+      background: rgba(7,17,31,.64);
+      font-size: 7px;
+    }
+    .catalog-card-body { padding: 21px; }
+    .catalog-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--cyan);
+      font-size: 8px;
+    }
+    .quick-add {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 50%;
+      color: white;
+      background: rgba(255,255,255,.03);
+      font-size: 18px;
+    }
+    .quick-add.selected { color: var(--ink); border-color: var(--cyan); background: var(--cyan); }
+    .catalog-card h2 {
+      margin: 12px 0 8px;
+      font-size: 23px;
+      line-height: 1.03;
+      letter-spacing: -.045em;
+    }
+    .catalog-card-body > p {
+      min-height: 59px;
+      margin: 0;
+      color: var(--copy);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+    .catalog-card-body > small {
+      min-height: 34px;
+      margin-top: 12px;
+      display: block;
+      color: rgba(255,255,255,.32);
+      font-size: 9px;
+      line-height: 1.45;
+    }
+    .catalog-card-footer {
+      margin-top: 17px;
+      padding-top: 15px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .catalog-card-footer span { display: block; color: rgba(255,255,255,.3); font-size: 8px; }
+    .catalog-card-footer strong { display: block; margin-top: 4px; font-size: 12px; }
+    .add-button {
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--cyan);
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--cyan);
+      font-size: 9px;
+      font-weight: 850;
+    }
+    .add-button.selected {
+      color: white;
+      border-color: rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
+    }
+    .empty-state {
+      display: none;
+      padding: 56px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      color: var(--copy);
+    }
+    .empty-state.visible { display: block; }
+    .selection-dock {
+      position: fixed;
+      z-index: 80;
+      left: 50%;
+      bottom: 18px;
+      width: min(680px, calc(100vw - 24px));
+      min-height: 62px;
+      padding: 9px 10px 9px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border: 1px solid rgba(158,231,255,.2);
+      border-radius: 999px;
+      background: rgba(7,17,31,.92);
+      box-shadow: 0 24px 80px rgba(0,0,0,.38);
+      backdrop-filter: blur(20px);
+      transform: translate(-50%, 110px);
+      transition: transform .42s var(--ease);
+    }
+    .selection-dock.visible { transform: translate(-50%, 0); }
+    .selection-copy { min-width: 0; display: flex; align-items: center; gap: 11px; }
+    .selection-count {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 9px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--ink);
+      background: var(--cyan);
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .selection-copy strong { display: block; font-size: 12px; }
+    .selection-copy small {
+      max-width: 360px;
+      display: block;
+      margin-top: 2px;
+      overflow: hidden;
+      color: rgba(255,255,255,.4);
+      font-size: 9px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .selection-actions { display: flex; gap: 7px; }
+    .clear-selection,
+    .request-button {
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 850;
+    }
+    .clear-selection {
+      border: 1px solid rgba(255,255,255,.11);
+      color: rgba(255,255,255,.55);
+      background: transparent;
+    }
+    .request-button {
+      border: 1px solid var(--cyan);
+      color: var(--ink);
+      background: var(--cyan);
+    }
+    .catalog-cta {
+      margin-top: 30px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 26px;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(93,141,255,.13), transparent 36%),
+        rgba(11,24,40,.66);
+    }
+    .catalog-cta span { color: var(--cyan); font-size: 9px; }
+    .catalog-cta h2 { margin: 9px 0 0; font-size: 27px; letter-spacing: -.04em; }
+    .catalog-cta p { margin: 7px 0 0; color: var(--copy); }
+    .catalog-cta .header-button { flex: 0 0 auto; color: var(--ink); border-color: var(--cyan); background: var(--cyan); }
+    footer { padding: 36px 0 110px; color: rgba(255,255,255,.35); font-size: 10px; }
+    .footer-inner {
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+    }
+    @media (max-width: 1020px) {
+      .catalog-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .hero-grid { grid-template-columns: 1fr; gap: 34px; }
+      .catalog-hero h1 { max-width: 15ch; }
+    }
+    @media (max-width: 720px) {
+      .site-header { height: 64px; padding: 0 12px; }
+      .brand-logo { width: 112px; }
+      .header-button { min-height: 38px; padding: 0 11px; font-size: 9px; }
+      .header-button.whatsapp { display: none; }
+      .shell { width: calc(100vw - 20px); }
+      .catalog-hero { padding: 62px 0 48px; }
+      .catalog-hero h1 { font-size: 52px; }
+      .hero-copy { font-size: 13px; }
+      .catalog-content { padding-top: 30px; }
+      .catalog-toolbar { top: 72px; align-items: stretch; flex-direction: column; }
+      .catalog-search { flex-basis: auto; width: 100%; }
+      .catalog-grid { grid-template-columns: 1fr; }
+      .catalog-card-body > p,
+      .catalog-card-body > small { min-height: 0; }
+      .catalog-cta { align-items: flex-start; flex-direction: column; padding: 22px; }
+      .catalog-cta .header-button { width: 100%; }
+      .selection-dock {
+        bottom: 8px;
+        min-height: 58px;
+        padding: 8px 8px 8px 12px;
+      }
+      .selection-copy small { max-width: 145px; }
+      .clear-selection { display: none; }
+      .request-button { padding: 0 12px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  
+    /* ================================================================
+       V21 · IMAGENS REAIS NO CATÁLOGO
+       ================================================================ */
+    .catalog-visual {
+      aspect-ratio: 4 / 3 !important;
+      display: block !important;
+      background: #efefef !important;
+    }
+
+    .catalog-visual::before {
+      display: none !important;
+    }
+
+    .catalog-visual::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 58% 0 0;
+      pointer-events: none;
+      background: linear-gradient(
+        180deg,
+        rgba(7,17,31,0) 0%,
+        rgba(7,17,31,.08) 46%,
+        rgba(7,17,31,.48) 100%
+      );
+    }
+
+    .catalog-product-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .55s var(--ease);
+    }
+
+    .catalog-card:hover .catalog-product-image {
+      transform: scale(1.025);
+    }
+
+    .visual-code,
+    .availability {
+      z-index: 3 !important;
+    }
+
+    .visual-code {
+      color: rgba(255,255,255,.8) !important;
+      text-shadow: 0 1px 9px rgba(0,0,0,.6);
+    }
+
+    .availability {
+      color: rgba(255,255,255,.82) !important;
+      border-color: rgba(255,255,255,.18) !important;
+      background: rgba(7,17,31,.68) !important;
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 720px) {
+      .catalog-visual {
+        aspect-ratio: 16 / 10 !important;
+      }
+    }
+
+</style>
+</head>
+<body>
+<header class="site-header">
+<a aria-label="FOHAT, voltar ao site" href="/">
+<img alt="FOHAT" class="brand-logo" src="/assets/asset-18037b02c356f7ae.svg"/>
+</a>
+<div class="header-actions">
+<a class="header-button" href="/">← Voltar ao site</a>
+<a class="header-button whatsapp" href="https://wa.me/5500000000000?text=Olá%2C%20quero%20falar%20com%20a%20FOHAT." rel="noopener noreferrer" target="_blank">WhatsApp ↗</a>
+</div>
+</header>
+<main>
+<section class="catalog-hero">
+<div class="shell hero-grid">
+<div>
+<span class="hero-kicker mono">Catálogo completo de locação</span>
+<h1>Tecnologia pronta para entrar em cena.</h1>
+</div>
+<div class="hero-copy">
+<p>
+            Selecione os grupos de equipamentos que fazem sentido para a sua operação.
+            <strong>Quantidades, modelos, datas, cidade, logística, configuração e suporte</strong>
+            são definidos conforme cada projeto.
+          </p>
+<div class="hero-stats">
+<div class="hero-stat"><strong>12</strong><span class="mono">Grupos de equipamentos</span></div>
+<div class="hero-stat"><strong>1</strong><span class="mono">Operação integrada</span></div>
+</div>
+</div>
+</div>
+</section>
+<section class="catalog-content">
+<div class="shell">
+<div class="catalog-toolbar">
+<div class="filters"><button class="filter-button active" data-filter="todos" type="button">Todos</button>
+<button class="filter-button" data-filter="interacao" type="button">Interação</button>
+<button class="filter-button" data-filter="exibicao" type="button">Exibição</button>
+<button class="filter-button" data-filter="processamento" type="button">Processamento</button>
+<button class="filter-button" data-filter="conectividade" type="button">Conectividade</button>
+<button class="filter-button" data-filter="audio" type="button">Áudio</button>
+<button class="filter-button" data-filter="impressao" type="button">Impressão</button>
+<button class="filter-button" data-filter="credenciamento" type="button">Credenciamento</button>
+<button class="filter-button" data-filter="infraestrutura" type="button">Infraestrutura</button></div>
+<input aria-label="Buscar equipamentos" class="catalog-search" placeholder="Buscar no catálogo" type="search"/>
+</div>
+<div class="catalog-grid">
+<article class="catalog-card" data-category="interacao" data-name="totens interativos">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / TOT-01</span>
+<img alt="Totens interativos" class="catalog-product-image" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/totens.jpg"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Interação</span>
+<button aria-label="Adicionar Totens interativos" class="quick-add" data-product="Totens interativos" type="button">＋</button>
+</div>
+<h2>Totens interativos</h2>
+<p>Totens touch e estruturas para cadastro, consulta, quizzes, inteligência artificial e jornadas digitais.</p>
+<small>Experiências interativas · Credenciamento · IA</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Totens interativos" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="exibicao" data-name="televisões e monitores">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / TEL-01</span>
+<img alt="Televisões e monitores" class="catalog-product-image" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/televisoes.jpg"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Exibição</span>
+<button aria-label="Adicionar Televisões e monitores" class="quick-add" data-product="Televisões e monitores" type="button">＋</button>
+</div>
+<h2>Televisões e monitores</h2>
+<p>Telas para apresentações, conteúdos audiovisuais, sinalização, estandes e múltiplos pontos de exibição.</p>
+<small>Feiras · Congressos · Exposições</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Televisões e monitores" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="impressao" data-name="impressoras profissionais">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / IMP-01</span>
+<img alt="Impressoras profissionais" class="catalog-product-image" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/impressoras.jpg"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Impressão</span>
+<button aria-label="Adicionar Impressoras profissionais" class="quick-add" data-product="Impressoras profissionais" type="button">＋</button>
+</div>
+<h2>Impressoras profissionais</h2>
+<p>Equipamentos para impressão de documentos e materiais operacionais durante eventos e estruturas temporárias.</p>
+<small>Documentos · Materiais operacionais · Produção</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Impressoras profissionais" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="processamento" data-name="computadores e notebooks">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / COM-01</span>
+<img alt="Computadores e notebooks" class="catalog-product-image" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/computadores.jpg"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Processamento</span>
+<button aria-label="Adicionar Computadores e notebooks" class="quick-add" data-product="Computadores e notebooks" type="button">＋</button>
+</div>
+<h2>Computadores e notebooks</h2>
+<p>Máquinas para sistemas, dashboards, processamento de imagens, controle audiovisual e apoio às equipes.</p>
+<small>Operação · Controle · Processamento</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Computadores e notebooks" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="mobilidade" data-name="tablets">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / TAB-01</span>
+<img alt="Tablets" class="catalog-product-image" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/tablets.jpg"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Mobilidade</span>
+<button aria-label="Adicionar Tablets" class="quick-add" data-product="Tablets" type="button">＋</button>
+</div>
+<h2>Tablets</h2>
+<p>Dispositivos móveis para formulários, atendimento, pesquisas, quizzes e apoio operacional em campo.</p>
+<small>Pesquisa · Atendimento · Mobilidade</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Tablets" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="conectividade" data-name="internet e repetidor de sinal">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / NET-01</span>
+<img alt="Internet e repetidor de sinal" class="catalog-product-image" decoding="async" loading="lazy" src="/assets/asset-114168237545381f.webp"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Conectividade</span>
+<button aria-label="Adicionar Internet e repetidor de sinal" class="quick-add" data-product="Internet e repetidor de sinal" type="button">＋</button>
+</div>
+<h2>Internet e repetidor de sinal</h2>
+<p>Roteadores, pontos de acesso e repetidores para ampliar cobertura e sustentar operações conectadas.</p>
+<small>Wi-Fi · Cobertura · Operação conectada</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Internet e repetidor de sinal" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="dados" data-name="câmeras de contagem de pessoas">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / CAM-01</span>
+<img alt="Câmeras de contagem de pessoas" class="catalog-product-image" decoding="async" loading="lazy" src="/assets/asset-e1e9ef1c7cd0efcc.webp"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Dados</span>
+<button aria-label="Adicionar Câmeras de contagem de pessoas" class="quick-add" data-product="Câmeras de contagem de pessoas" type="button">＋</button>
+</div>
+<h2>Câmeras de contagem de pessoas</h2>
+<p>Câmeras e sensores para acompanhar fluxo, ocupação e movimentação de público em ambientes presenciais.</p>
+<small>Fluxo · Ocupação · Inteligência de público</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Câmeras de contagem de pessoas" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="audio" data-name="amplificadores de áudio">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / AUD-01</span>
+<img alt="Amplificadores de áudio" class="catalog-product-image" decoding="async" loading="lazy" src="/assets/asset-0949a1cf03b34d70.webp"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Áudio</span>
+<button aria-label="Adicionar Amplificadores de áudio" class="quick-add" data-product="Amplificadores de áudio" type="button">＋</button>
+</div>
+<h2>Amplificadores de áudio</h2>
+<p>Equipamentos para distribuição, controle e reforço de áudio em experiências, apresentações e ativações.</p>
+<small>Reforço sonoro · Distribuição · Controle</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Amplificadores de áudio" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="audio" data-name="headphones">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / HDP-01</span>
+<img alt="Headphones" class="catalog-product-image" decoding="async" loading="lazy" src="/assets/asset-3d9b02be842ebea0.webp"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Áudio</span>
+<button aria-label="Adicionar Headphones" class="quick-add" data-product="Headphones" type="button">＋</button>
+</div>
+<h2>Headphones</h2>
+<p>Fones para conteúdos individuais, experiências silenciosas, tradução, treinamento e ativações imersivas.</p>
+<small>Silent experience · Conteúdo individual · Imersão</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Headphones" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="impressao" data-name="impressora térmica fotográfica">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / FOT-01</span>
+<img alt="Impressora térmica fotográfica" class="catalog-product-image" decoding="async" loading="lazy" src="/assets/asset-d00e09c22f1faa1a.webp"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Impressão</span>
+<button aria-label="Adicionar Impressora térmica fotográfica" class="quick-add" data-product="Impressora térmica fotográfica" type="button">＋</button>
+</div>
+<h2>Impressora térmica fotográfica</h2>
+<p>Impressão instantânea de fotografias e peças personalizadas durante eventos, campanhas e ativações.</p>
+<small>Fotos instantâneas · Personalização · Lembranças</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Impressora térmica fotográfica" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="credenciamento" data-name="zebra para credenciamento e etiquetagem">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / ZEB-01</span>
+<img alt="Zebra para credenciamento e etiquetagem" class="catalog-product-image" decoding="async" loading="lazy" src="/assets/asset-88a7b7f0ff757dda.webp"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Credenciamento</span>
+<button aria-label="Adicionar Zebra para credenciamento e etiquetagem" class="quick-add" data-product="Zebra para credenciamento e etiquetagem" type="button">＋</button>
+</div>
+<h2>Zebra para credenciamento e etiquetagem</h2>
+<p>Impressoras Zebra para produção de credenciais, etiquetas, identificações e materiais de controle.</p>
+<small>Credenciais · Etiquetas · Identificação</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Zebra para credenciamento e etiquetagem" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+<article class="catalog-card" data-category="infraestrutura" data-name="acessórios e complementos">
+<div class="catalog-visual">
+<span class="visual-code mono">FOHAT / ACE-01</span>
+<img alt="Acessórios e complementos" class="catalog-product-image" decoding="async" loading="lazy" src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/acessorios.jpg"/>
+<span class="availability mono">Sujeito à disponibilidade</span>
+</div>
+<div class="catalog-card-body">
+<div class="catalog-card-meta">
+<span class="mono">Infraestrutura</span>
+<button aria-label="Adicionar Acessórios e complementos" class="quick-add" data-product="Acessórios e complementos" type="button">＋</button>
+</div>
+<h2>Acessórios e complementos</h2>
+<p>Cabos de rede, periféricos, conexões, suportes e componentes para completar a operação.</p>
+<small>Conexões · Montagem · Complementos</small>
+<div class="catalog-card-footer">
+<div><span>Locação</span><strong>Sob consulta</strong></div>
+<button class="add-button" data-product="Acessórios e complementos" type="button">Adicionar</button>
+</div>
+</div>
+</article>
+</div>
+<div class="empty-state">Nenhum equipamento encontrado com esse filtro.</div>
+<div class="catalog-cta">
+<div>
+<span class="mono">Não encontrou exatamente o que precisa?</span>
+<h2>A operação pode exigir uma combinação personalizada.</h2>
+<p>Conte o cenário e a FOHAT estrutura equipamentos, suporte e logística para o projeto.</p>
+</div>
+<a class="header-button" href="/">Solicitar estrutura personalizada ↗</a>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="shell footer-inner">
+<span>FOHAT · Engenharia de Presença</span>
+<span>Disponibilidade e especificações confirmadas por projeto.</span>
+</div>
+</footer>
+<div class="selection-dock" id="selectionDock">
+<div class="selection-copy">
+<span class="selection-count">0</span>
+<div>
+<strong>Minha seleção</strong>
+<small id="selectionNames">Nenhum item selecionado</small>
+</div>
+</div>
+<div class="selection-actions">
+<button class="clear-selection" type="button">Limpar</button>
+<button class="request-button" type="button">Solicitar orçamento ↗</button>
+</div>
+</div>
+<script>
+    const storageKey = 'fohatCatalogSelection';
+    const cards = [...document.querySelectorAll('.catalog-card')];
+    const filterButtons = [...document.querySelectorAll('.filter-button')];
+    const searchInput = document.querySelector('.catalog-search');
+    const dock = document.querySelector('#selectionDock');
+    const countNode = document.querySelector('.selection-count');
+    const namesNode = document.querySelector('#selectionNames');
+    const emptyState = document.querySelector('.empty-state');
+
+    function readSelection() {
+      try {
+        const value = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        return Array.isArray(value) ? value : [];
+      } catch {
+        return [];
+      }
+    }
+
+    const selected = new Set(readSelection());
+
+    function persistSelection() {
+      localStorage.setItem(storageKey, JSON.stringify([...selected]));
+      renderSelection();
+    }
+
+    function renderSelection() {
+      countNode.textContent = selected.size;
+      dock.classList.toggle('visible', selected.size > 0);
+      namesNode.textContent = selected.size
+        ? [...selected].join(' · ')
+        : 'Nenhum item selecionado';
+
+      document.querySelectorAll('[data-product]').forEach(button => {
+        const active = selected.has(button.dataset.product);
+        button.classList.toggle('selected', active);
+        if (button.classList.contains('add-button')) {
+          button.textContent = active ? 'Adicionado ✓' : 'Adicionar';
+        } else {
+          button.textContent = active ? '✓' : '＋';
+        }
+      });
+    }
+
+    function toggleProduct(name) {
+      selected.has(name) ? selected.delete(name) : selected.add(name);
+      persistSelection();
+    }
+
+    document.querySelectorAll('[data-product]').forEach(button => {
+      button.addEventListener('click', () => toggleProduct(button.dataset.product));
+    });
+
+    let activeFilter = 'todos';
+
+    function applyFilters() {
+      const term = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const categoryMatch = activeFilter === 'todos' || card.dataset.category === activeFilter;
+        const searchMatch = !term || card.dataset.name.includes(term) || card.textContent.toLowerCase().includes(term);
+        const show = categoryMatch && searchMatch;
+        card.classList.toggle('filtered', !show);
+        if (show) visible += 1;
+      });
+
+      emptyState.classList.toggle('visible', visible === 0);
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter;
+        filterButtons.forEach(item => item.classList.toggle('active', item === button));
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+
+    document.querySelector('.clear-selection').addEventListener('click', () => {
+      selected.clear();
+      persistSelection();
+    });
+
+    document.querySelector('.request-button').addEventListener('click', () => {
+      window.top.location.href = '/?openBriefing=1';
+    });
+
+    renderSelection();
+    applyFilters();
+  </script>
+</body>
+</html>

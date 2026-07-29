@@ -1,0 +1,35 @@
+FOHAT — REPARO DO PREVIEW LOVABLE
+
+CAUSA
+O projeto foi criado pelo Lovable em TanStack Start, mas depois foi substituído
+por uma estrutura Vite estática. O GitHub aceita essa estrutura, porém o preview
+do Lovable espera os arquivos TanStack originais.
+
+COMO APLICAR
+
+1. Abra no GitHub Desktop o repositório:
+   polvoagencia/fohat-s-future-site
+
+2. Clique em Repository → Show in Explorer.
+
+3. Extraia TODO o conteúdo deste ZIP dentro da pasta do repositório.
+   A pasta deve ficar com:
+   CORRIGIR-LOVABLE.bat
+   fohat-fix-files/
+
+4. Dê dois cliques em CORRIGIR-LOVABLE.bat.
+
+5. O script irá:
+   - restaurar o commit TanStack original do Lovable;
+   - manter o site FOHAT em public/;
+   - criar as rotas / e /catalogo-de-locacao;
+   - criar o commit;
+   - enviar para a branch main.
+
+6. Volte ao Lovable, aguarde a sincronização e faça uma atualização forçada:
+   Ctrl + Shift + R.
+
+OBSERVAÇÃO
+O site é exibido por rotas TanStack usando HTML estático interno. Isso preserva
+o design atual e devolve compatibilidade ao preview. Depois podemos migrar cada
+seção para componentes React nativos sem interromper a publicação.
