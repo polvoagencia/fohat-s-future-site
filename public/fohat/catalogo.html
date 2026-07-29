@@ -526,6 +526,28 @@
       }
     }
 
+
+    .qty-control {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      background: rgba(7,17,31,.55);
+      width: fit-content;
+    }
+    .qty-control.visible { display: inline-flex; }
+    .qty-control button {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      background: transparent; color: inherit; cursor: pointer;
+      font-size: 15px; line-height: 1; display: grid; place-items: center;
+    }
+    .qty-control button:hover { border-color: var(--cyan); color: var(--cyan); }
+    .qty-control .qty-value { min-width: 26px; text-align: center; font-weight: 600; }
+    .qty-control .qty-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 </style>
 </head>
 <body>
@@ -821,7 +843,7 @@
 <h2>A operação pode exigir uma combinação personalizada.</h2>
 <p>Conte o cenário e a FOHAT estrutura equipamentos, suporte e logística para o projeto.</p>
 </div>
-<a class="header-button" href="/" target="_top">Solicitar estrutura personalizada ↗</a>
+<a class="header-button" href="/?openBriefing=1" target="_top">Solicitar estrutura personalizada ↗</a>
 </div>
 </div>
 </section>
@@ -858,24 +880,38 @@
     function readSelection() {
       try {
         const value = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        return Array.isArray(value) ? value : [];
+        if (!Array.isArray(value)) return new Map();
+        return new Map(value.map(item => {
+          if (typeof item === 'string') return [item, 1];
+          const qty = Number(item && item.qty) || 1;
+          return [String(item && item.name), Math.max(1, Math.round(qty))];
+        }).filter(([name]) => name && name !== 'undefined'));
       } catch {
-        return [];
+        return new Map();
       }
     }
 
-    const selected = new Set(readSelection());
+    const selected = readSelection();
+
+    function totalQuantity() {
+      let total = 0;
+      selected.forEach(qty => { total += qty; });
+      return total;
+    }
 
     function persistSelection() {
-      localStorage.setItem(storageKey, JSON.stringify([...selected]));
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify([...selected].map(([name, qty]) => ({ name, qty })))
+      );
       renderSelection();
     }
 
     function renderSelection() {
-      countNode.textContent = selected.size;
+      countNode.textContent = totalQuantity();
       dock.classList.toggle('visible', selected.size > 0);
       namesNode.textContent = selected.size
-        ? [...selected].join(' · ')
+        ? [...selected].map(([name, qty]) => qty > 1 ? name + ' ×' + qty : name).join(' · ')
         : 'Nenhum item selecionado';
 
       document.querySelectorAll('[data-product]').forEach(button => {
@@ -883,16 +919,53 @@
         button.classList.toggle('selected', active);
         if (button.classList.contains('add-button')) {
           button.textContent = active ? 'Adicionado ✓' : 'Adicionar';
-        } else {
+        } else if (button.classList.contains('quick-add')) {
           button.textContent = active ? '✓' : '＋';
         }
       });
+
+      document.querySelectorAll('.qty-control').forEach(control => {
+        const name = control.dataset.qtyFor;
+        const active = selected.has(name);
+        control.classList.toggle('visible', active);
+        control.querySelector('.qty-value').textContent = active ? selected.get(name) : 0;
+      });
+    }
+
+    function setQuantity(name, qty) {
+      if (qty <= 0) selected.delete(name);
+      else selected.set(name, qty);
+      persistSelection();
     }
 
     function toggleProduct(name) {
-      selected.has(name) ? selected.delete(name) : selected.add(name);
+      if (selected.has(name)) selected.delete(name);
+      else selected.set(name, 1);
       persistSelection();
     }
+
+    // Cria o seletor de quantidade em cada card
+    cards.forEach(card => {
+      const footer = card.querySelector('.catalog-card-footer');
+      const addButton = card.querySelector('.add-button');
+      if (!footer || !addButton) return;
+      const name = addButton.dataset.product;
+      const control = document.createElement('div');
+      control.className = 'qty-control';
+      control.dataset.qtyFor = name;
+      control.innerHTML =
+        '<span class="qty-label mono">Qtd</span>' +
+        '<button type="button" data-qty-action="minus" aria-label="Diminuir quantidade">−</button>' +
+        '<span class="qty-value">1</span>' +
+        '<button type="button" data-qty-action="plus" aria-label="Aumentar quantidade">+</button>';
+      control.addEventListener('click', event => {
+        const action = event.target.dataset.qtyAction;
+        if (!action) return;
+        const current = selected.get(name) || 0;
+        setQuantity(name, action === 'plus' ? current + 1 : current - 1);
+      });
+      footer.insertAdjacentElement('afterend', control);
+    });
 
     document.querySelectorAll('[data-product]').forEach(button => {
       button.addEventListener('click', () => toggleProduct(button.dataset.product));
@@ -930,8 +1003,18 @@
       persistSelection();
     });
 
-    document.querySelector('.request-button').addEventListener('click', () => {
+    function goToBriefing() {
+      try { localStorage.setItem('fohatOpenBriefing', '1'); } catch {}
       window.top.location.href = '/?openBriefing=1';
+    }
+
+    document.querySelector('.request-button').addEventListener('click', goToBriefing);
+
+    document.querySelectorAll('a[href="/?openBriefing=1"]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        goToBriefing();
+      });
     });
 
     renderSelection();
