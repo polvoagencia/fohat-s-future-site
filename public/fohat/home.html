@@ -10551,7 +10551,14 @@
     });
 
     const homeQuery = new URLSearchParams(window.location.search);
-    if (homeQuery.get('openBriefing') === '1') {
+    let shouldOpenBriefing = homeQuery.get('openBriefing') === '1';
+    try {
+      if (localStorage.getItem('fohatOpenBriefing') === '1') {
+        shouldOpenBriefing = true;
+        localStorage.removeItem('fohatOpenBriefing');
+      }
+    } catch {}
+    if (shouldOpenBriefing) {
       setTimeout(() => openModal(), 180);
     }
 

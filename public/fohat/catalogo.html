@@ -1003,8 +1003,18 @@
       persistSelection();
     });
 
-    document.querySelector('.request-button').addEventListener('click', () => {
+    function goToBriefing() {
+      try { localStorage.setItem('fohatOpenBriefing', '1'); } catch {}
       window.top.location.href = '/?openBriefing=1';
+    }
+
+    document.querySelector('.request-button').addEventListener('click', goToBriefing);
+
+    document.querySelectorAll('a[href="/?openBriefing=1"]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        goToBriefing();
+      });
     });
 
     renderSelection();
