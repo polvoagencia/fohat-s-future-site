@@ -10368,8 +10368,52 @@
       updateWizardButtons();
     });
 
+    async function sendLeadToBackend() {
+      const data = new FormData(form);
+      const get = key => {
+        const value = data.get(key);
+        return typeof value === 'string' && value.trim() ? value.trim() : null;
+      };
+      const itens = (data.get('itens_selecionados') || '')
+        .toString()
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean);
+
+      const payload = {};
+      for (const [key, value] of data.entries()) {
+        if (typeof value === 'string' && value.trim()) payload[key] = value.trim();
+      }
+
+      const body = {
+        nome: get('nome'),
+        email: get('email'),
+        telefone: get('telefone'),
+        empresa: get('empresa'),
+        frente: get('frente'),
+        tipo_projeto: get('tipo_projeto'),
+        local: get('local'),
+        prazo: get('prazo'),
+        mensagem: get('projeto'),
+        itens_catalogo: itens,
+        payload
+      };
+
+      try {
+        const response = await fetch('/api/public/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (!response.ok) throw new Error('request failed');
+      } catch (error) {
+        console.error('Falha ao registrar briefing', error);
+      }
+    }
+
     form.addEventListener('submit', e => {
       e.preventDefault();
+      sendLeadToBackend();
       updateWizardSummary();
       form.querySelectorAll('.brief-step').forEach(step => step.style.display = 'none');
       form.querySelector('.wizard-nav').style.display = 'none';
