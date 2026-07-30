@@ -4081,81 +4081,6 @@
       .core-v9-card-view h3 { font-size: 39px; }
     }
 
-    @media (max-width: 1020px) {
-      .core-v9-section { padding: 102px 0; overflow: hidden; }
-      .core-v9-head { grid-template-columns: 1fr; gap: 28px; }
-      .core-v9-head h2 { font-size: clamp(48px, 10vw, 72px); }
-      .core-v9-scroll { height: auto; margin-top: 64px; }
-      .core-v9-sticky { position: relative; top: auto; height: auto; min-height: 0; overflow: visible; }
-      .core-v9-stage {
-        height: auto;
-        min-height: 0;
-        display: grid;
-        gap: 22px;
-        --intro: 1 !important;
-        --emit: 1 !important;
-        --expand: 1 !important;
-        --seed: 0 !important;
-        --content: 1 !important;
-        --payoff: 1 !important;
-        --shrink: 1 !important;
-      }
-      .core-v9-progress,
-      .core-v9-emission-lines,
-      .core-v9-final-lines { display: none; }
-      .core-v9-nucleus {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 220px;
-        margin: 0 auto 42px;
-        transform: none;
-      }
-      .core-v9-satellites {
-        inset: -32px;
-        opacity: 1;
-      }
-      .satellite { font-size: 7px; padding: 7px 10px; }
-      .sat-narrative, .sat-tech { right: -44px; }
-      .sat-operation, .sat-infra { left: -44px; }
-      .core-v9-front,
-      .core-v9-front-left,
-      .core-v9-front-right {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 100%;
-        height: 450px;
-        transform: none;
-        opacity: 1;
-        border-radius: 30px;
-      }
-      .core-v9-seed-view { display: none; }
-      .core-v9-card-view { opacity: 1; transform: none; pointer-events: auto; }
-      .core-v9-payoff {
-        position: relative;
-        left: auto;
-        bottom: auto;
-        width: 100%;
-        margin-top: 22px;
-        transform: none;
-        opacity: 1;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .core-v9-section { padding: 84px 0; }
-      .core-v9-head h2 { font-size: 48px; }
-      .core-v9-head p { font-size: 14px; }
-      .core-v9-nucleus { width: 190px; margin-bottom: 52px; }
-      .core-v9-front { height: 490px; }
-      .core-v9-card-view { padding: 28px 24px; }
-      .core-v9-card-topline { align-items: flex-start; flex-direction: column; gap: 7px; }
-      .core-v9-card-view h3 { font-size: 36px; }
-      .core-v9-card-view a { left: 24px; bottom: 26px; }
-      .core-v9-payoff > strong { font-size: 20px; }
-      .core-v9-equation { font-size: 7px; }
-    }
 
     @media (prefers-reduced-motion: reduce) and (min-width: 1021px) {
       .core-v9-scroll { height: auto; }
@@ -4250,14 +4175,6 @@
       opacity: calc(.58 + var(--payoff) * .22);
     }
 
-    @media (max-width: 1020px) {
-      /* no mobile mantemos o núcleo legível, já que não há coreografia sticky */
-      .core-v9-aureole { opacity: .22 !important; transform: none !important; }
-      .core-v9-energy,
-      .core-v9-nucleus-copy,
-      .core-v9-satellites { opacity: 1 !important; }
-      .core-v9-orbit { opacity: 1 !important; }
-    }
 
 
 
@@ -4390,27 +4307,6 @@
       transform: translate(-50%, -50%) scale(1.10);
     }
 
-    @media (max-width: 1020px) {
-      .core-v9-scroll { height: auto; }
-      .core-v9-background-aureoles {
-        width: 940px;
-        opacity: .34 !important;
-        transform: translate(-50%, -44%) scale(.76) !important;
-      }
-      .core-v9-front { opacity: 1 !important; filter: none !important; }
-      .core-v9-payoff {
-        position: relative;
-        top: auto;
-        left: auto;
-        width: 100%;
-        margin-top: 52px;
-        transform: none;
-        opacity: 1;
-      }
-      .core-v9-payoff > strong {
-        font-size: clamp(34px, 8.5vw, 52px);
-      }
-    }
 
 
 
@@ -4465,13 +4361,6 @@
       will-change: opacity, transform, filter;
     }
 
-    @media (max-width: 1020px) {
-      .payoff-word {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
-      }
-    }
 
 
     /* ================================================================
@@ -4535,33 +4424,6 @@
       }
     }
 
-    @media (max-width: 1020px) {
-      .core-v9-payoff {
-        position: relative;
-        left: auto;
-        top: auto;
-        bottom: auto;
-        width: 100%;
-        margin-top: 22px;
-        padding: 0;
-        transform: none !important;
-      }
-      .core-v9-payoff > strong,
-      .core-v9-payoff-words {
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .core-v9-payoff > strong,
-      .core-v9-payoff-words {
-        font-size: 18px;
-        line-height: 1.18;
-      }
-      .core-v9-payoff-line {
-        gap: .2em;
-      }
-    }
 
 
     /* ================================================================
@@ -6129,281 +5991,285 @@
 
 
     /* ================================================================
-       V14.8 · NÚCLEO RESPONSIVO COM COREOGRAFIA PRÓPRIA
-       Desktop permanece intocado. Tablet/mobile viram narrativa estática.
+       V16 · COREOGRAFIA MOBILE DO NÚCLEO FOHAT
+       Substitui e consolida: o antigo bloco V14.8 e todos os blocos
+       estáticos de core-v9 em @media (max-width:1020px) / (620px)
+       (V9 base, V9.2 auréolas, V9.3 grand finale, V9.3.2 payoff-word,
+       V9.3.3 payoff). Desktop acima de 1100px permanece intocado.
        ================================================================ */
     .core-v9-mobile-pillars { display: none; }
 
     @media (max-width: 1100px) {
-      .core-v9-section {
-        padding-top: 92px !important;
-        padding-bottom: 0 !important;
-        overflow: hidden !important;
-      }
-      .core-v9-head {
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-      }
-      .core-v9-head h2 {
-        max-width: 760px;
-        font-size: clamp(48px, 7.5vw, 72px) !important;
-      }
-      .core-v9-head p {
-        max-width: 680px;
-        margin: 0;
-        font-size: 15px;
-      }
+      .core-v9-section { padding: 88px 0 0; overflow: clip; }
+      .core-v9-head { grid-template-columns: 1fr; gap: 22px; }
+      .core-v9-head h2 { max-width: 760px; font-size: clamp(44px, 8.6vw, 66px); }
+      .core-v9-head p { max-width: 680px; margin: 0; font-size: 15px; }
 
-      .core-v9-scroll {
-        height: auto !important;
-        margin-top: 54px !important;
-      }
+      /* ~440svh de espaço de rolagem para os quatro atos */
+      .core-v9-scroll { height: 440svh; margin-top: 40px; }
       .core-v9-sticky {
-        position: relative !important;
-        top: auto !important;
-        height: auto !important;
-        min-height: 0 !important;
-        overflow: visible !important;
+        position: sticky;
+        top: 56px;
+        height: calc(100svh - 56px);
+        min-height: 0;
+        align-items: stretch;
+        overflow: clip;
       }
       .core-v9-stage {
-        --raw: 1 !important;
-        --intro: 1 !important;
-        --emit: 1 !important;
-        --expand: 1 !important;
-        --seed: 0 !important;
-        --content: 1 !important;
-        --payoff: 1 !important;
-        --shrink: 0 !important;
-        --field: 0 !important;
-        --grand: 0 !important;
-        height: auto !important;
-        min-height: 0 !important;
-        display: grid !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px !important;
-        align-items: stretch;
+        height: 100%;
+        min-height: 0;
+        display: block;
+        --mobile-progress: 0;
+        --mobile-nucleus: 1;
+        --mobile-front-one: 0;
+        --mobile-front-two: 0;
+        --mobile-architecture: 0;
+        --mobile-finale: 0;
+        --mobile-front-one-shift: 54;
+        --mobile-front-two-shift: 54;
       }
 
-      .core-v9-progress,
       .core-v9-emission-lines,
-      .core-v9-final-lines,
-      .core-v9-background-aureoles {
-        display: none !important;
+      .core-v9-final-lines { display: none; }
+
+      /* ATO 1 · indicador discreto de progresso */
+      .core-v9-progress {
+        top: 0;
+        gap: 11px;
+        font-size: 6px;
+        letter-spacing: .13em;
+        opacity: calc(.9 * (1 - var(--mobile-finale)));
+        transform: translateX(-50%);
       }
 
+      /* auréolas de fundo crescem nos atos 3 e 4 */
+      .core-v9-background-aureoles,
+      .core-v9-stage[data-phase="finale"] .core-v9-background-aureoles {
+        display: block;
+        width: min(1180px, 196vw);
+        opacity: calc(.16 + var(--mobile-architecture) * .34 + var(--mobile-finale) * .38);
+        transform: translate(-50%, -50%) scale(calc(.5 + var(--mobile-architecture) * .3 + var(--mobile-finale) * .26));
+      }
+
+      .core-v9-satellites { display: none; }
+
+      /* ATO 1 → 2 · núcleo diminui e sobe */
       .core-v9-nucleus,
       .core-v9-stage[data-phase="cards"] .core-v9-nucleus,
       .core-v9-stage[data-phase="architecture"] .core-v9-nucleus,
       .core-v9-stage[data-phase="finale"] .core-v9-nucleus {
-        grid-column: 1 / -1;
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        width: 238px !important;
-        aspect-ratio: 1;
-        margin: 0 auto 22px !important;
-        transform: none !important;
-        opacity: 1 !important;
-        filter: none !important;
+        position: absolute;
+        left: 50%;
+        top: calc(45% - var(--shrink) * 20%);
+        width: calc(226px - var(--shrink) * 112px);
+        margin: 0;
+        transform: translate(-50%, -50%);
+        opacity: var(--mobile-nucleus);
+        visibility: visible;
+        will-change: top, width, opacity;
       }
+      .core-v9-energy { opacity: calc(1 - var(--shrink) * .3); }
+      .core-v9-nucleus-copy { opacity: calc(1 - var(--shrink)); }
       .core-v9-aureole {
-        opacity: .18 !important;
-        transform: none !important;
+        opacity: calc(.2 + var(--mobile-architecture) * .3 + var(--mobile-finale) * .3);
+        transform: scale(calc(1 + var(--mobile-finale) * .2));
       }
-      .core-v9-energy,
-      .core-v9-nucleus-copy {
-        opacity: 1 !important;
-      }
-      .core-v9-satellites {
-        display: none !important;
-      }
-      .core-v9-orbit {
-        opacity: .82 !important;
-      }
+      .core-v9-orbit { opacity: calc(.62 + var(--mobile-architecture) * .28); }
 
+      /* ATO 1 · pilares surgindo progressivamente */
       .core-v9-mobile-pillars {
-        grid-column: 1 / -1;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 7%;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 8px;
-        margin: -2px auto 24px;
-        max-width: 760px;
+        gap: 7px;
+        margin: 0;
+        padding: 0 2px;
+        opacity: calc(1 - var(--shrink));
+        pointer-events: none;
       }
       .core-v9-mobile-pillars span {
+        --pv: clamp(0, calc((var(--mobile-progress) - .025 - (var(--i, 0) * .022)) / .03), 1);
         display: inline-flex;
         align-items: center;
-        min-height: 30px;
-        padding: 0 11px;
-        border: 1px solid rgba(158,231,255,.14);
+        min-height: 28px;
+        padding: 0 10px;
+        border: 1px solid rgba(158,231,255,.16);
         border-radius: 999px;
-        background: rgba(11,24,40,.58);
-        color: rgba(239,248,255,.58);
+        background: rgba(11,24,40,.6);
+        color: rgba(239,248,255,.62);
         font: 700 8px ui-monospace, monospace;
         letter-spacing: .1em;
         text-transform: uppercase;
+        opacity: var(--pv);
+        transform: translateY(calc((1 - var(--pv)) * 8px));
       }
 
+      /* ATOS 2 e 3 · um card por vez, nunca lado a lado */
       .core-v9-front,
       .core-v9-front-left,
-      .core-v9-front-right {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: 430px;
-        transform: none !important;
-        opacity: 1 !important;
-        filter: none !important;
-        border-radius: 28px !important;
+      .core-v9-front-right,
+      .core-v9-stage[data-phase="finale"] .core-v9-front {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 2svh;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        border-radius: 26px;
+        border-color: rgba(151,194,235,.3);
+        filter: none;
+        visibility: visible;
         overflow: hidden;
+        pointer-events: none;
+        will-change: transform, opacity;
       }
-      .core-v9-stage[data-phase="finale"] .core-v9-front,
-      .core-v9-stage[data-phase="finale"] .core-v9-front-left,
-      .core-v9-stage[data-phase="finale"] .core-v9-front-right {
-        opacity: 1 !important;
-        visibility: visible !important;
-        filter: none !important;
+      .core-v9-front-left {
+        opacity: var(--mobile-front-one) !important;
+        transform: translateY(calc(var(--mobile-front-one-shift) * 1px));
       }
-      .core-v9-seed-view { display: none !important; }
+      .core-v9-front-right {
+        opacity: var(--mobile-front-two) !important;
+        transform: translateY(calc(var(--mobile-front-two-shift) * 1px));
+      }
+      /* CTAs clicáveis apenas no ato em que o card está em cena */
+      .core-v9-stage[data-phase="fronts"] .core-v9-front-left,
+      .core-v9-stage[data-phase="cards"] .core-v9-front-right { pointer-events: auto; }
+
+      .core-v9-seed-view { display: none; }
       .core-v9-card-view {
-        position: relative !important;
-        inset: auto !important;
-        min-height: 430px;
-        padding: 30px 30px 28px !important;
-        opacity: 1 !important;
-        transform: none !important;
-        pointer-events: auto !important;
+        position: relative;
+        inset: auto;
         display: flex;
         flex-direction: column;
+        padding: 26px 22px 24px;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        overflow: visible;
+      }
+      .core-v9-card-topline {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
       }
       .core-v9-card-view h3 {
-        margin-top: 23px;
-        font-size: clamp(34px, 4.2vw, 43px) !important;
+        margin: 16px 0 11px;
+        font-size: clamp(29px, 7.4vw, 40px);
       }
+      .core-v9-card-view p { font-size: 13px; }
+      .core-v9-card-view ul { gap: 8px; margin-top: 18px; }
+      .core-v9-card-view li { font-size: 12px; }
       .core-v9-card-view a {
-        position: static !important;
-        margin-top: auto;
-        padding-top: 25px;
+        position: static;
+        margin-top: 20px;
+        min-height: 24px;
       }
 
+      /* ATO 4 · frase central */
       .core-v9-payoff,
       .core-v9-stage[data-phase="finale"] .core-v9-payoff {
-        grid-column: 1 / -1;
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        bottom: auto !important;
-        width: 100% !important;
-        margin: 10px 0 0 !important;
-        padding: 42px clamp(28px, 5vw, 60px) !important;
-        transform: none !important;
-        opacity: 1 !important;
-        border: 1px solid rgba(151,194,235,.13);
-        border-radius: 28px;
-        background:
-          radial-gradient(circle at 50% 0%, rgba(93,141,255,.12), transparent 54%),
-          rgba(11,24,40,.46);
-        overflow: hidden;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        bottom: auto;
+        width: min(560px, 92%);
+        margin: 0;
+        padding: 0;
+        transform: translate(-50%, -50%);
+        opacity: var(--mobile-finale);
+        visibility: visible;
       }
-      .core-v9-payoff::before {
-        content: "04 · EXPLICAÇÃO";
-        display: block;
-        margin-bottom: 18px;
-        color: var(--cyan);
-        font: 700 8px ui-monospace, monospace;
-        letter-spacing: .16em;
-      }
+      .core-v9-payoff > strong,
       .core-v9-payoff-words {
-        font-size: clamp(24px, 3.4vw, 34px) !important;
+        font-size: clamp(21px, 6.2vw, 30px);
+        line-height: 1.2;
       }
-      .payoff-word {
-        opacity: 1 !important;
-        transform: none !important;
-        filter: none !important;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .core-v9-section { padding-top: 80px !important; }
-      .core-v9-head h2 {
-        font-size: clamp(46px, 8.5vw, 64px) !important;
-      }
-      .core-v9-stage {
-        grid-template-columns: 1fr !important;
-        gap: 18px !important;
-      }
-      .core-v9-nucleus,
-      .core-v9-mobile-pillars,
-      .core-v9-payoff,
-      .core-v9-stage[data-phase="finale"] .core-v9-payoff {
-        grid-column: 1 !important;
-      }
-      .core-v9-nucleus {
-        width: 220px !important;
-      }
-      .core-v9-front,
-      .core-v9-card-view {
-        min-height: 0 !important;
-      }
-      .core-v9-card-view {
-        padding: 31px 30px 30px !important;
-      }
-      .core-v9-card-view a {
-        margin-top: 28px;
-      }
+      .core-v9-payoff-line { gap: .2em; }
     }
 
     @media (max-width: 620px) {
-      .core-v9-section { padding-top: 70px !important; }
-      .core-v9-head { gap: 18px !important; }
-      .core-v9-head h2 {
-        font-size: 44px !important;
-        line-height: .96;
+      .core-v9-section { padding-top: 74px; }
+      .core-v9-head { gap: 18px; }
+      .core-v9-head h2 { font-size: 44px; line-height: .96; }
+      .core-v9-head p { font-size: 14px; line-height: 1.6; }
+      .core-v9-scroll { margin-top: 34px; }
+      .core-v9-nucleus { width: calc(200px - var(--shrink) * 100px); }
+      .core-v9-mobile-pillars span { min-height: 26px; padding: 0 9px; font-size: 7px; }
+      .core-v9-front { border-radius: 22px; }
+      .core-v9-card-view { padding: 23px 19px 21px; }
+      .core-v9-card-view h3 { font-size: 31px; }
+      .core-v9-card-view ul { margin-top: 15px; gap: 7px; }
+      .core-v9-card-view a { margin-top: 17px; }
+    }
+
+    /* Versão estática completa quando o usuário pede menos movimento */
+    @media (prefers-reduced-motion: reduce) and (max-width: 1100px) {
+      .core-v9-scroll { height: auto; margin-top: 40px; }
+      .core-v9-sticky { position: relative; top: auto; height: auto; overflow: visible; }
+      .core-v9-stage {
+        height: auto;
+        display: grid;
+        gap: 18px;
       }
-      .core-v9-head p {
-        font-size: 14px !important;
-        line-height: 1.6;
+      .core-v9-progress { display: none; }
+      .core-v9-background-aureoles,
+      .core-v9-stage[data-phase="finale"] .core-v9-background-aureoles {
+        opacity: .26;
+        transform: translate(-50%, -46%) scale(.7);
       }
-      .core-v9-scroll { margin-top: 42px !important; }
-      .core-v9-nucleus {
-        width: 184px !important;
-        margin-bottom: 18px !important;
+      .core-v9-nucleus,
+      .core-v9-stage[data-phase="static"] .core-v9-nucleus {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 210px;
+        margin: 0 auto;
+        transform: none;
+        opacity: 1;
       }
+      .core-v9-energy,
+      .core-v9-nucleus-copy { opacity: 1; }
+      .core-v9-energy,
+      .core-v9-orbit.orbit-one,
+      .core-v9-orbit.orbit-two,
+      .aureole-outer,
+      .aureole-middle,
+      .aureole-inner { animation: none; }
       .core-v9-mobile-pillars {
-        justify-content: flex-start;
-        margin-bottom: 20px;
+        position: relative;
+        bottom: auto;
+        opacity: 1;
+        margin: 4px 0 6px;
       }
-      .core-v9-mobile-pillars span {
-        min-height: 28px;
-        padding-inline: 9px;
-        font-size: 7px;
-      }
-      .core-v9-front {
-        border-radius: 24px !important;
-      }
-      .core-v9-card-view {
-        padding: 28px 23px 25px !important;
-      }
-      .core-v9-card-topline {
-        align-items: flex-start !important;
-        flex-direction: column !important;
-        gap: 7px !important;
-      }
-      .core-v9-card-view h3 {
-        font-size: 35px !important;
+      .core-v9-mobile-pillars span { opacity: 1; transform: none; }
+      .core-v9-front,
+      .core-v9-front-left,
+      .core-v9-front-right {
+        position: relative;
+        bottom: auto;
+        opacity: 1 !important;
+        transform: none;
+        pointer-events: auto;
       }
       .core-v9-payoff,
-      .core-v9-stage[data-phase="finale"] .core-v9-payoff {
-        padding: 36px 22px !important;
-        border-radius: 24px;
+      .core-v9-stage[data-phase="static"] .core-v9-payoff {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        margin-top: 10px;
+        transform: none;
+        opacity: 1;
       }
-      .core-v9-payoff-words {
-        font-size: 21px !important;
-        line-height: 1.2 !important;
-      }
+      .payoff-word { opacity: 1; transform: none; filter: none; }
     }
+
 
 
     /* ================================================================
@@ -9259,11 +9125,11 @@
             </div>
 
             <div class="core-v9-mobile-pillars" aria-label="Elementos conectados pela Engenharia de Presença">
-              <span>Estratégia</span>
-              <span>Narrativa</span>
-              <span>Tecnologia</span>
-              <span>Infraestrutura</span>
-              <span>Operação</span>
+              <span style="--i:0">Estratégia</span>
+              <span style="--i:1">Narrativa</span>
+              <span style="--i:2">Tecnologia</span>
+              <span style="--i:3">Infraestrutura</span>
+              <span style="--i:4">Operação</span>
             </div>
 
             <article class="core-v9-front core-v9-front-left">
