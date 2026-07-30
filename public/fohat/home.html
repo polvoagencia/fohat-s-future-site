@@ -10521,6 +10521,9 @@
               if (el) el.style.display = 'none';
             });
           };
+          const mobileNow = window.innerWidth <= 720;
+          // Mobile: o conector do card "Sinal humano" polui a composição.
+          if (mobileNow && item.key === 'signal') return hideConnector();
           if (!dot || dot.offsetParent === null) return hideConnector();
           const dotRect = dot.getBoundingClientRect();
           if (dotRect.width <= 0 || dotRect.height <= 0) return hideConnector();
