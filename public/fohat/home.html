@@ -8741,7 +8741,7 @@
         right: 0 !important;
         bottom: 0 !important;
         top: auto !important;
-        height: 57%;
+        height: 60%;
         display: flex;
         align-items: flex-end;
         justify-content: center;
@@ -8750,7 +8750,7 @@
       .human-image-stage {
         --portrait-center: 50% !important;
         --fractal-center: 50% !important;
-        width: min(350px, 94vw) !important;
+        width: min(360px, 94vw) !important;
         max-width: 94vw !important;
         height: 100% !important;
         margin: 0 auto;
@@ -8763,8 +8763,8 @@
       .human-portrait-occluder-image {
         left: 50% !important;
         bottom: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
+        width: 94% !important;
+        max-width: 94% !important;
         height: auto !important;
         object-fit: contain;
         object-position: center bottom;
@@ -8772,38 +8772,36 @@
       .human-portrait-occluder-image {
         filter: brightness(0) saturate(0) blur(.7px) !important;
       }
+      /* fractal principal: único, centrado no mesmo eixo da mulher e girando */
       .human-fractal-image {
         left: 50% !important;
-        top: 20% !important;
-        width: 92% !important;
-        max-width: 92% !important;
-        opacity: .28 !important;
+        top: -4.5% !important;
+        bottom: auto !important;
+        width: 80% !important;
+        max-width: 80% !important;
+        opacity: .34 !important;
         transform: translate3d(-50%, 0, 0) !important;
         transform-origin: 50% 50%;
-        filter: saturate(.96) brightness(.72) blur(.2px) !important;
-        -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.35) 66%, transparent 82%);
-        mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.35) 66%, transparent 82%);
-        animation: fractalRotateMobile 64s linear infinite !important;
+        filter: saturate(1) brightness(.82) blur(.15px) !important;
+        -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, rgba(0,0,0,.4) 72%, transparent 88%);
+        mask-image: radial-gradient(circle at 50% 50%, #000 52%, rgba(0,0,0,.4) 72%, transparent 88%);
+        animation: fractalRotateMobile 34s linear infinite !important;
       }
 
-      /* halos e estrelas discretos */
-      .halo-outer { width: 262px; height: 262px; top: 12%; opacity: .2; }
-      .halo-mid { display: none; }
-      .halo-inner { width: 188px; height: 188px; top: 19%; opacity: .14; }
-      .human-halo-pulse { display: none; }
+      /* uma única leitura de fractal: nenhuma coroa/halo concorrente */
+      .human-halo,
+      .halo-outer,
+      .halo-mid,
+      .halo-inner,
+      .human-halo-pulse,
+      .human-portrait-aura,
+      .human-scan-overlay { display: none !important; }
       .human-starfield .star { opacity: .42; }
       .human-starfield .s3,
       .human-starfield .s4,
       .human-starfield .s6,
       .human-starfield .s7,
       .human-starfield .s8 { display: none; }
-      .human-scan-overlay {
-        left: 17% !important;
-        right: 17% !important;
-        top: 26% !important;
-        bottom: 14% !important;
-        opacity: .4;
-      }
 
       /* conectores discretos */
       .hero-holo-overlay { opacity: .58; }
