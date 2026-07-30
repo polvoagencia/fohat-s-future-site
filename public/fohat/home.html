@@ -1573,17 +1573,6 @@
       .hero-v3 h1 { font-size: clamp(52px, 16vw, 78px); }
       .fusion-shell { min-height: 570px; }
       .fusion-stage { border-radius: 25px; transform: none; }
-      .fusion-canvas { min-height: 515px; }
-      .code-pane { left: 13px; top: 20px; width: 72%; padding: 15px 12px; }
-      .code-row { font-size: 9px; grid-template-columns: 17px 1fr; gap: 8px; }
-      .code-row:nth-child(n+8) { display: none; }
-      .human-field { inset: 90px -40px 0 19%; }
-      .chip-human { right: 10px; top: 86px; }
-      .chip-event { right: 10px; bottom: 105px; }
-      .chip-system { display: none; }
-      .presence-chip { padding: 9px 10px; font-size: 8px; }
-      .presence-chip strong { font-size: 9px; }
-      .fusion-terminal { left: 12px; right: 12px; bottom: 12px; font-size: 8px; }
       .fusion-index { font-size: 95px; }
     }
 
@@ -2600,7 +2589,6 @@
       }
     }
     @media (max-width: 720px) {
-      .human-field { inset: 96px -56px 0 14%; }
       .merged-core-result {
         white-space: normal;
         flex-wrap: wrap;
@@ -2684,18 +2672,6 @@
         width: min(390px, 100%);
         height: 540px;
       }
-    }
-    @media (max-width: 720px) {
-      .human-field {
-        inset: 108px -30px 0 16%;
-      }
-      .human-image-stage {
-        width: min(300px, 100%);
-        height: 430px;
-      }
-      .chip-human { right: 10px; top: 88px; }
-      .chip-event { right: 10px; bottom: 106px; }
-      .chip-system { display: none; }
     }
 
 
@@ -2846,18 +2822,8 @@
       .hero-holo-overlay {
         opacity: .88;
       }
-      .human-field {
-        inset: 108px -30px 0 16%;
-      }
-      .human-image-stage {
-        width: min(300px, 100%);
-        height: 430px;
-      }
       .human-scan-overlay::before { animation-duration: 5.2s; }
       .human-scan-overlay::after { animation-duration: 5.2s; }
-      .chip-human { right: 10px; top: 88px; }
-      .chip-event { right: 10px; bottom: 106px; }
-      .chip-system { display: none; }
     }
 
 
@@ -6589,28 +6555,6 @@
       .chip-system { left: 6px !important; bottom: 98px !important; }
     }
 
-    @media (max-width: 720px) {
-      .human-field {
-        inset: 108px -28px 0 20% !important;
-      }
-      .human-image-stage {
-        width: min(300px, 100%) !important;
-        height: 410px !important;
-      }
-      .halo-outer { width: 300px; height: 300px; top: 18%; opacity: .28; }
-      .halo-mid { width: 240px; height: 240px; top: 22%; opacity: .2; }
-      .halo-inner, .human-halo-pulse { width: 195px; height: 195px; top: 26%; opacity: .16; }
-      .human-starfield .s3, .human-starfield .s4, .human-starfield .s6 { display: none; }
-      .human-scan-overlay {
-        left: 22%;
-        right: 22%;
-        top: 19%;
-        bottom: 20%;
-      }
-      .chip-human { right: 10px !important; top: 84px !important; }
-      .chip-event { right: 8px !important; bottom: 100px !important; }
-      .chip-system { display: none !important; }
-    }
 
 
     /* ================================================================
@@ -6818,31 +6762,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-fractal-image {
-        width: 108%;
-        top: 13%;
-        opacity: .62;
-        animation-duration: 44s, 8s;
-      }
-
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .human-halo,
-      .human-starfield {
-        opacity: .55;
-      }
-
-      .human-scan-overlay {
-        left: 24%;
-        right: 24%;
-        top: 24%;
-        bottom: 18%;
-      }
-    }
 
     @media (prefers-reduced-motion: reduce) {
       .human-fractal-image,
@@ -6902,13 +6821,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-fractal-image {
-        width: 110% !important;
-        top: 11% !important;
-        opacity: .38 !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7009,28 +6921,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        width: min(300px, 100%) !important;
-        height: 410px !important;
-      }
-      .human-fractal-image {
-        width: 112% !important;
-        top: 12% !important;
-        opacity: .34 !important;
-        animation-duration: 40s, 8s !important;
-      }
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .human-scan-overlay {
-        left: 24% !important;
-        right: 24% !important;
-        top: 24% !important;
-        bottom: 18% !important;
-      }
-    }
 
 
     @keyframes fractalRotateCentered {
@@ -7152,25 +7042,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 47%;
-        --fractal-center: 50%;
-      }
-      .human-portrait-occluder {
-        width: 101%;
-        max-width: 101%;
-        filter: blur(.9px);
-      }
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .human-scan-overlay {
-        left: 22.5% !important;
-        right: 25.5% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7244,30 +7115,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 45.8%;
-        --fractal-center: 50%;
-      }
-
-      .human-portrait-occluder-image,
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .human-portrait-occluder-image {
-        filter:
-          brightness(0)
-          saturate(0)
-          blur(1px);
-      }
-
-      .human-scan-overlay {
-        left: 21.8% !important;
-        right: 26.2% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7367,30 +7214,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 44.8%;
-        --fractal-center: 50%;
-      }
-
-      .human-portrait-occluder-image,
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .human-portrait-occluder-image {
-        filter:
-          brightness(0)
-          saturate(0)
-          blur(.75px) !important;
-      }
-
-      .human-scan-overlay {
-        left: 21.2% !important;
-        right: 26.8% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7418,17 +7241,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 46.4%;
-        --fractal-center: 50%;
-      }
-
-      .human-scan-overlay {
-        left: 22.2% !important;
-        right: 25.8% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -8852,6 +8664,174 @@
       }
     }
 
+    /* ================================================================
+       V16 · HERO MOBILE CONSOLIDADA (experience.runtime)
+       Substitui as regras mobile de V7 / V15.1 / V15.2 / V15.3 /
+       V15.5 / V15.6 / V15.7 / V15.8 para human-field, human-image-stage,
+       human-fractal-image, human-figure-image, halos, estrelas e chips.
+       Desktop acima de 720px permanece intacto.
+       ================================================================ */
+    .presence-chip-rail { display: contents; }
+
+    @media (max-width: 720px) {
+      /* --- canvas --- */
+      .fusion-canvas {
+        min-height: clamp(590px, 150vw, 700px);
+        overflow: hidden;
+      }
+
+      /* --- ÁREA 1 · código --- */
+      .code-pane {
+        left: 14px;
+        right: 14px;
+        width: auto;
+        max-width: none;
+        top: 16px;
+        max-height: 34%;
+        padding: 12px 12px 10px;
+        overflow: hidden;
+      }
+      .code-caption { font-size: 7.2px; margin-bottom: 6px; }
+      .code-row {
+        display: grid;
+        min-height: 0;
+        font-size: 8.4px;
+        line-height: 1.3;
+        margin: 0 0 1px;
+        padding: 0;
+        grid-template-columns: 15px 1fr;
+        gap: 7px;
+      }
+
+      /* --- ÁREA 2 · faixa de status --- */
+      .presence-chip-rail {
+        position: absolute;
+        z-index: 12;
+        left: 14px;
+        right: 14px;
+        top: clamp(224px, 57vw, 258px);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .presence-chip-rail .presence-chip {
+        position: relative !important;
+        inset: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        width: 100%;
+        max-width: none;
+        transform: none !important;
+        animation: none !important;
+        padding: 8px 9px;
+        font-size: 7.4px;
+        line-height: 1.35;
+      }
+      .presence-chip strong { font-size: 8.6px; }
+      .presence-chip .chip-dot { width: 4px; height: 4px; margin-top: 3px; }
+      .chip-system { display: none !important; }
+
+      /* --- ÁREA 3 · humano + fractal --- */
+      .human-field {
+        position: absolute;
+        inset: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+        height: 57%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 7 !important;
+      }
+      .human-image-stage {
+        --portrait-center: 50% !important;
+        --fractal-center: 50% !important;
+        width: min(350px, 94vw) !important;
+        max-width: 94vw !important;
+        height: 100% !important;
+        margin: 0 auto;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+      .human-figure-image,
+      .human-portrait-occluder-image {
+        left: 50% !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
+        object-position: center bottom;
+      }
+      .human-portrait-occluder-image {
+        filter: brightness(0) saturate(0) blur(.7px) !important;
+      }
+      .human-fractal-image {
+        left: 50% !important;
+        top: 20% !important;
+        width: 92% !important;
+        max-width: 92% !important;
+        opacity: .28 !important;
+        transform: translate3d(-50%, 0, 0) !important;
+        transform-origin: 50% 50%;
+        filter: saturate(.96) brightness(.72) blur(.2px) !important;
+        -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.35) 66%, transparent 82%);
+        mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.35) 66%, transparent 82%);
+        animation: fractalRotateMobile 64s linear infinite !important;
+      }
+
+      /* halos e estrelas discretos */
+      .halo-outer { width: 262px; height: 262px; top: 12%; opacity: .2; }
+      .halo-mid { display: none; }
+      .halo-inner { width: 188px; height: 188px; top: 19%; opacity: .14; }
+      .human-halo-pulse { display: none; }
+      .human-starfield .star { opacity: .42; }
+      .human-starfield .s3,
+      .human-starfield .s4,
+      .human-starfield .s6,
+      .human-starfield .s7,
+      .human-starfield .s8 { display: none; }
+      .human-scan-overlay {
+        left: 17% !important;
+        right: 17% !important;
+        top: 26% !important;
+        bottom: 14% !important;
+        opacity: .4;
+      }
+
+      /* conectores discretos */
+      .hero-holo-overlay { opacity: .58; }
+      .hero-connector { opacity: .4; stroke-width: 1.1; }
+
+      /* terminal com área segura para o botão flutuante */
+      .fusion-terminal {
+        left: 12px;
+        right: 78px;
+        bottom: 12px;
+        font-size: 8px;
+      }
+    }
+
+    @keyframes fractalRotateMobile {
+      from { transform: translate3d(-50%, 0, 0) rotate(0deg); }
+      to { transform: translate3d(-50%, 0, 0) rotate(360deg); }
+    }
+
+    @media (max-width: 720px) and (prefers-reduced-motion: reduce) {
+      .human-fractal-image,
+      .human-figure-image,
+      .human-portrait-occluder-image,
+      .human-starfield .star,
+      .human-scan-overlay::before,
+      .human-scan-overlay::after { animation: none !important; }
+    }
+
 </style>
 </head>
 <body>
@@ -9019,17 +8999,19 @@
                 </div>
               </div>
 
-              <div class="presence-chip chip-human mono">
-                <span class="chip-dot" aria-hidden="true"></span>
-                <span class="chip-copy">sinal humano<strong>presença detectada</strong></span>
-              </div>
-              <div class="presence-chip chip-event mono">
-                <span class="chip-dot" aria-hidden="true"></span>
-                <span class="chip-copy">ambiente<strong>evento em operação</strong></span>
-              </div>
-              <div class="presence-chip chip-system mono">
-                <span class="chip-copy">sistema<strong>interação respondendo</strong></span>
-                <span class="chip-dot" aria-hidden="true"></span>
+              <div class="presence-chip-rail">
+                <div class="presence-chip chip-human mono">
+                  <span class="chip-dot" aria-hidden="true"></span>
+                  <span class="chip-copy">sinal humano<strong>presença detectada</strong></span>
+                </div>
+                <div class="presence-chip chip-event mono">
+                  <span class="chip-dot" aria-hidden="true"></span>
+                  <span class="chip-copy">ambiente<strong>evento em operação</strong></span>
+                </div>
+                <div class="presence-chip chip-system mono">
+                  <span class="chip-copy">sistema<strong>interação respondendo</strong></span>
+                  <span class="chip-dot" aria-hidden="true"></span>
+                </div>
               </div>
 
               <div class="fusion-terminal mono">
@@ -10532,21 +10514,40 @@
 
         auditedConnectorConfig.forEach(item => {
           const dot = document.querySelector(item.dot);
-          if (!dot) return;
+          const path0 = document.getElementById(`hero-line-${item.key}`);
+          const origin0 = document.getElementById(`hero-origin-${item.key}`);
+          const target0 = document.getElementById(`hero-target-${item.key}`);
+          const pulse0 = document.getElementById(`hero-pulse-${item.key}`);
+          const hideConnector = () => {
+            [path0, origin0, target0, pulse0].forEach(el => {
+              if (el) el.style.display = 'none';
+            });
+          };
+          if (!dot || dot.offsetParent === null) return hideConnector();
           const dotRect = dot.getBoundingClientRect();
+          if (dotRect.width <= 0 || dotRect.height <= 0) return hideConnector();
+          [path0, origin0, target0, pulse0].forEach(el => {
+            if (el) el.style.display = '';
+          });
+          const isMobile = window.innerWidth <= 720;
           const start = toHeroViewBoxPoint(
             dotRect.left + dotRect.width / 2,
             dotRect.top + dotRect.height / 2,
             svgRect
           );
-          const targetElement = document.querySelector(item.targetSelector || '.human-figure-image');
+          const targetElement = document.querySelector(
+            isMobile ? '.human-fractal-image' : (item.targetSelector || '.human-figure-image')
+          );
           const targetRect = (targetElement || human).getBoundingClientRect();
+          const anchor = isMobile
+            ? (item.key === 'signal' ? { x: 0.04, y: 0.62 } : { x: 0.96, y: 0.62 })
+            : item.target;
           const targetClient = {
-            x: targetRect.left + targetRect.width * item.target.x,
-            y: targetRect.top + targetRect.height * item.target.y
+            x: targetRect.left + targetRect.width * anchor.x,
+            y: targetRect.top + targetRect.height * anchor.y
           };
           const end = toHeroViewBoxPoint(targetClient.x, targetClient.y, svgRect);
-          const d = buildAuditedPath(start, end, item.bend);
+          const d = buildAuditedPath(start, end, isMobile ? (item.key === 'signal' ? 'left-card' : 'right-card') : item.bend);
 
           const path = document.getElementById(`hero-line-${item.key}`);
           const origin = document.getElementById(`hero-origin-${item.key}`);
