@@ -8776,12 +8776,13 @@
       /* fractal principal: único, centrado no mesmo eixo da mulher e girando */
       .human-fractal-image {
         left: 50% !important;
-        top: -4% !important;
+        top: 50% !important;
         bottom: auto !important;
         width: 80% !important;
         max-width: 80% !important;
         opacity: .34 !important;
-        transform: translate3d(-50%, 0, 0);
+        z-index: 1 !important;
+        transform: translate3d(-50%, -50%, 0);
         transform-origin: 50% 50%;
         filter: saturate(1) brightness(.82) blur(.15px) !important;
         -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, rgba(0,0,0,.4) 72%, transparent 88%);
@@ -8823,8 +8824,8 @@
     }
 
     @keyframes fractalRotateMobile {
-      from { transform: translate3d(-50%, 0, 0) rotate(0deg); }
-      to { transform: translate3d(-50%, 0, 0) rotate(360deg); }
+      from { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+      to { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
     }
 
     @media (max-width: 720px) and (prefers-reduced-motion: reduce) {
