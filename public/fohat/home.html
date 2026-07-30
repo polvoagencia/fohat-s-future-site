@@ -10587,23 +10587,95 @@
       };
       let ticking = false;
 
+      const mobileQuery = matchMedia('(max-width: 1100px)');
+      const reduceQuery = matchMedia('(prefers-reduced-motion: reduce)');
+
+      const setVars = vars => {
+        for (const key in vars) {
+          const value = vars[key];
+          stage.style.setProperty(key, typeof value === 'number' ? value.toFixed(4) : value);
+        }
+      };
+
+      // Estado completo e estático (prefers-reduced-motion)
+      function renderStatic(isMobile) {
+        setVars({
+          '--raw': 1, '--intro': isMobile ? 1 : 0, '--emit': 1, '--expand': 1,
+          '--seed': 0, '--content': 1, '--payoff': 1, '--field': 1, '--grand': 1,
+          '--shrink': isMobile ? 0 : 1,
+          '--mobile-progress': 1, '--mobile-nucleus': 1,
+          '--mobile-front-one': 1, '--mobile-front-two': 1,
+          '--mobile-architecture': 1, '--mobile-finale': 1,
+          '--mobile-front-one-shift': 0, '--mobile-front-two-shift': 0
+        });
+        stage.dataset.phase = isMobile ? 'static' : 'finale';
+        stage.dataset.mobile = isMobile ? 'static' : 'off';
+      }
+
+      // ATO 1 núcleo · ATO 2 frente um · ATO 3 frente dois · ATO 4 explicação
+      function renderMobile() {
+        const stickyTop = 56;
+        const rect = scroll.getBoundingClientRect();
+        const stickyHeight = window.innerHeight - stickyTop;
+        const total = Math.max(1, rect.height - stickyHeight);
+        const p = clamp((stickyTop - rect.top) / total);
+
+        const shrink = smooth((p - .16) / .12);
+        const nucleus = 1 - smooth((p - .70) / .11);
+
+        const oneIn = smooth((p - .20) / .08);
+        const oneOut = smooth((p - .42) / .06);
+        const twoIn = smooth((p - .46) / .08);
+        const twoOut = smooth((p - .67) / .06);
+
+        const frontOne = oneIn * (1 - oneOut);
+        const frontTwo = twoIn * (1 - twoOut);
+        const architecture = smooth((p - .67) / .11) * (1 - smooth((p - .90) / .10));
+        const finale = smooth((p - .84) / .11);
+
+        setVars({
+          '--mobile-progress': p,
+          '--mobile-nucleus': nucleus,
+          '--mobile-front-one': frontOne,
+          '--mobile-front-two': frontTwo,
+          '--mobile-front-one-shift': (1 - oneIn) * 54 - oneOut * 46,
+          '--mobile-front-two-shift': (1 - twoIn) * 54 - twoOut * 46,
+          '--mobile-architecture': architecture,
+          '--mobile-finale': finale,
+          // variáveis herdadas reaproveitadas pelo desenho existente
+          '--raw': p, '--intro': 1, '--emit': 1, '--expand': 1, '--seed': 0,
+          '--content': 1, '--shrink': shrink,
+          '--field': architecture, '--payoff': finale, '--grand': finale
+        });
+
+        stage.dataset.mobile = 'on';
+        stage.dataset.phase = p < .20
+          ? 'nucleus'
+          : p < .42
+            ? 'fronts'
+            : p < .67
+              ? 'cards'
+              : p < .84
+                ? 'architecture'
+                : 'finale';
+      }
+
       function renderCoreV9() {
         ticking = false;
 
-        if (window.innerWidth <= 1100 || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          stage.style.setProperty('--raw', '1');
-          stage.style.setProperty('--intro', '0');
-          stage.style.setProperty('--emit', '1');
-          stage.style.setProperty('--expand', '1');
-          stage.style.setProperty('--seed', '0');
-          stage.style.setProperty('--content', '1');
-          stage.style.setProperty('--payoff', '1');
-          stage.style.setProperty('--field', '1');
-          stage.style.setProperty('--grand', '1');
-          stage.style.setProperty('--shrink', '1');
-          stage.dataset.phase = 'finale';
+        const isMobile = mobileQuery.matches;
+
+        if (reduceQuery.matches) {
+          renderStatic(isMobile);
           return;
         }
+
+        if (isMobile) {
+          renderMobile();
+          return;
+        }
+
+        stage.dataset.mobile = 'off';
 
         const stickyTop = 70;
         const rect = scroll.getBoundingClientRect();
@@ -10653,6 +10725,10 @@
 
       addEventListener('scroll', requestCoreV9, { passive: true });
       addEventListener('resize', requestCoreV9);
+      addEventListener('orientationchange', () => setTimeout(requestCoreV9, 120));
+      addEventListener('pageshow', requestCoreV9);
+      mobileQuery.addEventListener('change', requestCoreV9);
+      reduceQuery.addEventListener('change', requestCoreV9);
       renderCoreV9();
     })();
   
