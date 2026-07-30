@@ -8657,7 +8657,7 @@
       .fusion-shell { width: 100%; }
       .fusion-stage { width: 100%; }
       .fusion-canvas {
-        min-height: clamp(720px, 188vw, 860px);
+        min-height: clamp(500px, calc(100svh - 150px), 740px);
         overflow: hidden;
       }
 
@@ -8690,7 +8690,7 @@
         z-index: 12;
         left: 14px;
         right: 14px;
-        top: clamp(252px, 65vw, 300px);
+        top: 40%;
         bottom: auto;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8724,7 +8724,7 @@
         left: 0 !important;
         right: 0 !important;
         bottom: 0 !important;
-        top: clamp(344px, 90vw, 402px) !important;
+        top: 52% !important;
         height: auto !important;
         display: flex;
         align-items: flex-end;
@@ -8816,9 +8816,8 @@
 
     /* telas baixas: reduz altura sem deformar */
     @media (max-width: 720px) and (max-height: 700px) {
-      .fusion-canvas { min-height: 700px; }
-      .presence-chip-rail { top: clamp(240px, 62vw, 288px); }
-      .human-field { top: clamp(330px, 86vw, 386px) !important; }
+      .presence-chip-rail { top: 38%; }
+      .human-field { top: 50% !important; }
     }
 
     @media (max-width: 720px) and (prefers-reduced-motion: reduce) {
