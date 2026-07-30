@@ -10511,21 +10511,40 @@
 
         auditedConnectorConfig.forEach(item => {
           const dot = document.querySelector(item.dot);
-          if (!dot) return;
+          const path0 = document.getElementById(`hero-line-${item.key}`);
+          const origin0 = document.getElementById(`hero-origin-${item.key}`);
+          const target0 = document.getElementById(`hero-target-${item.key}`);
+          const pulse0 = document.getElementById(`hero-pulse-${item.key}`);
+          const hideConnector = () => {
+            [path0, origin0, target0, pulse0].forEach(el => {
+              if (el) el.style.display = 'none';
+            });
+          };
+          if (!dot || dot.offsetParent === null) return hideConnector();
           const dotRect = dot.getBoundingClientRect();
+          if (dotRect.width <= 0 || dotRect.height <= 0) return hideConnector();
+          [path0, origin0, target0, pulse0].forEach(el => {
+            if (el) el.style.display = '';
+          });
+          const isMobile = window.innerWidth <= 720;
           const start = toHeroViewBoxPoint(
             dotRect.left + dotRect.width / 2,
             dotRect.top + dotRect.height / 2,
             svgRect
           );
-          const targetElement = document.querySelector(item.targetSelector || '.human-figure-image');
+          const targetElement = document.querySelector(
+            isMobile ? '.human-fractal-image' : (item.targetSelector || '.human-figure-image')
+          );
           const targetRect = (targetElement || human).getBoundingClientRect();
+          const anchor = isMobile
+            ? (item.key === 'signal' ? { x: 0.12, y: 0.30 } : { x: 0.88, y: 0.30 })
+            : item.target;
           const targetClient = {
-            x: targetRect.left + targetRect.width * item.target.x,
-            y: targetRect.top + targetRect.height * item.target.y
+            x: targetRect.left + targetRect.width * anchor.x,
+            y: targetRect.top + targetRect.height * anchor.y
           };
           const end = toHeroViewBoxPoint(targetClient.x, targetClient.y, svgRect);
-          const d = buildAuditedPath(start, end, item.bend);
+          const d = buildAuditedPath(start, end, isMobile ? (item.key === 'signal' ? 'left-card' : 'right-card') : item.bend);
 
           const path = document.getElementById(`hero-line-${item.key}`);
           const origin = document.getElementById(`hero-origin-${item.key}`);
