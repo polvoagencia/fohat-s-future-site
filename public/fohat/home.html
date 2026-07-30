@@ -1573,17 +1573,6 @@
       .hero-v3 h1 { font-size: clamp(52px, 16vw, 78px); }
       .fusion-shell { min-height: 570px; }
       .fusion-stage { border-radius: 25px; transform: none; }
-      .fusion-canvas { min-height: 515px; }
-      .code-pane { left: 13px; top: 20px; width: 72%; padding: 15px 12px; }
-      .code-row { font-size: 9px; grid-template-columns: 17px 1fr; gap: 8px; }
-      .code-row:nth-child(n+8) { display: none; }
-      .human-field { inset: 90px -40px 0 19%; }
-      .chip-human { right: 10px; top: 86px; }
-      .chip-event { right: 10px; bottom: 105px; }
-      .chip-system { display: none; }
-      .presence-chip { padding: 9px 10px; font-size: 8px; }
-      .presence-chip strong { font-size: 9px; }
-      .fusion-terminal { left: 12px; right: 12px; bottom: 12px; font-size: 8px; }
       .fusion-index { font-size: 95px; }
     }
 
@@ -2600,7 +2589,6 @@
       }
     }
     @media (max-width: 720px) {
-      .human-field { inset: 96px -56px 0 14%; }
       .merged-core-result {
         white-space: normal;
         flex-wrap: wrap;
@@ -2684,18 +2672,6 @@
         width: min(390px, 100%);
         height: 540px;
       }
-    }
-    @media (max-width: 720px) {
-      .human-field {
-        inset: 108px -30px 0 16%;
-      }
-      .human-image-stage {
-        width: min(300px, 100%);
-        height: 430px;
-      }
-      .chip-human { right: 10px; top: 88px; }
-      .chip-event { right: 10px; bottom: 106px; }
-      .chip-system { display: none; }
     }
 
 
@@ -2846,18 +2822,10 @@
       .hero-holo-overlay {
         opacity: .88;
       }
-      .human-field {
-        inset: 108px -30px 0 16%;
       }
-      .human-image-stage {
-        width: min(300px, 100%);
-        height: 430px;
       }
       .human-scan-overlay::before { animation-duration: 5.2s; }
       .human-scan-overlay::after { animation-duration: 5.2s; }
-      .chip-human { right: 10px; top: 88px; }
-      .chip-event { right: 10px; bottom: 106px; }
-      .chip-system { display: none; }
     }
 
 
@@ -6589,28 +6557,6 @@
       .chip-system { left: 6px !important; bottom: 98px !important; }
     }
 
-    @media (max-width: 720px) {
-      .human-field {
-        inset: 108px -28px 0 20% !important;
-      }
-      .human-image-stage {
-        width: min(300px, 100%) !important;
-        height: 410px !important;
-      }
-      .halo-outer { width: 300px; height: 300px; top: 18%; opacity: .28; }
-      .halo-mid { width: 240px; height: 240px; top: 22%; opacity: .2; }
-      .halo-inner, .human-halo-pulse { width: 195px; height: 195px; top: 26%; opacity: .16; }
-      .human-starfield .s3, .human-starfield .s4, .human-starfield .s6 { display: none; }
-      .human-scan-overlay {
-        left: 22%;
-        right: 22%;
-        top: 19%;
-        bottom: 20%;
-      }
-      .chip-human { right: 10px !important; top: 84px !important; }
-      .chip-event { right: 8px !important; bottom: 100px !important; }
-      .chip-system { display: none !important; }
-    }
 
 
     /* ================================================================
@@ -6818,31 +6764,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-fractal-image {
-        width: 108%;
-        top: 13%;
-        opacity: .62;
-        animation-duration: 44s, 8s;
-      }
-
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .human-halo,
-      .human-starfield {
-        opacity: .55;
-      }
-
-      .human-scan-overlay {
-        left: 24%;
-        right: 24%;
-        top: 24%;
-        bottom: 18%;
-      }
-    }
 
     @media (prefers-reduced-motion: reduce) {
       .human-fractal-image,
@@ -6902,13 +6823,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-fractal-image {
-        width: 110% !important;
-        top: 11% !important;
-        opacity: .38 !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7009,28 +6923,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        width: min(300px, 100%) !important;
-        height: 410px !important;
-      }
-      .human-fractal-image {
-        width: 112% !important;
-        top: 12% !important;
-        opacity: .34 !important;
-        animation-duration: 40s, 8s !important;
-      }
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .human-scan-overlay {
-        left: 24% !important;
-        right: 24% !important;
-        top: 24% !important;
-        bottom: 18% !important;
-      }
-    }
 
 
     @keyframes fractalRotateCentered {
@@ -7152,25 +7044,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 47%;
-        --fractal-center: 50%;
-      }
-      .human-portrait-occluder {
-        width: 101%;
-        max-width: 101%;
-        filter: blur(.9px);
-      }
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .human-scan-overlay {
-        left: 22.5% !important;
-        right: 25.5% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7244,30 +7117,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 45.8%;
-        --fractal-center: 50%;
-      }
-
-      .human-portrait-occluder-image,
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .human-portrait-occluder-image {
-        filter:
-          brightness(0)
-          saturate(0)
-          blur(1px);
-      }
-
-      .human-scan-overlay {
-        left: 21.8% !important;
-        right: 26.2% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7367,30 +7216,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 44.8%;
-        --fractal-center: 50%;
-      }
-
-      .human-portrait-occluder-image,
-      .human-figure-image {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .human-portrait-occluder-image {
-        filter:
-          brightness(0)
-          saturate(0)
-          blur(.75px) !important;
-      }
-
-      .human-scan-overlay {
-        left: 21.2% !important;
-        right: 26.8% !important;
-      }
-    }
 
 
     /* ================================================================
@@ -7418,17 +7243,6 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .human-image-stage {
-        --portrait-center: 46.4%;
-        --fractal-center: 50%;
-      }
-
-      .human-scan-overlay {
-        left: 22.2% !important;
-        right: 25.8% !important;
-      }
-    }
 
 
     /* ================================================================
