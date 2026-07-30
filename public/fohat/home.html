@@ -8664,6 +8664,171 @@
       }
     }
 
+    /* ================================================================
+       V16 · HERO MOBILE CONSOLIDADA (experience.runtime)
+       Substitui as regras mobile de V7 / V15.1 / V15.2 / V15.3 /
+       V15.5 / V15.6 / V15.7 / V15.8 para human-field, human-image-stage,
+       human-fractal-image, human-figure-image, halos, estrelas e chips.
+       Desktop acima de 720px permanece intacto.
+       ================================================================ */
+    .presence-chip-rail { display: contents; }
+
+    @media (max-width: 720px) {
+      /* --- canvas --- */
+      .fusion-canvas {
+        min-height: clamp(590px, 150vw, 700px);
+        overflow: hidden;
+      }
+
+      /* --- ÁREA 1 · código --- */
+      .code-pane {
+        left: 14px;
+        right: 14px;
+        width: auto;
+        max-width: none;
+        top: 16px;
+        max-height: 34%;
+        padding: 12px 12px 10px;
+        overflow: hidden;
+      }
+      .code-caption { font-size: 7.2px; margin-bottom: 6px; }
+      .code-row {
+        display: grid;
+        font-size: 8.6px;
+        line-height: 1.42;
+        grid-template-columns: 15px 1fr;
+        gap: 7px;
+      }
+
+      /* --- ÁREA 2 · faixa de status --- */
+      .presence-chip-rail {
+        position: absolute;
+        z-index: 12;
+        left: 14px;
+        right: 14px;
+        top: clamp(224px, 57vw, 258px);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .presence-chip-rail .presence-chip {
+        position: relative !important;
+        inset: auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        width: 100%;
+        max-width: none;
+        transform: none !important;
+        animation: none !important;
+        padding: 8px 9px;
+        font-size: 7.4px;
+        line-height: 1.35;
+      }
+      .presence-chip strong { font-size: 8.6px; }
+      .presence-chip .chip-dot { width: 4px; height: 4px; margin-top: 3px; }
+      .chip-system { display: none !important; }
+
+      /* --- ÁREA 3 · humano + fractal --- */
+      .human-field {
+        position: absolute;
+        inset: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+        height: 57%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 7 !important;
+      }
+      .human-image-stage {
+        --portrait-center: 50% !important;
+        --fractal-center: 50% !important;
+        width: min(350px, 94vw) !important;
+        max-width: 94vw !important;
+        height: 100% !important;
+        margin: 0 auto;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+      .human-figure-image,
+      .human-portrait-occluder-image {
+        left: 50% !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
+        object-position: center bottom;
+      }
+      .human-portrait-occluder-image {
+        filter: brightness(0) saturate(0) blur(.7px) !important;
+      }
+      .human-fractal-image {
+        left: 50% !important;
+        top: 20% !important;
+        width: 92% !important;
+        max-width: 92% !important;
+        opacity: .28 !important;
+        transform: translate3d(-50%, 0, 0) !important;
+        transform-origin: 50% 50%;
+        filter: saturate(.96) brightness(.72) blur(.2px) !important;
+        -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.35) 66%, transparent 82%);
+        mask-image: radial-gradient(circle at 50% 42%, #000 44%, rgba(0,0,0,.35) 66%, transparent 82%);
+        animation: fractalRotateMobile 64s linear infinite !important;
+      }
+
+      /* halos e estrelas discretos */
+      .halo-outer { width: 262px; height: 262px; top: 12%; opacity: .2; }
+      .halo-mid { display: none; }
+      .halo-inner { width: 188px; height: 188px; top: 19%; opacity: .14; }
+      .human-halo-pulse { display: none; }
+      .human-starfield .star { opacity: .42; }
+      .human-starfield .s3,
+      .human-starfield .s4,
+      .human-starfield .s6,
+      .human-starfield .s7,
+      .human-starfield .s8 { display: none; }
+      .human-scan-overlay {
+        left: 17% !important;
+        right: 17% !important;
+        top: 26% !important;
+        bottom: 14% !important;
+        opacity: .4;
+      }
+
+      /* conectores discretos */
+      .hero-holo-overlay { opacity: .58; }
+      .hero-connector { opacity: .4; stroke-width: 1.1; }
+
+      /* terminal com área segura para o botão flutuante */
+      .fusion-terminal {
+        left: 12px;
+        right: 78px;
+        bottom: 12px;
+        font-size: 8px;
+      }
+    }
+
+    @keyframes fractalRotateMobile {
+      from { transform: translate3d(-50%, 0, 0) rotate(0deg); }
+      to { transform: translate3d(-50%, 0, 0) rotate(360deg); }
+    }
+
+    @media (max-width: 720px) and (prefers-reduced-motion: reduce) {
+      .human-fractal-image,
+      .human-figure-image,
+      .human-portrait-occluder-image,
+      .human-starfield .star,
+      .human-scan-overlay::before,
+      .human-scan-overlay::after { animation: none !important; }
+    }
+
 </style>
 </head>
 <body>
