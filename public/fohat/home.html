@@ -6009,8 +6009,8 @@
       .core-v9-scroll { height: 440svh; margin-top: 40px; }
       .core-v9-sticky {
         position: sticky;
-        top: 56px;
-        height: calc(100svh - 56px);
+        top: 74px;
+        height: calc(100svh - 74px);
         min-height: 0;
         align-items: stretch;
         overflow: clip;
@@ -10614,7 +10614,7 @@
 
       // ATO 1 núcleo · ATO 2 frente um · ATO 3 frente dois · ATO 4 explicação
       function renderMobile() {
-        const stickyTop = 56;
+        const stickyTop = 74;
         const rect = scroll.getBoundingClientRect();
         const stickyHeight = window.innerHeight - stickyTop;
         const total = Math.max(1, rect.height - stickyHeight);
