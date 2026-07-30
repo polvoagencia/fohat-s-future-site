@@ -6005,12 +6005,13 @@
       .core-v9-head h2 { max-width: 760px; font-size: clamp(44px, 8.6vw, 66px); }
       .core-v9-head p { max-width: 680px; margin: 0; font-size: 15px; }
 
-      /* ~440svh de espaço de rolagem para os quatro atos */
-      .core-v9-scroll { height: 440svh; margin-top: 40px; }
+      /* ~460svh de espaço de rolagem para os quatro atos */
+      .core-v9-scroll { height: 460svh; margin-top: 40px; }
       .core-v9-sticky {
         position: sticky;
         top: 74px;
         height: calc(100svh - 74px);
+        height: calc(100dvh - 74px);
         min-height: 0;
         align-items: stretch;
         overflow: clip;
@@ -6021,12 +6022,19 @@
         display: block;
         --mobile-progress: 0;
         --mobile-nucleus: 1;
+        --mobile-nucleus-scale: 1;
+        --mobile-nucleus-vis: visible;
         --mobile-front-one: 0;
         --mobile-front-two: 0;
+        --mobile-front-one-vis: hidden;
+        --mobile-front-two-vis: hidden;
+        --mobile-front-one-pe: none;
+        --mobile-front-two-pe: none;
         --mobile-architecture: 0;
         --mobile-finale: 0;
-        --mobile-front-one-shift: 54;
-        --mobile-front-two-shift: 54;
+        --mobile-finale-vis: hidden;
+        --mobile-front-one-shift: 64;
+        --mobile-front-two-shift: 64;
       }
 
       .core-v9-emission-lines,
@@ -6053,101 +6061,104 @@
 
       .core-v9-satellites { display: none; }
 
-      /* ATO 1 → 2 · núcleo diminui e sobe */
+      /* ATO 1 · núcleo em tela cheia; sai por opacity + leve expansão */
       .core-v9-nucleus,
       .core-v9-stage[data-phase="cards"] .core-v9-nucleus,
       .core-v9-stage[data-phase="architecture"] .core-v9-nucleus,
       .core-v9-stage[data-phase="finale"] .core-v9-nucleus {
         position: absolute;
         left: 50%;
-        top: calc(45% - var(--shrink) * 20%);
-        width: calc(226px - var(--shrink) * 112px);
+        top: 46%;
+        width: min(74vw, 340px);
         margin: 0;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) scale(var(--mobile-nucleus-scale));
         opacity: var(--mobile-nucleus);
-        visibility: visible;
-        will-change: top, width, opacity;
+        visibility: var(--mobile-nucleus-vis);
+        pointer-events: none;
+        will-change: transform, opacity;
       }
-      .core-v9-energy { opacity: calc(1 - var(--shrink) * .3); }
-      .core-v9-nucleus-copy { opacity: calc(1 - var(--shrink)); }
+      .core-v9-energy { opacity: 1; }
+      .core-v9-nucleus-copy { opacity: 1; }
       .core-v9-nucleus-copy { width: 84%; }
       .core-v9-nucleus-copy span,
-      .core-v9-nucleus-copy small { font-size: 8px; }
+      .core-v9-nucleus-copy small { font-size: 10px; }
       .core-v9-nucleus-copy strong {
-        margin: 9px 0 7px;
-        font-size: calc(21px - var(--shrink) * 8px);
+        margin: 11px 0 9px;
+        font-size: clamp(22px, 6.4vw, 30px);
         line-height: 1.02;
       }
       .core-v9-aureole {
-        opacity: calc(.2 + var(--mobile-architecture) * .3 + var(--mobile-finale) * .3);
-        transform: scale(calc(1 + var(--mobile-finale) * .2));
+        opacity: .34;
+        transform: scale(1);
       }
-      .core-v9-orbit { opacity: calc(.62 + var(--mobile-architecture) * .28); }
+      .core-v9-orbit { opacity: .72; }
 
       /* ATO 1 · pilares surgindo progressivamente */
       .core-v9-mobile-pillars {
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 7%;
+        bottom: max(6%, env(safe-area-inset-bottom));
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
         gap: 7px;
         margin: 0;
-        padding: 0 2px;
-        opacity: calc(1 - var(--shrink));
+        padding: 0 16px;
+        opacity: var(--mobile-nucleus);
+        visibility: var(--mobile-nucleus-vis);
         pointer-events: none;
       }
       .core-v9-mobile-pillars span {
-        --pv: clamp(0, calc((var(--mobile-progress) - .025 - (var(--i, 0) * .022)) / .03), 1);
+        --pv: clamp(0, calc((var(--mobile-progress) - .03 - (var(--i, 0) * .026)) / .035), 1);
         display: inline-flex;
         align-items: center;
-        min-height: 28px;
-        padding: 0 10px;
+        min-height: 30px;
+        padding: 0 11px;
         border: 1px solid rgba(158,231,255,.16);
         border-radius: 999px;
         background: rgba(11,24,40,.6);
         color: rgba(239,248,255,.62);
-        font: 700 8px ui-monospace, monospace;
+        font: 700 9px ui-monospace, monospace;
         letter-spacing: .1em;
         text-transform: uppercase;
         opacity: var(--pv);
         transform: translateY(calc((1 - var(--pv)) * 8px));
       }
 
-      /* ATOS 2 e 3 · um card por vez, nunca lado a lado */
+      /* ATOS 2 e 3 · um card por vez, em tela cheia */
       .core-v9-front,
       .core-v9-front-left,
       .core-v9-front-right,
       .core-v9-stage[data-phase="finale"] .core-v9-front {
         position: absolute;
-        left: 0;
-        right: 0;
-        top: auto;
-        bottom: 2svh;
-        width: 100%;
+        left: 50%;
+        right: auto;
+        top: 50%;
+        bottom: auto;
+        width: calc(100vw - 32px);
+        max-width: 620px;
         height: auto;
-        min-height: 0;
-        border-radius: 26px;
+        min-height: calc(100dvh - 190px);
+        border-radius: 28px;
         border-color: rgba(151,194,235,.3);
         filter: none;
-        visibility: visible;
         overflow: hidden;
         pointer-events: none;
         will-change: transform, opacity;
       }
       .core-v9-front-left {
         opacity: var(--mobile-front-one) !important;
-        transform: translateY(calc(var(--mobile-front-one-shift) * 1px));
+        visibility: var(--mobile-front-one-vis);
+        pointer-events: var(--mobile-front-one-pe);
+        transform: translate(-50%, -50%) translateY(calc(var(--mobile-front-one-shift) * 1px));
       }
       .core-v9-front-right {
         opacity: var(--mobile-front-two) !important;
-        transform: translateY(calc(var(--mobile-front-two-shift) * 1px));
+        visibility: var(--mobile-front-two-vis);
+        pointer-events: var(--mobile-front-two-pe);
+        transform: translate(-50%, -50%) translateY(calc(var(--mobile-front-two-shift) * 1px));
       }
-      /* CTAs clicáveis apenas no ato em que o card está em cena */
-      .core-v9-stage[data-phase="fronts"] .core-v9-front-left,
-      .core-v9-stage[data-phase="cards"] .core-v9-front-right { pointer-events: auto; }
 
       .core-v9-seed-view { display: none; }
       .core-v9-stage .core-v9-card-view {
@@ -6155,7 +6166,9 @@
         inset: auto;
         display: flex;
         flex-direction: column;
-        padding: 26px 22px 24px;
+        justify-content: center;
+        flex: 1 1 auto;
+        padding: 30px 22px 28px;
         opacity: 1;
         transform: none;
         pointer-events: inherit;
@@ -6191,7 +6204,7 @@
         padding: 0;
         transform: translate(-50%, -50%);
         opacity: var(--mobile-finale);
-        visibility: visible;
+        visibility: var(--mobile-finale-vis);
       }
       .core-v9-payoff > strong,
       .core-v9-payoff-words {
