@@ -2528,7 +2528,6 @@
     .merged-core-result strong { color: white; }
 
     @media (max-width: 1020px) {
-      .human-field { inset: 72px -26px 0 22%; }
       .merged-core-section {
         padding-top: 100px;
         padding-bottom: 100px;
@@ -2664,7 +2663,7 @@
     .chip-event { right: 38px; bottom: 122px; }
     .chip-system { left: 26px; bottom: 94px; }
 
-    @media (max-width: 1120px) {
+    @media (min-width: 721px) and (max-width: 1120px) {
       .human-field {
         inset: 52px -6px 0 24%;
       }
@@ -2809,7 +2808,7 @@
     .chip-event { right: 34px; bottom: 122px; }
     .chip-system { left: 24px; bottom: 96px; }
 
-    @media (max-width: 1120px) {
+    @media (min-width: 721px) and (max-width: 1120px) {
       .human-field {
         inset: 52px -6px 0 24%;
       }
@@ -2817,13 +2816,6 @@
         width: min(390px, 100%);
         height: 540px;
       }
-    }
-    @media (max-width: 720px) {
-      .hero-holo-overlay {
-        opacity: .88;
-      }
-      .human-scan-overlay::before { animation-duration: 5.2s; }
-      .human-scan-overlay::after { animation-duration: 5.2s; }
     }
 
 
@@ -2938,15 +2930,6 @@
     .code-pane { z-index: 6 !important; }
     .human-field { z-index: 7 !important; }
 
-    @media (max-width: 720px) {
-      .hero-origin-dot, .hero-target-dot {
-        transform: scale(.9);
-        transform-origin: center;
-      }
-      .hero-connector {
-        opacity: .74;
-      }
-    }
 
 
     /* ================================================================
@@ -3006,11 +2989,6 @@
       animation: heroPulseTravel 5s 1.6s linear infinite;
     }
 
-    @media (max-width: 720px) {
-      .hero-connector {
-        opacity: .74;
-      }
-    }
 
 
     /* ================================================================
@@ -3072,9 +3050,6 @@
       animation: heroPulseTravel 5s 1.6s linear infinite;
     }
 
-    @media (max-width: 720px) {
-      .hero-connector { opacity: .74; }
-    }
 
 
     /* ================================================================
@@ -3137,10 +3112,6 @@
     }
     .human-field { z-index: 7 !important; }
 
-    @media (max-width: 720px) {
-      .hero-holo-overlay { opacity: .8; }
-      .hero-connector { stroke-width: 1.25; }
-    }
 
 
     /* ================================================================
@@ -6539,7 +6510,7 @@
       to { background-position: 0 14px, 8px 0; }
     }
 
-    @media (max-width: 1120px) {
+    @media (min-width: 721px) and (max-width: 1120px) {
       .human-field {
         inset: 46px -8px 0 26% !important;
       }
@@ -6750,7 +6721,7 @@
       }
     }
 
-    @media (max-width: 1120px) {
+    @media (min-width: 721px) and (max-width: 1120px) {
       .human-fractal-image {
         width: 112%;
         top: 10%;
@@ -6813,7 +6784,7 @@
       z-index: 6 !important;
     }
 
-    @media (max-width: 1120px) {
+    @media (min-width: 721px) and (max-width: 1120px) {
       .human-fractal-image {
         width: 116% !important;
         top: 8% !important;
@@ -6905,7 +6876,7 @@
       bottom: 16% !important;
     }
 
-    @media (max-width: 1120px) {
+    @media (min-width: 721px) and (max-width: 1120px) {
       .human-image-stage {
         width: min(400px, 100%) !important;
         height: 560px !important;
@@ -8665,29 +8636,39 @@
     }
 
     /* ================================================================
-       V16 · HERO MOBILE CONSOLIDADA (experience.runtime)
-       Substitui as regras mobile de V7 / V15.1 / V15.2 / V15.3 /
-       V15.5 / V15.6 / V15.7 / V15.8 para human-field, human-image-stage,
-       human-fractal-image, human-figure-image, halos, estrelas e chips.
+       V16 · HERO MOBILE CONSOLIDADA (experience.runtime) — FONTE ÚNICA
+       Único bloco mobile (<=720px) para: fusion-canvas, code-pane,
+       presence-chip-rail/chips, human-field, human-image-stage,
+       human-fractal-image, human-figure-image, occluder, halos,
+       starfield, scan overlay e hero-holo-overlay.
+       Substitui/remove as regras mobile de V7, V7.2, V7.5, V7.6, V7.7,
+       V7.8, V15, V15.1, V15.2, V15.3, V15.5–V15.8.
        Desktop acima de 720px permanece intacto.
        ================================================================ */
     .presence-chip-rail { display: contents; }
 
+    @keyframes fractalRotateMobile {
+      from { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+      to { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
+    }
+
     @media (max-width: 720px) {
-      /* --- canvas --- */
+      /* --- composição --- */
+      .fusion-shell { width: 100%; }
+      .fusion-stage { width: 100%; }
       .fusion-canvas {
-        min-height: clamp(590px, 150vw, 700px);
+        min-height: clamp(650px, 168vw, 760px);
         overflow: hidden;
       }
 
-      /* --- ÁREA 1 · código --- */
+      /* --- ZONA 1 · código --- */
       .code-pane {
         left: 14px;
         right: 14px;
         width: auto;
         max-width: none;
         top: 16px;
-        max-height: 34%;
+        max-height: 32%;
         padding: 12px 12px 10px;
         overflow: hidden;
       }
@@ -8703,19 +8684,21 @@
         gap: 7px;
       }
 
-      /* --- ÁREA 2 · faixa de status --- */
+      /* --- ZONA 2 · faixa de status (logo abaixo do código) --- */
       .presence-chip-rail {
         position: absolute;
         z-index: 12;
         left: 14px;
         right: 14px;
-        top: auto;
-        bottom: 48px;
+        top: clamp(258px, 67vw, 310px);
+        bottom: auto;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
       }
-      .presence-chip-rail .presence-chip {
+      .presence-chip-rail .presence-chip,
+      .chip-human,
+      .chip-event {
         position: relative !important;
         inset: auto !important;
         left: auto !important;
@@ -8734,7 +8717,7 @@
       .presence-chip .chip-dot { width: 4px; height: 4px; margin-top: 3px; }
       .chip-system { display: none !important; }
 
-      /* --- ÁREA 3 · humano + fractal --- */
+      /* --- ZONA 3 · humano + fractal --- */
       .human-field {
         position: absolute;
         inset: auto !important;
@@ -8742,7 +8725,7 @@
         right: 0 !important;
         bottom: 0 !important;
         top: auto !important;
-        height: 76%;
+        height: 56%;
         display: flex;
         align-items: flex-end;
         justify-content: center;
@@ -8751,8 +8734,9 @@
       .human-image-stage {
         --portrait-center: 50% !important;
         --fractal-center: 50% !important;
-        width: min(370px, 95vw) !important;
-        max-width: 95vw !important;
+        position: relative;
+        width: min(350px, 94vw) !important;
+        max-width: 94vw !important;
         height: 100% !important;
         margin: 0 auto;
         overflow: hidden;
@@ -8763,39 +8747,47 @@
       .human-figure-image,
       .human-portrait-occluder-image {
         left: 50% !important;
-        bottom: 15% !important;
-        width: 86% !important;
-        max-width: 86% !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: 0 !important;
+        width: 72% !important;
+        max-width: 72% !important;
         height: auto !important;
+        transform: translateX(-50%) !important;
+        animation: none !important;
         object-fit: contain;
         object-position: center bottom;
+        z-index: 5 !important;
       }
       .human-portrait-occluder-image {
         filter: brightness(0) saturate(0) blur(.7px) !important;
       }
-      /* fractal principal: único, centrado no mesmo eixo da mulher e girando */
+
+      /* fractal único: atrás da mulher, no mesmo eixo, girando */
       .human-fractal-image {
         left: 50% !important;
-        top: 50% !important;
+        top: 46% !important;
+        right: auto !important;
         bottom: auto !important;
-        width: 80% !important;
-        max-width: 80% !important;
-        opacity: .34 !important;
+        width: 86% !important;
+        max-width: 86% !important;
+        height: auto !important;
+        opacity: .3 !important;
         z-index: 1 !important;
-        transform: translate3d(-50%, -50%, 0);
-        transform-origin: 50% 50%;
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+        transform-origin: center;
         filter: saturate(1) brightness(.82) blur(.15px) !important;
         -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, rgba(0,0,0,.4) 72%, transparent 88%);
         mask-image: radial-gradient(circle at 50% 50%, #000 52%, rgba(0,0,0,.4) 72%, transparent 88%);
-        animation: fractalRotateMobile 34s linear infinite !important;
+        animation: fractalRotateMobile 38s linear infinite !important;
       }
 
-      /* uma única leitura de fractal: nenhuma coroa/halo concorrente */
-      .human-halo,
+      /* sem segundo fractal: halos e camadas concorrentes desligados */
+      .human-halo { opacity: .05 !important; }
+      .human-halo-pulse,
       .halo-outer,
       .halo-mid,
       .halo-inner,
-      .human-halo-pulse,
       .human-portrait-aura,
       .human-scan-overlay { display: none !important; }
       .human-starfield .star { opacity: .42; }
@@ -8805,14 +8797,8 @@
       .human-starfield .s7,
       .human-starfield .s8 { display: none; }
 
-      /* conectores discretos */
-      .hero-holo-overlay { opacity: .58; }
-      .hero-connector { opacity: .4; stroke-width: 1.1; }
-      /* conector "Sinal humano" removido no mobile (sem pontas soltas) */
-      #hero-line-signal,
-      #hero-origin-signal,
-      #hero-target-signal,
-      #hero-pulse-signal { display: none !important; }
+      /* sem conectores no mobile */
+      .hero-holo-overlay { display: none !important; }
 
       /* terminal com área segura para o botão flutuante */
       .fusion-terminal {
@@ -8823,18 +8809,20 @@
       }
     }
 
-    @keyframes fractalRotateMobile {
-      from { transform: translate3d(-50%, -50%, 0) rotate(0deg); }
-      to { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
+    /* telas baixas: reduz altura sem deformar */
+    @media (max-width: 720px) and (max-height: 700px) {
+      .fusion-canvas { min-height: clamp(600px, 150vw, 680px); }
+      .presence-chip-rail { top: clamp(240px, 62vw, 288px); }
+      .human-field { height: 54%; }
+      .human-figure-image,
+      .human-portrait-occluder-image { width: 68% !important; max-width: 68% !important; }
     }
 
     @media (max-width: 720px) and (prefers-reduced-motion: reduce) {
       .human-fractal-image,
       .human-figure-image,
       .human-portrait-occluder-image,
-      .human-starfield .star,
-      .human-scan-overlay::before,
-      .human-scan-overlay::after { animation: none !important; }
+      .human-starfield .star { animation: none !important; }
     }
 
 </style>
