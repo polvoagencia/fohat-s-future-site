@@ -10627,7 +10627,14 @@
           '--mobile-progress': 1, '--mobile-nucleus': 1,
           '--mobile-front-one': 1, '--mobile-front-two': 1,
           '--mobile-architecture': 1, '--mobile-finale': 1,
-          '--mobile-front-one-shift': 0, '--mobile-front-two-shift': 0
+          '--mobile-front-one-shift': 0, '--mobile-front-two-shift': 0,
+          '--mobile-nucleus-scale': 1,
+          '--mobile-nucleus-vis': 'visible',
+          '--mobile-front-one-vis': 'visible',
+          '--mobile-front-two-vis': 'visible',
+          '--mobile-finale-vis': 'visible',
+          '--mobile-front-one-pe': 'auto',
+          '--mobile-front-two-pe': 'auto'
         });
         stage.dataset.phase = isMobile ? 'static' : 'finale';
         stage.dataset.mobile = isMobile ? 'static' : 'off';
@@ -10641,44 +10648,53 @@
         const total = Math.max(1, rect.height - stickyHeight);
         const p = clamp((stickyTop - rect.top) / total);
 
-        const shrink = smooth((p - .16) / .12);
-        const nucleus = 1 - smooth((p - .70) / .11);
+        // 0–.22 núcleo · .22–.30 saída · .30–.52 card 1 · .52–.60 troca
+        // .60–.82 card 2 · .82–.90 saída · .90–1 conclusão
+        const nucleusOut = smooth((p - .22) / .07);
+        const nucleus = 1 - nucleusOut;
 
-        const oneIn = smooth((p - .20) / .08);
-        const oneOut = smooth((p - .42) / .07);
-        const twoIn = smooth((p - .44) / .08);
-        const twoOut = smooth((p - .67) / .06);
+        const oneIn = smooth((p - .24) / .06);
+        const oneOut = smooth((p - .52) / .06);
+        const twoIn = smooth((p - .54) / .06);
+        const twoOut = smooth((p - .82) / .06);
+        const finaleIn = smooth((p - .84) / .06);
 
         const frontOne = oneIn * (1 - oneOut);
         const frontTwo = twoIn * (1 - twoOut);
-        const architecture = smooth((p - .67) / .11) * (1 - smooth((p - .90) / .10));
-        const finale = smooth((p - .84) / .11);
+        const architecture = smooth((p - .78) / .10);
+        const finale = finaleIn;
+        const vis = v => (v > .01 ? 'visible' : 'hidden');
 
         setVars({
           '--mobile-progress': p,
           '--mobile-nucleus': nucleus,
+          '--mobile-nucleus-scale': 1 + nucleusOut * .22,
+          '--mobile-nucleus-vis': vis(nucleus),
           '--mobile-front-one': frontOne,
           '--mobile-front-two': frontTwo,
-          '--mobile-front-one-shift': (1 - oneIn) * 54 - oneOut * 46,
-          '--mobile-front-two-shift': (1 - twoIn) * 54 - twoOut * 46,
+          '--mobile-front-one-vis': vis(frontOne),
+          '--mobile-front-two-vis': vis(frontTwo),
+          '--mobile-front-one-pe': frontOne > .85 ? 'auto' : 'none',
+          '--mobile-front-two-pe': frontTwo > .85 ? 'auto' : 'none',
+          '--mobile-front-one-shift': (1 - oneIn) * 64 - oneOut * 56,
+          '--mobile-front-two-shift': (1 - twoIn) * 64 - twoOut * 56,
           '--mobile-architecture': architecture,
           '--mobile-finale': finale,
+          '--mobile-finale-vis': vis(finale),
           // variáveis herdadas reaproveitadas pelo desenho existente
           '--raw': p, '--intro': 1, '--emit': 1, '--expand': 1, '--seed': 0,
-          '--content': 1, '--shrink': shrink,
+          '--content': 1, '--shrink': 0,
           '--field': architecture, '--payoff': finale, '--grand': finale
         });
 
         stage.dataset.mobile = 'on';
-        stage.dataset.phase = p < .20
+        stage.dataset.phase = p < .26
           ? 'nucleus'
-          : p < .42
+          : p < .54
             ? 'fronts'
-            : p < .67
+            : p < .84
               ? 'cards'
-              : p < .84
-                ? 'architecture'
-                : 'finale';
+              : 'finale';
       }
 
       function renderCoreV9() {
