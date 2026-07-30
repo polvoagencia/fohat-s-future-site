@@ -10650,20 +10650,20 @@
 
         // 0–.22 núcleo · .22–.30 saída · .30–.52 card 1 · .52–.60 troca
         // .60–.82 card 2 · .82–.90 saída · .90–1 conclusão
-        const nucleusOut = smooth((p - .22) / .07);
+        const nucleusOut = smooth((p - .22) / .06);
         const nucleus = 1 - nucleusOut;
 
-        const oneIn = smooth((p - .24) / .06);
-        const oneOut = smooth((p - .52) / .06);
-        const twoIn = smooth((p - .54) / .06);
-        const twoOut = smooth((p - .82) / .06);
-        const finaleIn = smooth((p - .84) / .06);
+        const oneIn = smooth((p - .285) / .055);
+        const oneOut = smooth((p - .52) / .05);
+        const twoIn = smooth((p - .575) / .055);
+        const twoOut = smooth((p - .82) / .05);
+        const finaleIn = smooth((p - .875) / .055);
 
         const frontOne = oneIn * (1 - oneOut);
         const frontTwo = twoIn * (1 - twoOut);
         const architecture = smooth((p - .78) / .10);
         const finale = finaleIn;
-        const vis = v => (v > .01 ? 'visible' : 'hidden');
+        const vis = v => (v > .02 ? 'visible' : 'hidden');
 
         setVars({
           '--mobile-progress': p,
