@@ -4838,7 +4838,7 @@
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: minmax(0, .82fr) minmax(520px, 1.18fr);
+      grid-template-columns: minmax(0, .68fr) minmax(560px, 1.42fr);
       grid-template-areas:
         "intro visual"
         "body  visual";
@@ -4915,7 +4915,7 @@
     }
     .global-globe-frame {
       position: relative;
-      width: min(740px, 100%);
+      width: min(920px, 100%);
       aspect-ratio: 1;
       margin-left: auto;
       overflow: hidden;
@@ -5358,7 +5358,7 @@
       }
 
       .global-reach-layout {
-        grid-template-columns: minmax(0, 1.02fr) minmax(420px, .9fr) !important;
+        grid-template-columns: minmax(0, .84fr) minmax(500px, 1.16fr) !important;
         gap: clamp(34px, 4vw, 58px) !important;
         align-items: center;
       }
@@ -5380,8 +5380,8 @@
       }
 
       .global-globe-frame {
-        width: min(46vw, 560px) !important;
-        max-width: 560px;
+        width: min(58vw, 760px) !important;
+        max-width: 760px;
         margin-left: 0 !important;
         justify-self: end;
       }
@@ -5399,13 +5399,13 @@
       }
 
       .global-reach-layout {
-        grid-template-columns: minmax(0, 1fr) minmax(390px, .88fr) !important;
+        grid-template-columns: minmax(0, .86fr) minmax(460px, 1.14fr) !important;
         gap: clamp(28px, 3vw, 44px) !important;
       }
 
       .global-globe-frame {
-        width: min(43vw, 520px) !important;
-        max-width: 520px;
+        width: min(54vw, 680px) !important;
+        max-width: 680px;
       }
     }
 
@@ -5419,8 +5419,8 @@
       }
 
       .global-globe-frame {
-        width: min(48vh, 500px) !important;
-        max-width: 500px;
+        width: min(62vh, 640px) !important;
+        max-width: 640px;
       }
     }
 
@@ -5504,9 +5504,6 @@
       width: max-content;
       animation: client-logos-scroll 36s linear infinite;
       will-change: transform;
-    }
-    .client-logos-marquee:hover .client-logos-track {
-      animation-play-state: paused;
     }
     .client-logos-group {
       display: flex;
@@ -5639,21 +5636,10 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .client-logos-track {
-        animation: none;
-        transform: none;
-      }
-      .client-logos-marquee {
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-      .client-logos-marquee::-webkit-scrollbar {
-        display: none;
-      }
-      .client-logos-group[aria-hidden="true"] {
-        display: none;
-      }
+    .client-logos-track,
+    .client-logos-marquee:hover .client-logos-track,
+    .client-logos-marquee:active .client-logos-track {
+      animation-play-state: running !important;
     }
 
 
@@ -8871,7 +8857,7 @@
             <a class="header-cta js-open-modal" href="#contato">Iniciar projeto <span class="arrow">↗</span></a>
             <a
               class="header-cta header-cta-whatsapp"
-              href="https://wa.me/5500000000000?text=Olá%2C%20quero%20falar%20com%20a%20FOHAT."
+              href="https://wa.me/5561996318953?text=Olá%2C%20quero%20falar%20com%20a%20FOHAT."
               target="_blank"
               rel="noopener noreferrer"
             >WhatsApp <span class="arrow">↗</span></a>
@@ -9719,7 +9705,7 @@
 
   <a
     class="whatsapp-float"
-    href="https://wa.me/5500000000000?text=Olá%2C%20quero%20falar%20com%20a%20FOHAT."
+    href="https://wa.me/5561996318953?text=Olá%2C%20quero%20falar%20com%20a%20FOHAT."
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Entrar em contato com a FOHAT pelo WhatsApp"
@@ -10001,7 +9987,7 @@
                 <button class="button button-dark modal-close-success" type="button">Fechar experiência</button>
                 <a
                   class="button button-secondary"
-                  href="https://wa.me/5500000000000?text=Olá%2C%20acabei%20de%20enviar%20o%20briefing%20no%20site%20da%20FOHAT."
+                  href="https://wa.me/5561996318953?text=Olá%2C%20acabei%20de%20enviar%20o%20briefing%20no%20site%20da%20FOHAT."
                   target="_blank"
                   rel="noopener noreferrer"
                 >Seguir para WhatsApp</a>
