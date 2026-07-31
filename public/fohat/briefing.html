@@ -717,6 +717,21 @@
         render(true);
       }
 
+      /* ---------- tela inicial ---------- */
+      const intro = document.querySelector('#briefingIntro');
+      const grid = document.querySelector('#briefingGrid');
+      const btnStart = document.querySelector('#btnStart');
+      let started = false;
+      function startQuiz() {
+        if (started) return;
+        started = true;
+        intro.style.display = 'none';
+        grid.hidden = false;
+        render(true);
+        window.scrollTo({ top: 0 });
+      }
+      btnStart.addEventListener('click', startQuiz);
+
       btnNext.addEventListener('click', goNext);
       btnSkip.addEventListener('click', () => {
         if (index < total - 1) { index += 1; render(true); }
