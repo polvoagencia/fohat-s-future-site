@@ -80,6 +80,7 @@
       gap: clamp(24px, 4vw, 64px);
       align-items: start;
     }
+    .briefing-grid > * { min-width: 0; }
 
     .briefing-aside {
       position: sticky;
@@ -296,7 +297,8 @@
     @media (max-width: 980px) {
       .briefing-grid { grid-template-columns: 1fr; }
       .briefing-aside { position: static; padding: 22px; }
-      .step-list { display: flex; overflow-x: auto; gap: 8px; scrollbar-width: none; }
+      .briefing-aside { overflow: hidden; }
+      .step-list { display: flex; flex-wrap: nowrap; width: 100%; max-width: 100%; overflow-x: auto; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
       .step-list::-webkit-scrollbar { display: none; }
       .step-list-item { flex: 0 0 auto; }
       .step-list-item div strong { white-space: nowrap; }
