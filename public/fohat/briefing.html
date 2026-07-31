@@ -619,8 +619,12 @@
           const field = step.querySelector('input:not([type=radio]), textarea');
           if (field) field.focus({ preventScroll: true });
         }
-        if (window.innerWidth <= 980) {
-          stepItems[index]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        const chip = stepItems[index];
+        if (window.innerWidth <= 980 && chip) {
+          stepList.scrollTo({
+            left: chip.offsetLeft - (stepList.clientWidth - chip.offsetWidth) / 2,
+            behavior: 'smooth'
+          });
         }
       }
 
@@ -717,7 +721,7 @@
           fill.style.width = '100%';
           caption.textContent = 'Briefing enviado';
           success.classList.add('is-visible');
-          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       });
 
