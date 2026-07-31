@@ -10235,9 +10235,8 @@
 
     function openModal(event) {
       if (event) event.preventDefault();
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      resetWizard();
+      try { localStorage.removeItem('fohatOpenBriefing'); } catch {}
+      (window.top || window).location.href = '/briefing';
     }
 
     function closeModal() {
