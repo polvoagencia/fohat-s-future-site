@@ -560,7 +560,7 @@
       const total = steps.length;
       const btnBack = document.querySelector('#btnBack');
       const btnNext = document.querySelector('#btnNext');
-      const btnSkip = document.querySelector('#btnSkip');
+
       const btnSubmit = document.querySelector('#btnSubmit');
       const nav = document.querySelector('#quizNav');
       const errorBox = document.querySelector('#quizError');
@@ -678,9 +678,8 @@
         caption.textContent = step.dataset.caption;
         fill.style.width = ((index + 1) / total * 100).toFixed(1) + '%';
         btnBack.disabled = index === 0;
-        btnSkip.hidden = !step.hasAttribute('data-skippable');
         const last = index === total - 1;
-        btnNext.hidden = last;
+        btnNext.hidden = last || step.hasAttribute('data-autoadvance');
         btnSubmit.hidden = !last;
         errorBox.classList.remove('is-visible');
         if (last) updateSummary();
@@ -734,9 +733,6 @@
       btnStart.addEventListener('click', startQuiz);
 
       btnNext.addEventListener('click', goNext);
-      btnSkip.addEventListener('click', () => {
-        if (index < total - 1) { index += 1; render(true); }
-      });
       btnBack.addEventListener('click', () => {
         if (index > 0) { index -= 1; render(true); }
       });
