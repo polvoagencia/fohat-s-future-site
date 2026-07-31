@@ -284,7 +284,9 @@
     .btn-primary { background: linear-gradient(120deg, var(--blue), var(--cyan)); color: #04101d; }
     .btn-ghost { border-color: rgba(151,194,235,.24); background: transparent; color: rgba(234,241,251,.8); }
     .btn-ghost:disabled { opacity: .35; cursor: not-allowed; transform: none; }
-    .btn-skip { background: none; border: 0; color: rgba(234,241,251,.45); font-size: 13px; text-decoration: underline; }
+    .btn-back { background: none; border: 0; padding: 8px 4px; color: rgba(234,241,251,.42); font-size: 13px; font-weight: 500; }
+    .btn-back:hover { color: rgba(234,241,251,.75); transform: none; }
+    .btn-back:disabled { opacity: .25; cursor: not-allowed; transform: none; }
     .nav-spacer { flex: 1; }
     .nav-tip { color: rgba(234,241,251,.35); font-size: 12px; }
 
@@ -530,8 +532,7 @@
           <p class="quiz-error" id="quizError">Preencha os campos obrigatórios para seguir.</p>
 
           <div class="quiz-nav" id="quizNav">
-            <button class="btn btn-ghost" type="button" id="btnBack" disabled>Voltar</button>
-            <button class="btn btn-skip" type="button" id="btnSkip" hidden>Pular etapa</button>
+            <button class="btn btn-back" type="button" id="btnBack" disabled>← Voltar</button>
             <span class="nav-spacer"></span>
             <span class="nav-tip">Pressione Enter para avançar</span>
             <button class="btn btn-primary" type="button" id="btnNext">Próximo passo ↗</button>
@@ -559,7 +560,7 @@
       const total = steps.length;
       const btnBack = document.querySelector('#btnBack');
       const btnNext = document.querySelector('#btnNext');
-      const btnSkip = document.querySelector('#btnSkip');
+
       const btnSubmit = document.querySelector('#btnSubmit');
       const nav = document.querySelector('#quizNav');
       const errorBox = document.querySelector('#quizError');
@@ -677,9 +678,8 @@
         caption.textContent = step.dataset.caption;
         fill.style.width = ((index + 1) / total * 100).toFixed(1) + '%';
         btnBack.disabled = index === 0;
-        btnSkip.hidden = !step.hasAttribute('data-skippable');
         const last = index === total - 1;
-        btnNext.hidden = last;
+        btnNext.hidden = last || step.hasAttribute('data-autoadvance');
         btnSubmit.hidden = !last;
         errorBox.classList.remove('is-visible');
         if (last) updateSummary();
@@ -733,9 +733,6 @@
       btnStart.addEventListener('click', startQuiz);
 
       btnNext.addEventListener('click', goNext);
-      btnSkip.addEventListener('click', () => {
-        if (index < total - 1) { index += 1; render(true); }
-      });
       btnBack.addEventListener('click', () => {
         if (index > 0) { index -= 1; render(true); }
       });
