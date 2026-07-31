@@ -5085,6 +5085,11 @@
       }
       .global-reach-layout {
         grid-template-columns: 1fr;
+        grid-template-areas:
+          "intro"
+          "visual"
+          "body";
+        gap: 28px;
       }
       .global-reach-copy {
         max-width: 760px;
@@ -5095,7 +5100,10 @@
       }
       .global-globe-frame {
         width: min(700px, 100%);
-        margin: 22px auto 0;
+        margin: 0 auto;
+      }
+      .global-reach-capabilities {
+        margin-top: 0;
       }
       .global-reach-orbit {
         right: -34vw;
