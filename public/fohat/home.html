@@ -4839,9 +4839,16 @@
       z-index: 2;
       display: grid;
       grid-template-columns: minmax(0, .82fr) minmax(520px, 1.18fr);
+      grid-template-areas:
+        "intro visual"
+        "body  visual";
       gap: clamp(54px, 7vw, 112px);
+      row-gap: 0;
       align-items: center;
     }
+    .global-reach-intro { grid-area: intro; }
+    .global-reach-visual { grid-area: visual; }
+    .global-reach-body { grid-area: body; }
     .global-reach-copy {
       max-width: 650px;
     }
@@ -5078,6 +5085,11 @@
       }
       .global-reach-layout {
         grid-template-columns: 1fr;
+        grid-template-areas:
+          "intro"
+          "visual"
+          "body";
+        gap: 28px;
       }
       .global-reach-copy {
         max-width: 760px;
@@ -5088,7 +5100,10 @@
       }
       .global-globe-frame {
         width: min(700px, 100%);
-        margin: 22px auto 0;
+        margin: 0 auto;
+      }
+      .global-reach-capabilities {
+        margin-top: 0;
       }
       .global-reach-orbit {
         right: -34vw;
@@ -5240,7 +5255,11 @@
       }
       .global-reach-layout {
         grid-template-columns: 1fr;
-        gap: 42px;
+        grid-template-areas:
+          "intro"
+          "visual"
+          "body";
+        gap: 28px;
       }
       .global-reach-copy h2 {
         max-width: 680px;
@@ -9221,7 +9240,7 @@
       <div class="global-reach-orbit orbit-b" aria-hidden="true"></div>
 
       <div class="shell global-reach-layout">
-        <div class="global-reach-copy reveal">
+        <div class="global-reach-copy global-reach-intro reveal">
           <span class="section-kicker mono">Atuação global</span>
           <h2>A tecnologia viaja. A experiência acontece onde o público está.</h2>
           <p>
@@ -9229,7 +9248,26 @@
             a diferentes cidades, países e formatos, com planejamento centralizado e execução adaptada
             a cada território.
           </p>
+        </div>
 
+        <div class="global-reach-visual reveal" aria-label="Globo interativo representando a atuação global da FOHAT">
+          <div class="global-globe-frame">
+            <canvas id="fohatGlobalGlobe" class="global-globe-canvas"></canvas>
+
+            <div class="global-globe-fallback" aria-hidden="true">
+              <div class="fallback-ring ring-one"></div>
+              <div class="fallback-ring ring-two"></div>
+              <div class="fallback-core"></div>
+            </div>
+
+            <div class="global-globe-caption mono">
+              <span><i></i> Arraste para explorar</span>
+              <span>Operação global · escala sob demanda</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="global-reach-copy global-reach-body reveal">
           <div class="global-reach-capabilities">
             <article>
               <span class="mono">01</span>
@@ -9253,22 +9291,6 @@
           </a>
         </div>
 
-        <div class="global-reach-visual reveal" aria-label="Globo interativo representando a atuação global da FOHAT">
-          <div class="global-globe-frame">
-            <canvas id="fohatGlobalGlobe" class="global-globe-canvas"></canvas>
-
-            <div class="global-globe-fallback" aria-hidden="true">
-              <div class="fallback-ring ring-one"></div>
-              <div class="fallback-ring ring-two"></div>
-              <div class="fallback-core"></div>
-            </div>
-
-            <div class="global-globe-caption mono">
-              <span><i></i> Arraste para explorar</span>
-              <span>Operação global · escala sob demanda</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
