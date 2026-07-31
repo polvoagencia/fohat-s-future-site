@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <title>Briefing FOHAT</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/asset-71ebbd977666e2a3.svg">
+  <style>
+    :root {
+      --ink: #07111f;
+      --ink-2: #0b1a2c;
+      --ink-3: #10243b;
+      --white: #ffffff;
+      --blue: #5d8dff;
+      --cyan: #9ee7ff;
+      --lime: #d7ff8f;
+      --ease: cubic-bezier(.16,1,.3,1);
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100dvh;
+      color: #eaf1fb;
+      background:
+        radial-gradient(1100px 620px at 82% -8%, rgba(93,141,255,.20), transparent 62%),
+        radial-gradient(900px 520px at 5% 108%, rgba(158,231,255,.12), transparent 60%),
+        var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Inter, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    .mono {
+      font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .briefing-shell {
+      width: min(1180px, calc(100% - 36px));
+      margin-inline: auto;
+      padding: 26px 0 64px;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    .briefing-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 22px;
+    }
+    .briefing-brand { display: flex; align-items: center; gap: 12px; }
+    .briefing-brand strong { letter-spacing: .28em; font-size: 13px; }
+    .briefing-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1px solid rgba(151,194,235,.24);
+      border-radius: 999px;
+      font-size: 13px;
+      color: rgba(234,241,251,.82);
+      transition: background .25s var(--ease), border-color .25s var(--ease);
+    }
+    .briefing-back:hover { background: rgba(151,194,235,.1); border-color: rgba(151,194,235,.45); }
+
+    .briefing-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr);
+      gap: clamp(24px, 4vw, 64px);
+      align-items: start;
+    }
+    .briefing-grid > * { min-width: 0; }
+
+    .briefing-aside {
+      position: sticky;
+      top: 26px;
+      padding: 30px;
+      border: 1px solid rgba(151,194,235,.14);
+      border-radius: 30px;
+      background: rgba(11,26,44,.62);
+      backdrop-filter: blur(14px);
+    }
+    .briefing-aside h1 {
+      margin: 14px 0 12px;
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+    }
+    .briefing-aside p { margin: 0; color: rgba(234,241,251,.6); font-size: 14px; line-height: 1.65; }
+    .aside-kicker { color: var(--cyan); }
+
+    .step-list { margin-top: 26px; display: grid; gap: 6px; }
+    .step-list-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 9px 12px;
+      border-radius: 14px;
+      color: rgba(234,241,251,.42);
+      font-size: 13px;
+      transition: background .3s var(--ease), color .3s var(--ease);
+    }
+    .step-list-item span.idx {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 10px;
+      letter-spacing: .12em;
+      width: 22px;
+      color: rgba(234,241,251,.35);
+    }
+    .step-list-item.is-active { background: rgba(93,141,255,.14); color: #fff; }
+    .step-list-item.is-done { color: rgba(215,255,143,.82); }
+    .step-list-item.is-done span.idx { color: rgba(215,255,143,.6); }
+
+    .catalog-box {
+      margin-top: 24px;
+      padding: 16px;
+      border: 1px dashed rgba(151,194,235,.26);
+      border-radius: 18px;
+      background: rgba(7,17,31,.45);
+    }
+    .catalog-box strong { display: block; font-size: 13px; margin-bottom: 10px; }
+    .catalog-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 0;
+      border-top: 1px solid rgba(151,194,235,.1);
+      font-size: 13px;
+      color: rgba(234,241,251,.78);
+    }
+    .catalog-row:first-of-type { border-top: 0; }
+    .catalog-qty { display: inline-flex; align-items: center; gap: 8px; }
+    .catalog-qty button {
+      width: 26px; height: 26px;
+      border-radius: 8px;
+      border: 1px solid rgba(151,194,235,.26);
+      background: transparent;
+      line-height: 1;
+    }
+    .catalog-qty button:hover { background: rgba(151,194,235,.14); }
+
+    .briefing-stage {
+      padding: clamp(22px, 3vw, 38px);
+      border: 1px solid rgba(151,194,235,.16);
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(16,36,59,.86), rgba(7,17,31,.9));
+      box-shadow: 0 44px 120px rgba(0,0,0,.34);
+      min-height: min(620px, 74dvh);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .progress-head { margin-bottom: 26px; }
+    .progress-track {
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(151,194,235,.14);
+      overflow: hidden;
+    }
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 12%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      transition: width .5s var(--ease);
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 12px;
+      color: rgba(234,241,251,.55);
+    }
+
+    .quiz-step { display: none; animation: stepIn .45s var(--ease); }
+    .quiz-step.is-active { display: block; }
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+    .quiz-step h2 {
+      margin: 0 0 10px;
+      font-size: clamp(23px, 3.1vw, 32px);
+      line-height: 1.16;
+      letter-spacing: -.02em;
+    }
+    .quiz-step > p.hint { margin: 0 0 22px; color: rgba(234,241,251,.55); font-size: 14px; line-height: 1.6; }
+
+    .field-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    label.field { display: block; font-size: 12px; letter-spacing: .04em; color: rgba(234,241,251,.6); }
+    label.field input,
+    label.field textarea {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(151,194,235,.2);
+      background: rgba(7,17,31,.6);
+      outline: none;
+      transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+    }
+    label.field textarea { min-height: 128px; resize: vertical; }
+    label.field input:focus,
+    label.field textarea:focus {
+      border-color: rgba(158,231,255,.6);
+      box-shadow: 0 0 0 4px rgba(93,141,255,.16);
+    }
+    label.field input::placeholder,
+    label.field textarea::placeholder { color: rgba(234,241,251,.3); }
+
+    .choice-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .choice {
+      position: relative;
+      display: block;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(151,194,235,.18);
+      background: rgba(7,17,31,.5);
+      cursor: pointer;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+    }
+    .choice:hover { transform: translateY(-2px); border-color: rgba(158,231,255,.42); }
+    .choice input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice strong { display: block; font-size: 16px; margin-bottom: 6px; }
+    .choice small { color: rgba(234,241,251,.55); font-size: 12.5px; line-height: 1.5; }
+    .choice:has(input:checked) {
+      border-color: rgba(158,231,255,.75);
+      background: rgba(93,141,255,.16);
+      box-shadow: 0 0 0 3px rgba(93,141,255,.16);
+    }
+
+    .summary-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 20px; }
+    .summary-card {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(151,194,235,.14);
+      background: rgba(7,17,31,.5);
+    }
+    .summary-card span { display: block; color: rgba(158,231,255,.7); margin-bottom: 7px; }
+    .summary-card strong { display: block; font-size: 14px; }
+    .summary-card small { display: block; color: rgba(234,241,251,.5); font-size: 12px; margin-top: 4px; }
+
+    .quiz-error {
+      margin-top: 14px;
+      color: #ffb4b4;
+      font-size: 13px;
+      display: none;
+    }
+    .quiz-error.is-visible { display: block; }
+
+    .quiz-nav {
+      margin-top: auto;
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease), opacity .2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: linear-gradient(120deg, var(--blue), var(--cyan)); color: #04101d; }
+    .btn-ghost { border-color: rgba(151,194,235,.24); background: transparent; color: rgba(234,241,251,.8); }
+    .btn-ghost:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+    .btn-skip { background: none; border: 0; color: rgba(234,241,251,.45); font-size: 13px; text-decoration: underline; }
+    .nav-spacer { flex: 1; }
+    .nav-tip { color: rgba(234,241,251,.35); font-size: 12px; }
+
+    .quiz-success { display: none; text-align: left; }
+    .quiz-success.is-visible { display: block; animation: stepIn .5s var(--ease); }
+    .quiz-success h2 { font-size: clamp(26px, 3.2vw, 34px); margin: 12px 0 12px; }
+    .quiz-success p { color: rgba(234,241,251,.6); font-size: 14.5px; line-height: 1.65; }
+    .success-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+
+    @media (max-width: 980px) {
+      .briefing-grid { grid-template-columns: 1fr; }
+      .briefing-aside { position: static; padding: 22px; }
+      .briefing-aside { overflow: hidden; }
+      .step-list { display: flex; flex-wrap: nowrap; width: 100%; max-width: 100%; overflow-x: auto; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+      .step-list::-webkit-scrollbar { display: none; }
+      .step-list-item { flex: 0 0 auto; }
+      .step-list-item div strong { white-space: nowrap; }
+      .step-list-item small { display: none; }
+    }
+    @media (max-width: 720px) {
+      .briefing-shell { width: calc(100% - 24px); padding: 18px 0 40px; }
+      .briefing-aside h1 { font-size: 24px; }
+      .briefing-aside p { font-size: 13.5px; }
+      .briefing-stage { padding: 20px; border-radius: 26px; min-height: auto; }
+      .field-grid, .choice-grid { grid-template-columns: 1fr; }
+      .quiz-nav { position: sticky; bottom: 0; padding: 16px 0 4px; background: linear-gradient(180deg, rgba(7,17,31,0), rgba(7,17,31,.92) 34%); }
+      .btn { flex: 1 1 auto; justify-content: center; }
+      .nav-tip { display: none; }
+      .nav-spacer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="briefing-shell">
+    <div class="briefing-top">
+      <div class="briefing-brand">
+        <strong class="mono">FOHAT</strong>
+        <span class="mono" style="color:rgba(234,241,251,.4)">Briefing</span>
+      </div>
+      <a class="briefing-back" href="/">← Voltar ao site</a>
+    </div>
+
+    <div class="briefing-grid">
+      <aside class="briefing-aside">
+        <span class="mono aside-kicker">Briefing interativo</span>
+        <h1>Vamos transformar sua ideia em operação.</h1>
+        <p>Poucas perguntas, uma de cada vez. No final, a FOHAT já recebe o contexto completo do seu projeto.</p>
+
+        <div class="step-list" id="stepList"></div>
+
+        <div class="catalog-box" id="catalogBox" hidden>
+          <strong><span id="catalogCount">0</span> item(ns) do catálogo na sua seleção</strong>
+          <div id="catalogList"></div>
+        </div>
+      </aside>
+
+      <section class="briefing-stage">
+        <div class="progress-head">
+          <div class="progress-track"><span class="progress-fill" id="progressFill"></span></div>
+          <div class="progress-meta mono">
+            <span>Etapa <span id="stepCurrent">1</span> de <span id="stepTotal">8</span></span>
+            <span id="stepCaption">Contato</span>
+          </div>
+        </div>
+
+        <form id="briefingForm" novalidate>
+          <div class="quiz-step is-active" data-step="1" data-caption="Contato">
+            <h2>Como podemos te chamar?</h2>
+            <p class="hint">Começamos pelo essencial para saber com quem estamos falando.</p>
+            <div class="field-grid">
+              <label class="field">Nome completo
+                <input name="nome" data-required autocomplete="name" placeholder="Seu nome" />
+              </label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="2" data-caption="Empresa" data-skippable>
+            <h2>Você representa alguma empresa ou marca?</h2>
+            <p class="hint">Se for um projeto pessoal ou ainda sem empresa definida, pode pular esta etapa.</p>
+            <div class="field-grid">
+              <label class="field">Empresa / instituição
+                <input name="empresa" autocomplete="organization" placeholder="Nome da empresa" />
+              </label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="3" data-caption="Canais de contato">
+            <h2>Por onde retornamos o contato?</h2>
+            <p class="hint">O WhatsApp costuma acelerar bastante a conversa.</p>
+            <div class="field-grid">
+              <label class="field">E-mail
+                <input type="email" name="email" autocomplete="email" placeholder="voce@empresa.com.br" />
+              </label>
+              <label class="field">Telefone / WhatsApp
+                <input name="telefone" data-required autocomplete="tel" placeholder="(00) 00000-0000" />
+              </label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="4" data-caption="Frente principal" data-autoadvance>
+            <h2>Qual é a natureza da entrega?</h2>
+            <p class="hint">Selecione a frente que mais se aproxima do que precisa acontecer.</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="frente" value="Criação de experiências" data-required />
+                <strong>Criação de experiências</strong>
+                <small>Interação, software, inteligência e operação no mundo real.</small></label>
+              <label class="choice"><input type="radio" name="frente" value="Catálogo de locação" />
+                <strong>Catálogo de locação</strong>
+                <small>Equipamentos, estrutura e operação itinerante para ativação em campo.</small></label>
+              <label class="choice"><input type="radio" name="frente" value="Integração completa" />
+                <strong>Integração completa</strong>
+                <small>Quando desenvolvimento e locação atuam juntos na mesma entrega.</small></label>
+              <label class="choice"><input type="radio" name="frente" value="Ainda não sei" />
+                <strong>Ainda não sei</strong>
+                <small>Quero apresentar o cenário e entender qual caminho faz sentido.</small></label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="5" data-caption="Formato do projeto" data-autoadvance>
+            <h2>E qual é o formato do projeto?</h2>
+            <p class="hint">Escolha o contexto principal da ativação.</p>
+            <div class="choice-grid">
+              <label class="choice"><input type="radio" name="tipo_projeto" value="Evento" data-required />
+                <strong>Evento</strong><small>Ativação, lançamento, convenção ou ação especial.</small></label>
+              <label class="choice"><input type="radio" name="tipo_projeto" value="Feira" />
+                <strong>Feira</strong><small>Exposição, demonstração e circulação contínua.</small></label>
+              <label class="choice"><input type="radio" name="tipo_projeto" value="Congresso" />
+                <strong>Congresso</strong><small>Público técnico, institucional ou corporativo.</small></label>
+              <label class="choice"><input type="radio" name="tipo_projeto" value="Experiência itinerante" />
+                <strong>Experiência itinerante</strong><small>Projetos que operam em várias cidades ou rotas.</small></label>
+              <label class="choice"><input type="radio" name="tipo_projeto" value="Ação de marca" />
+                <strong>Ação de marca</strong><small>Presença de marca com foco em engajamento e memória.</small></label>
+              <label class="choice"><input type="radio" name="tipo_projeto" value="Projeto institucional / governo" />
+                <strong>Institucional / governo</strong><small>Frentes públicas, educativas ou institucionais.</small></label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="6" data-caption="Onde e quando">
+            <h2>Onde e quando isso precisa acontecer?</h2>
+            <p class="hint">Local e prazo ajudam a dimensionar equipe, logística e estrutura.</p>
+            <div class="field-grid">
+              <label class="field">Cidade / local
+                <input name="local" data-required placeholder="Ex.: São Paulo Expo / Brasília / roadshow nacional" />
+              </label>
+              <label class="field">Prazo ou data do projeto
+                <input name="prazo" data-required placeholder="Ex.: Outubro / 20 dias / em definição" />
+              </label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="7" data-caption="Escala" data-skippable>
+            <h2>Qual é a escala esperada?</h2>
+            <p class="hint">Se ainda não souber, pode pular — refinamos isso na conversa.</p>
+            <div class="field-grid">
+              <label class="field">Público estimado
+                <input name="publico" placeholder="Ex.: 500 pessoas / fluxo contínuo / interno" />
+              </label>
+              <label class="field">Marca ou instituição envolvida
+                <input name="marca" placeholder="Ex.: cliente final, órgão, patrocinador" />
+              </label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="8" data-caption="Briefing final">
+            <h2>Conte o que precisa funcionar.</h2>
+            <p class="hint">Descreva o projeto com suas palavras. Abaixo, o resumo do que será enviado.</p>
+            <label class="field">Descreva o projeto
+              <textarea name="projeto" placeholder="O que precisa acontecer, onde, para qual público e em qual prazo?"></textarea>
+            </label>
+            <div class="summary-grid">
+              <div class="summary-card"><span class="mono">Contato</span><strong data-summary="nome">—</strong><small data-summary="empresa">—</small></div>
+              <div class="summary-card"><span class="mono">Frente</span><strong data-summary="frente">—</strong><small data-summary="tipo_projeto">—</small></div>
+              <div class="summary-card"><span class="mono">Operação</span><strong data-summary="local">—</strong><small data-summary="prazo">—</small></div>
+            </div>
+          </div>
+
+          <p class="quiz-error" id="quizError">Preencha os campos obrigatórios para seguir.</p>
+
+          <div class="quiz-nav" id="quizNav">
+            <button class="btn btn-ghost" type="button" id="btnBack" disabled>Voltar</button>
+            <button class="btn btn-skip" type="button" id="btnSkip" hidden>Pular etapa</button>
+            <span class="nav-spacer"></span>
+            <span class="nav-tip">Pressione Enter para avançar</span>
+            <button class="btn btn-primary" type="button" id="btnNext">Próximo passo ↗</button>
+            <button class="btn btn-primary" type="submit" id="btnSubmit" hidden>Enviar briefing ↗</button>
+          </div>
+        </form>
+
+        <div class="quiz-success" id="quizSuccess" role="status">
+          <span class="mono aside-kicker">Briefing registrado</span>
+          <h2>Recebemos seu briefing.</h2>
+          <p>Nossa equipe vai analisar o contexto e retornar com o próximo passo. Se quiser adiantar, fale com a gente agora mesmo no WhatsApp.</p>
+          <div class="success-actions">
+            <a class="btn btn-primary" href="https://wa.me/5561996318953?text=Olá%2C%20acabei%20de%20enviar%20o%20briefing%20no%20site%20da%20FOHAT." target="_blank" rel="noopener noreferrer">Seguir para WhatsApp</a>
+            <a class="btn btn-ghost" href="/">Voltar ao site</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const form = document.querySelector('#briefingForm');
+      const steps = [...form.querySelectorAll('.quiz-step')];
+      const total = steps.length;
+      const btnBack = document.querySelector('#btnBack');
+      const btnNext = document.querySelector('#btnNext');
+      const btnSkip = document.querySelector('#btnSkip');
+      const btnSubmit = document.querySelector('#btnSubmit');
+      const nav = document.querySelector('#quizNav');
+      const errorBox = document.querySelector('#quizError');
+      const fill = document.querySelector('#progressFill');
+      const current = document.querySelector('#stepCurrent');
+      const caption = document.querySelector('#stepCaption');
+      const stepList = document.querySelector('#stepList');
+      const success = document.querySelector('#quizSuccess');
+      document.querySelector('#stepTotal').textContent = String(total);
+
+      let index = 0;
+
+      steps.forEach((step, i) => {
+        const item = document.createElement('div');
+        item.className = 'step-list-item';
+        item.dataset.step = String(i);
+        item.innerHTML = '<span class="idx">' + String(i + 1).padStart(2, '0') + '</span><div><strong>' + step.dataset.caption + '</strong></div>';
+        stepList.appendChild(item);
+      });
+      const stepItems = [...stepList.children];
+
+      /* ---------- seleção do catálogo ---------- */
+      const storageKey = 'fohatCatalogSelection';
+      const catalogBox = document.querySelector('#catalogBox');
+      const catalogList = document.querySelector('#catalogList');
+      const catalogCount = document.querySelector('#catalogCount');
+
+      function readSelection() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+          if (!Array.isArray(saved)) return new Map();
+          return new Map(saved.map(item => {
+            if (typeof item === 'string') return [item, 1];
+            const qty = Number(item && item.qty) || 1;
+            return [String(item && item.name), Math.max(1, Math.round(qty))];
+          }).filter(([name]) => name && name !== 'undefined'));
+        } catch { return new Map(); }
+      }
+
+      const selection = readSelection();
+
+      function persist() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify([...selection].map(([name, qty]) => ({ name, qty }))));
+        } catch {}
+      }
+
+      function renderSelection() {
+        const entries = [...selection.entries()];
+        catalogBox.hidden = entries.length === 0;
+        let sum = 0;
+        entries.forEach(([, qty]) => { sum += qty; });
+        catalogCount.textContent = String(sum);
+        catalogList.innerHTML = '';
+        entries.forEach(([name, qty]) => {
+          const row = document.createElement('div');
+          row.className = 'catalog-row';
+          const label = document.createElement('span');
+          label.textContent = name;
+          const ctrl = document.createElement('span');
+          ctrl.className = 'catalog-qty';
+          const minus = document.createElement('button');
+          minus.type = 'button';
+          minus.textContent = '−';
+          minus.setAttribute('aria-label', 'Diminuir quantidade de ' + name);
+          const value = document.createElement('span');
+          value.textContent = String(qty);
+          const plus = document.createElement('button');
+          plus.type = 'button';
+          plus.textContent = '+';
+          plus.setAttribute('aria-label', 'Aumentar quantidade de ' + name);
+          minus.addEventListener('click', () => setQty(name, qty - 1));
+          plus.addEventListener('click', () => setQty(name, qty + 1));
+          ctrl.append(minus, value, plus);
+          row.append(label, ctrl);
+          catalogList.appendChild(row);
+        });
+      }
+
+      function setQty(name, qty) {
+        if (qty <= 0) selection.delete(name);
+        else selection.set(name, qty);
+        persist();
+        renderSelection();
+      }
+
+      renderSelection();
+
+      /* ---------- navegação ---------- */
+      function currentStep() { return steps[index]; }
+
+      function updateSummary() {
+        const get = (name) => (form.elements[name]?.value || '').trim();
+        const map = {
+          nome: get('nome') || 'Ainda não informado',
+          empresa: get('empresa') || get('email') || 'Sem empresa informada',
+          frente: form.querySelector('input[name="frente"]:checked')?.value || 'Ainda não definido',
+          tipo_projeto: form.querySelector('input[name="tipo_projeto"]:checked')?.value || 'Formato não definido',
+          local: get('local') || 'Local ainda não definido',
+          prazo: get('prazo') || 'Prazo ainda não definido'
+        };
+        form.querySelectorAll('[data-summary]').forEach(node => {
+          node.textContent = map[node.getAttribute('data-summary')] || '—';
+        });
+      }
+
+      function render(focus) {
+        steps.forEach((step, i) => step.classList.toggle('is-active', i === index));
+        stepItems.forEach((item, i) => {
+          item.classList.toggle('is-active', i === index);
+          item.classList.toggle('is-done', i < index);
+        });
+        const step = currentStep();
+        current.textContent = String(index + 1);
+        caption.textContent = step.dataset.caption;
+        fill.style.width = ((index + 1) / total * 100).toFixed(1) + '%';
+        btnBack.disabled = index === 0;
+        btnSkip.hidden = !step.hasAttribute('data-skippable');
+        const last = index === total - 1;
+        btnNext.hidden = last;
+        btnSubmit.hidden = !last;
+        errorBox.classList.remove('is-visible');
+        if (last) updateSummary();
+        if (focus) {
+          const field = step.querySelector('input:not([type=radio]), textarea');
+          if (field) field.focus({ preventScroll: true });
+        }
+        const chip = stepItems[index];
+        if (window.innerWidth <= 980 && chip) {
+          stepList.scrollTo({
+            left: chip.offsetLeft - (stepList.clientWidth - chip.offsetWidth) / 2,
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      function validate() {
+        const step = currentStep();
+        const required = [...step.querySelectorAll('[data-required]')];
+        for (const field of required) {
+          if (field.type === 'radio') {
+            if (!step.querySelector('input[name="' + field.name + '"]:checked')) return false;
+            continue;
+          }
+          if (!field.value.trim()) { field.focus(); return false; }
+          if (field.type === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(field.value.trim())) { field.focus(); return false; }
+        }
+        return true;
+      }
+
+      function goNext() {
+        if (index === total - 1) return;
+        if (!validate()) { errorBox.classList.add('is-visible'); return; }
+        index += 1;
+        render(true);
+      }
+
+      btnNext.addEventListener('click', goNext);
+      btnSkip.addEventListener('click', () => {
+        if (index < total - 1) { index += 1; render(true); }
+      });
+      btnBack.addEventListener('click', () => {
+        if (index > 0) { index -= 1; render(true); }
+      });
+
+      form.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter') return;
+        if (event.target.tagName === 'TEXTAREA') return;
+        event.preventDefault();
+        if (index === total - 1) form.requestSubmit();
+        else goNext();
+      });
+
+      form.querySelectorAll('.quiz-step[data-autoadvance] input[type=radio]').forEach(input => {
+        input.addEventListener('change', () => {
+          errorBox.classList.remove('is-visible');
+          setTimeout(goNext, 260);
+        });
+      });
+
+      form.addEventListener('input', () => errorBox.classList.remove('is-visible'));
+
+      /* ---------- envio ---------- */
+      async function submitBriefing() {
+        const get = (name) => (form.elements[name]?.value || '').trim();
+        const itens = [...selection.entries()].map(([name, qty]) => qty > 1 ? name + ' ×' + qty : name);
+        const payload = {};
+        new FormData(form).forEach((value, key) => {
+          if (typeof value === 'string' && value.trim()) payload[key] = value.trim();
+        });
+        if (itens.length) payload.itens_selecionados = itens.join(', ');
+
+        const body = {
+          nome: get('nome'),
+          email: get('email'),
+          telefone: get('telefone'),
+          empresa: get('empresa'),
+          frente: form.querySelector('input[name="frente"]:checked')?.value || '',
+          tipo_projeto: form.querySelector('input[name="tipo_projeto"]:checked')?.value || '',
+          local: get('local'),
+          prazo: get('prazo'),
+          mensagem: get('projeto'),
+          itens_catalogo: itens,
+          payload
+        };
+
+        try {
+          const response = await fetch('/api/public/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          if (!response.ok) throw new Error('request failed');
+        } catch (error) {
+          console.error('Falha ao registrar briefing', error);
+        }
+      }
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!validate()) { errorBox.classList.add('is-visible'); return; }
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = 'Enviando…';
+        submitBriefing().finally(() => {
+          form.style.display = 'none';
+          nav.style.display = 'none';
+          fill.style.width = '100%';
+          caption.textContent = 'Briefing enviado';
+          success.classList.add('is-visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      render(false);
+    })();
+  </script>
+</body>
+</html>

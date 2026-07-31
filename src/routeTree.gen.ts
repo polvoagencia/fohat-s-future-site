@@ -13,6 +13,7 @@ import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as CatalogoDeLocacaoRouteImport } from './routes/catalogo-de-locacao'
 import { Route as CasesTelaBrasilRouteImport } from './routes/cases-tela-brasil'
 import { Route as CasesRouteImport } from './routes/cases'
+import { Route as BriefingRouteImport } from './routes/briefing'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 
@@ -36,6 +37,11 @@ const CasesRoute = CasesRouteImport.update({
   path: '/cases',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BriefingRoute = BriefingRouteImport.update({
+  id: '/briefing',
+  path: '/briefing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,6 +55,7 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
   '/cases-tela-brasil': typeof CasesTelaBrasilRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
@@ -57,6 +64,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
   '/cases-tela-brasil': typeof CasesTelaBrasilRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
   '/cases-tela-brasil': typeof CasesTelaBrasilRoute
   '/catalogo-de-locacao': typeof CatalogoDeLocacaoRoute
@@ -76,6 +85,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/briefing'
     | '/cases'
     | '/cases-tela-brasil'
     | '/catalogo-de-locacao'
@@ -84,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/briefing'
     | '/cases'
     | '/cases-tela-brasil'
     | '/catalogo-de-locacao'
@@ -92,6 +103,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/briefing'
     | '/cases'
     | '/cases-tela-brasil'
     | '/catalogo-de-locacao'
@@ -101,6 +113,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BriefingRoute: typeof BriefingRoute
   CasesRoute: typeof CasesRoute
   CasesTelaBrasilRoute: typeof CasesTelaBrasilRoute
   CatalogoDeLocacaoRoute: typeof CatalogoDeLocacaoRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CasesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/briefing': {
+      id: '/briefing'
+      path: '/briefing'
+      fullPath: '/briefing'
+      preLoaderRoute: typeof BriefingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -157,6 +177,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BriefingRoute: BriefingRoute,
   CasesRoute: CasesRoute,
   CasesTelaBrasilRoute: CasesTelaBrasilRoute,
   CatalogoDeLocacaoRoute: CatalogoDeLocacaoRoute,

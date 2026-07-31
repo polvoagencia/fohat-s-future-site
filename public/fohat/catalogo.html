@@ -843,7 +843,7 @@
 <h2>A operação pode exigir uma combinação personalizada.</h2>
 <p>Conte o cenário e a FOHAT estrutura equipamentos, suporte e logística para o projeto.</p>
 </div>
-<a class="header-button" href="/?openBriefing=1" target="_top">Solicitar estrutura personalizada ↗</a>
+<a class="header-button" href="/briefing" target="_top">Solicitar estrutura personalizada ↗</a>
 </div>
 </div>
 </section>
@@ -1004,13 +1004,12 @@
     });
 
     function goToBriefing() {
-      try { localStorage.setItem('fohatOpenBriefing', '1'); } catch {}
-      window.top.location.href = '/?openBriefing=1';
+      window.top.location.href = '/briefing';
     }
 
     document.querySelector('.request-button').addEventListener('click', goToBriefing);
 
-    document.querySelectorAll('a[href="/?openBriefing=1"]').forEach(link => {
+    document.querySelectorAll('a[href="/briefing"]').forEach(link => {
       link.addEventListener('click', event => {
         event.preventDefault();
         goToBriefing();
