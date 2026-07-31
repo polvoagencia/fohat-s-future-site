@@ -4839,9 +4839,16 @@
       z-index: 2;
       display: grid;
       grid-template-columns: minmax(0, .82fr) minmax(520px, 1.18fr);
+      grid-template-areas:
+        "intro visual"
+        "body  visual";
       gap: clamp(54px, 7vw, 112px);
+      row-gap: 0;
       align-items: center;
     }
+    .global-reach-intro { grid-area: intro; }
+    .global-reach-visual { grid-area: visual; }
+    .global-reach-body { grid-area: body; }
     .global-reach-copy {
       max-width: 650px;
     }
