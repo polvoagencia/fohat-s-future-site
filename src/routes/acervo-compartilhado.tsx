@@ -19,10 +19,10 @@ export const Route = createFileRoute("/acervo-compartilhado")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: AcervoTerruaFohatPage,
+  component: AcervoCompartilhadoPage,
 });
 
-function AcervoTerruaFohatPage() {
+function AcervoCompartilhadoPage() {
   return (
     <iframe
       title="Acervo compartilhado Terruá × FOHAT"
