@@ -89,6 +89,9 @@
       width: auto;
       object-fit: contain;
     }
+    .brand-logos img.logo-fohat-light {
+      filter: brightness(0) invert(1);
+    }
     .brand-logos img.logo-terrua-light {
       filter: brightness(0) invert(1) contrast(1.15);
     }
@@ -96,6 +99,12 @@
       width: 1px;
       height: 24px;
       background: var(--line);
+    }
+    .brand-plus {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(231, 241, 255, .6);
     }
     .header-cta {
       min-height: 44px;
@@ -279,32 +288,17 @@
       position: relative;
       aspect-ratio: 4 / 3;
       overflow: hidden;
-      background: var(--ink-4);
+      background: #ffffff;
     }
     .gear-visual img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      padding: 10px;
       display: block;
       transition: transform .55s var(--ease);
     }
     .gear-card:hover .gear-visual img { transform: scale(1.04); }
-    .gear-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(11, 26, 44, .3), rgba(7, 17, 31, .42));
-      mix-blend-mode: multiply;
-    }
-    .gear-visual::after {
-      content: "";
-      position: absolute;
-      inset: 55% 0 0;
-      background: linear-gradient(180deg, rgba(7,17,31,0), rgba(7,17,31,.72));
-      pointer-events: none;
-    }
     .gear-qty {
       position: absolute;
       z-index: 2;
@@ -501,6 +495,7 @@
       object-fit: contain;
       opacity: .9;
     }
+    .footer-logos img.logo-fohat-light { filter: brightness(0) invert(1); }
     .footer-logos img.logo-terrua-light {
       filter: brightness(0) invert(1) contrast(1.15);
     }
@@ -528,16 +523,11 @@
     <div class="shell nav">
       <div class="brand">
         <div class="brand-logos">
-          <img src="/assets/asset-71ebbd977666e2a3.svg" alt="FOHAT">
-          <span class="brand-divider"></span>
+          <img class="logo-fohat-light" src="/assets/asset-71ebbd977666e2a3.svg" alt="FOHAT">
+          <span class="brand-plus">+</span>
           <img class="logo-terrua-light" src="/assets/asset-9631564798c53f0b.png" alt="Terruá">
         </div>
-        <span>Acervo compartilhado</span>
       </div>
-      <a class="header-cta" href="https://wa.me/5561996318953" target="_blank" rel="noopener">
-        Falar com consultor
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-      </a>
     </div>
   </header>
 
@@ -573,7 +563,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">8 unid.</span>
-                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/totens.jpg" alt="Totens interativos" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-totens.jpg" alt="Totens interativos" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Totens interativos</h3>
@@ -593,7 +583,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">4 unid.</span>
-                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/tablets.jpg" alt="Tablets" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-tablets.jpg" alt="Tablets" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Tablets</h3>
@@ -625,7 +615,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">6 unid.</span>
-                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/televisoes.jpg" alt="Televisões 43″" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-televisoes.jpg" alt="Televisões 43″" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Televisões 43″</h3>
@@ -635,7 +625,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">4 unid.</span>
-                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/computadores.jpg" alt="Notebooks" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-notebooks.jpg" alt="Notebooks" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Notebooks</h3>
@@ -655,7 +645,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">8 unid.</span>
-                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/impressoras.jpg" alt="Impressoras DCP Brother" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-impressoras-dcp.jpg" alt="Impressoras DCP Brother" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Impressoras DCP Brother</h3>
@@ -665,7 +655,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">4 unid.</span>
-                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/tablets.jpg" alt="Tablets" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-tablets.jpg" alt="Tablets" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Tablets</h3>
@@ -675,7 +665,7 @@
             <article class="gear-card">
               <div class="gear-visual">
                 <span class="gear-qty mono">Sob demanda</span>
-                <img src="/assets/asset-114168237545381f.webp" alt="Internet dedicada e repetidores de sinal" loading="lazy" decoding="async">
+                <img src="/assets/acervo-item-internet.jpg" alt="Internet dedicada e repetidores de sinal" loading="lazy" decoding="async">
               </div>
               <div class="gear-body">
                 <h3>Internet dedicada e repetidores de sinal</h3>
@@ -742,6 +732,16 @@
                 <span>Acessórios</span>
               </div>
             </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">Disponível</span>
+                <img src="/assets/acervo-item-zebra-credenciamento.jpg" alt="Zebra para credenciamento" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Zebra para credenciamento</h3>
+                <span>Credenciamento</span>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -782,7 +782,7 @@
   <footer class="site-footer">
     <div class="shell footer-inner">
       <div class="footer-logos">
-        <img src="/assets/asset-71ebbd977666e2a3.svg" alt="FOHAT">
+        <img class="logo-fohat-light" src="/assets/asset-71ebbd977666e2a3.svg" alt="FOHAT">
         <span class="brand-divider"></span>
         <img class="logo-terrua-light" src="/assets/asset-9631564798c53f0b.png" alt="Terruá">
       </div>
