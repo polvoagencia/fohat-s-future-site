@@ -289,6 +289,15 @@
       transition: transform .55s var(--ease);
     }
     .gear-card:hover .gear-visual img { transform: scale(1.04); }
+    .gear-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(11, 26, 44, .3), rgba(7, 17, 31, .42));
+      mix-blend-mode: multiply;
+    }
     .gear-visual::after {
       content: "";
       position: absolute;
