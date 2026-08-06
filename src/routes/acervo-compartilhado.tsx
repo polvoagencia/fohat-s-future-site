@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/acervo-terrua-fohat")({
+export const Route = createFileRoute("/acervo-compartilhado")({
   head: () => ({
     meta: [
       { title: "Acervo compartilhado | Terruá × FOHAT" },
