@@ -215,9 +215,8 @@
       line-height: 1.6;
     }
 
-    .inventory-grid {
+    .inventory-stack {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
     }
     .inventory-card {
@@ -256,6 +255,79 @@
       transition: transform .6s var(--ease);
     }
     .card-visual:hover img { transform: scale(1.03); }
+
+
+    .gear-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .gear-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
+      transition: .3s var(--ease);
+    }
+    .gear-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(93, 141, 255, .38);
+      box-shadow: 0 24px 48px rgba(2, 8, 18, .55);
+    }
+    .gear-visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--ink-4);
+    }
+    .gear-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .55s var(--ease);
+    }
+    .gear-card:hover .gear-visual img { transform: scale(1.04); }
+    .gear-visual::after {
+      content: "";
+      position: absolute;
+      inset: 55% 0 0;
+      background: linear-gradient(180deg, rgba(7,17,31,0), rgba(7,17,31,.72));
+      pointer-events: none;
+    }
+    .gear-qty {
+      position: absolute;
+      z-index: 2;
+      top: 12px;
+      left: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(7, 17, 31, .72);
+      border: 1px solid rgba(93, 141, 255, .3);
+      color: var(--blue-2);
+      font-size: 12px;
+      font-weight: 780;
+      letter-spacing: .02em;
+      backdrop-filter: blur(8px);
+    }
+    .fohat .gear-qty { color: var(--cyan); }
+    .gear-body { padding: 16px 18px 18px; }
+    .gear-body h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 680;
+      line-height: 1.3;
+      color: var(--white);
+    }
+    .gear-body span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
     .item-list {
       margin-top: 28px;
@@ -425,7 +497,6 @@
     }
 
     @media (max-width: 860px) {
-      .inventory-grid { grid-template-columns: 1fr; }
       .nav { flex-wrap: wrap; }
       .brand { font-size: 16px; }
       .brand-logos img { height: 28px; }
@@ -479,7 +550,7 @@
 
   <main class="content">
     <div class="shell">
-      <div class="inventory-grid">
+      <div class="inventory-stack">
 
         <section class="inventory-card">
           <div class="section-header">
@@ -489,14 +560,47 @@
               Itens da Terruá disponíveis para projetos em parceria com a FOHAT.
             </p>
           </div>
-          <div class="card-visual">
-            <img src="/assets/acervo-totens.webp" alt="Totens interativos" loading="lazy">
-          </div>
-          <div class="item-list">
-            <div class="item"><div class="item-main"><span class="item-icon">8</span><span class="item-label">Totens interativos</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">1</span><span class="item-label">Impressora térmica fotográfica</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">4</span><span class="item-label">Tablets</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">1</span><span class="item-label">Câmera de contagem</span></div><span class="item-count">unid.</span></div>
+          <div class="gear-grid">
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">8 unid.</span>
+                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/totens.jpg" alt="Totens interativos" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Totens interativos</h3>
+                <span>Interação</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">1 unid.</span>
+                <img src="/assets/acervo-item-impressora-termica.jpg" alt="Impressora térmica fotográfica" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Impressora térmica fotográfica</h3>
+                <span>Impressão</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">4 unid.</span>
+                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/tablets.jpg" alt="Tablets" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Tablets</h3>
+                <span>Mobilidade</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">1 unid.</span>
+                <img src="/assets/acervo-item-camera-contagem.jpg" alt="Câmera de contagem" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Câmera de contagem</h3>
+                <span>Métricas</span>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -508,38 +612,130 @@
               Equipamentos próprios da FOHAT para complementar a estrutura da operação.
             </p>
           </div>
-          <div class="card-visual">
-            <img src="/assets/acervo-tvs-notebooks.webp" alt="Televisões, notebooks e headphones" loading="lazy">
-          </div>
-          <div class="item-list">
-            <div class="item"><div class="item-main"><span class="item-icon">6</span><span class="item-label">Televisões 43″</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">4</span><span class="item-label">Notebooks</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">1</span><span class="item-label">Impressora térmica fotográfica</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">8</span><span class="item-label">Impressoras DCP Brother</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">4</span><span class="item-label">Tablets</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">∞</span><span class="item-label">Internet dedicada e repetidores de sinal</span></div><span class="item-count">sob demanda</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">6</span><span class="item-label">Amplificadores de áudio</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">18</span><span class="item-label">Headphones</span></div><span class="item-count">unid.</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Suporte antifurto para tablets</span></div><span class="item-count">disponível</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Cabos de rede</span></div><span class="item-count">disponível</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Switch de rede</span></div><span class="item-count">disponível</span></div>
-            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Periféricos, extensões e adaptadores em geral</span></div><span class="item-count">disponível</span></div>
+          <div class="gear-grid">
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">6 unid.</span>
+                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/televisoes.jpg" alt="Televisões 43″" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Televisões 43″</h3>
+                <span>Exibição</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">4 unid.</span>
+                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/computadores.jpg" alt="Notebooks" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Notebooks</h3>
+                <span>Processamento</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">1 unid.</span>
+                <img src="/assets/acervo-item-impressora-termica.jpg" alt="Impressora térmica fotográfica" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Impressora térmica fotográfica</h3>
+                <span>Impressão</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">8 unid.</span>
+                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/impressoras.jpg" alt="Impressoras DCP Brother" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Impressoras DCP Brother</h3>
+                <span>Impressão</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">4 unid.</span>
+                <img src="https://raw.githubusercontent.com/polvoagencia/website-builder-buddy/main/src/assets/rental/tablets.jpg" alt="Tablets" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Tablets</h3>
+                <span>Mobilidade</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">Sob demanda</span>
+                <img src="/assets/asset-114168237545381f.webp" alt="Internet dedicada e repetidores de sinal" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Internet dedicada e repetidores de sinal</h3>
+                <span>Conectividade</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">6 unid.</span>
+                <img src="/assets/acervo-item-amplificador.jpg" alt="Amplificadores de áudio" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Amplificadores de áudio</h3>
+                <span>Áudio</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">18 unid.</span>
+                <img src="/assets/acervo-item-headphones.jpg" alt="Headphones" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Headphones</h3>
+                <span>Áudio</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">Disponível</span>
+                <img src="/assets/acervo-item-suporte-antifurto.jpg" alt="Suporte antifurto para tablets" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Suporte antifurto para tablets</h3>
+                <span>Segurança</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">Disponível</span>
+                <img src="/assets/acervo-item-cabos-rede.jpg" alt="Cabos de rede" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Cabos de rede</h3>
+                <span>Infraestrutura</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">Disponível</span>
+                <img src="/assets/acervo-item-switch-rede.jpg" alt="Switch de rede" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Switch de rede</h3>
+                <span>Infraestrutura</span>
+              </div>
+            </article>
+            <article class="gear-card">
+              <div class="gear-visual">
+                <span class="gear-qty mono">Disponível</span>
+                <img src="/assets/acervo-item-perifericos.jpg" alt="Periféricos, extensões e adaptadores" loading="lazy" decoding="async">
+              </div>
+              <div class="gear-body">
+                <h3>Periféricos, extensões e adaptadores</h3>
+                <span>Acessórios</span>
+              </div>
+            </article>
           </div>
         </section>
 
-      </div>
-
-      <div class="inventory-grid" style="margin-top: 24px;">
-        <section class="inventory-card">
-          <div class="card-visual" style="margin-top: 0;">
-            <img src="/assets/acervo-tablets.webp" alt="Tablets e impressora fotográfica" loading="lazy">
-          </div>
-        </section>
-        <section class="inventory-card fohat">
-          <div class="card-visual" style="margin-top: 0;">
-            <img src="/assets/acervo-audio-rede.webp" alt="Áudio, rede e conectividade" loading="lazy">
-          </div>
-        </section>
       </div>
 
       <div class="notice">
