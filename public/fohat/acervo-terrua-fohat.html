@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Acervo compartilhado Terruá × FOHAT para ativações, eventos e experiências tecnológicas.">
+  <title>Acervo compartilhado | Terruá × FOHAT</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/asset-71ebbd977666e2a3.svg">
+  <style>
+    :root {
+      --ink: #07111f;
+      --ink-2: #0b1a2c;
+      --ink-3: #10243b;
+      --paper: #f4f7fb;
+      --white: #ffffff;
+      --cloud: #e7eef6;
+      --line: rgba(15, 40, 68, .13);
+      --muted: #637286;
+      --blue: #5d8dff;
+      --blue-2: #86b8ff;
+      --cyan: #9ee7ff;
+      --lime: #d7ff8f;
+      --terrua: #c49a6c;
+      --terrua-light: #e3c9a6;
+      --radius: 28px;
+      --shadow: 0 30px 90px rgba(10, 28, 52, .14);
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Inter, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--cyan); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font: inherit; }
+
+    .shell { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
+    .mono {
+      font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      background: rgba(244, 247, 251, .88);
+      backdrop-filter: blur(20px) saturate(150%);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 18px;
+      font-weight: 820;
+      letter-spacing: -.04em;
+    }
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logos img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+    .brand-logos img.logo-terrua-light {
+      filter: brightness(0) contrast(1.15);
+    }
+    .brand-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--line);
+    }
+    .header-cta {
+      min-height: 44px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 760;
+      color: white;
+      background: var(--ink);
+      transition: .3s var(--ease);
+    }
+    .header-cta:hover { background: #173452; transform: translateY(-2px); }
+
+    .hero {
+      position: relative;
+      padding: clamp(72px, 10vw, 120px) 0 clamp(64px, 8vw, 96px);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 28%, rgba(196, 154, 108, .16), transparent 30%),
+        radial-gradient(circle at 84% 18%, rgba(93, 141, 255, .18), transparent 32%),
+        linear-gradient(145deg, #06101d 0%, #09182a 48%, #07111f 100%);
+      color: white;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .09;
+      background-image:
+        linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse at 70% 42%, black 0 28%, transparent 72%);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--terrua-light);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--terrua-light);
+      box-shadow: 0 0 0 6px rgba(196, 154, 108, .15), 0 0 22px var(--terrua-light);
+    }
+    h1 {
+      margin: 22px auto 0;
+      max-width: 900px;
+      font-size: clamp(42px, 6vw, 84px);
+      line-height: .95;
+      letter-spacing: -.06em;
+      font-weight: 820;
+    }
+    .hero-highlight {
+      display: block;
+      color: transparent;
+      background: linear-gradient(180deg, #fff 10%, #e3c9a6 58%, #c49a6c 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+    .hero-copy {
+      max-width: 680px;
+      margin: 22px auto 0;
+      color: rgba(255,255,255,.62);
+      font-size: clamp(16px, 1.5vw, 20px);
+      line-height: 1.6;
+    }
+
+    .content {
+      padding: clamp(64px, 8vw, 100px) 0;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+    }
+    .section-kicker::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+    h2 {
+      margin: 14px 0 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -.05em;
+      font-weight: 780;
+    }
+    .section-desc {
+      max-width: 640px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .inventory-card {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .inventory-card.fohat {
+      background: linear-gradient(180deg, #0b1a2c 0%, #07111f 100%);
+      color: white;
+      border-color: rgba(255,255,255,.08);
+    }
+    .inventory-card.fohat .section-kicker { color: var(--cyan); }
+    .inventory-card.fohat .section-kicker::before { background: var(--cyan); }
+    .inventory-card.fohat h2 { color: white; }
+    .inventory-card.fohat .section-desc { color: rgba(255,255,255,.55); }
+    .inventory-card.fohat .item { border-color: rgba(255,255,255,.1); }
+    .inventory-card.fohat .item-count { color: var(--cyan); }
+    .inventory-card.fohat .item-label { color: rgba(255,255,255,.72); }
+
+    .item-list {
+      margin-top: 28px;
+      display: grid;
+      gap: 10px;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.5);
+      transition: .25s ease;
+    }
+    .item:hover { transform: translateX(4px); border-color: rgba(93, 141, 255, .3); }
+    .item-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+    .item-icon {
+      flex: 0 0 38px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 760;
+    }
+    .fohat .item-icon { background: rgba(255,255,255,.08); color: var(--cyan); }
+    .item-label {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 620;
+      line-height: 1.3;
+    }
+    .item-count {
+      flex: 0 0 auto;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--cloud);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .notice {
+      margin-top: 48px;
+      padding: 28px 32px;
+      border: 1px solid rgba(196, 154, 108, .25);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(196, 154, 108, .08), rgba(93, 141, 255, .05));
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+    .notice-icon {
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(196, 154, 108, .15);
+      color: var(--terrua);
+      font-size: 20px;
+    }
+    .notice-title {
+      margin: 0 0 6px;
+      font-size: 17px;
+      font-weight: 760;
+    }
+    .notice p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .cta-section {
+      padding: clamp(64px, 8vw, 100px) 0;
+      background: var(--ink);
+      color: white;
+      text-align: center;
+    }
+    .cta-section h2 {
+      margin: 0 auto;
+      max-width: 760px;
+    }
+    .cta-section p {
+      max-width: 560px;
+      margin: 18px auto 0;
+      color: rgba(255,255,255,.55);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+    .cta-actions {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .button {
+      min-height: 56px;
+      padding: 0 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 999px;
+      font-weight: 760;
+      font-size: 15px;
+      transition: .35s var(--ease);
+    }
+    .button:hover { transform: translateY(-3px); }
+    .button-primary {
+      color: var(--ink);
+      background: white;
+      box-shadow: 0 18px 50px rgba(126,184,255,.24);
+    }
+    .button-primary:hover { background: var(--cyan); }
+    .button-secondary {
+      color: white;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .button-secondary:hover { background: rgba(255,255,255,.1); }
+
+    .site-footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-logos img {
+      height: 26px;
+      width: auto;
+      object-fit: contain;
+      opacity: .7;
+    }
+
+    @media (max-width: 860px) {
+      .inventory-grid { grid-template-columns: 1fr; }
+      .nav { flex-wrap: wrap; }
+      .brand { font-size: 16px; }
+      .brand-logos img { height: 28px; }
+      .header-cta { margin-left: auto; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 520px) {
+      .inventory-card { padding: 24px; }
+      .item { padding: 14px; }
+      .item-label { font-size: 14px; }
+      .item-count { font-size: 12px; }
+      .notice { flex-direction: column; text-align: center; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="shell nav">
+      <div class="brand">
+        <div class="brand-logos">
+          <img src="/assets/asset-71ebbd977666e2a3.svg" alt="FOHAT">
+          <span class="brand-divider"></span>
+          <img class="logo-terrua-light" src="/assets/asset-9631564798c53f0b.png" alt="Terruá">
+        </div>
+        <span>Acervo compartilhado</span>
+      </div>
+      <a class="header-cta" href="https://wa.me/5561996318953" target="_blank" rel="noopener">
+        Falar com consultor
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <span class="eyebrow mono">Terruá × FOHAT</span>
+        <h1>
+          Tecnologia e estrutura
+          <span class="hero-highlight">prontas para operar.</span>
+        </h1>
+        <p class="hero-copy">
+          Acervo reunido para ativações, eventos e experiências itinerantes.
+          Equipamentos de interação, áudio, vídeo, conectividade e operação em um só lugar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main class="content">
+    <div class="shell">
+      <div class="inventory-grid">
+
+        <section class="inventory-card">
+          <div class="section-header">
+            <span class="section-kicker mono">Acervo compartilhado</span>
+            <h2>Terruá</h2>
+            <p class="section-desc">
+              Itens da Terruá disponíveis para projetos em parceria com a FOHAT.
+            </p>
+          </div>
+          <div class="item-list">
+            <div class="item"><div class="item-main"><span class="item-icon">8</span><span class="item-label">Totens interativos</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">1</span><span class="item-label">Impressora térmica fotográfica</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">4</span><span class="item-label">Tablets</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">1</span><span class="item-label">Câmera de contagem</span></div><span class="item-count">unid.</span></div>
+          </div>
+        </section>
+
+        <section class="inventory-card fohat">
+          <div class="section-header">
+            <span class="section-kicker mono">Acervo exclusivo</span>
+            <h2>FOHAT</h2>
+            <p class="section-desc">
+              Equipamentos próprios da FOHAT para complementar a estrutura da operação.
+            </p>
+          </div>
+          <div class="item-list">
+            <div class="item"><div class="item-main"><span class="item-icon">6</span><span class="item-label">Televisões 43″</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">4</span><span class="item-label">Notebooks</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">1</span><span class="item-label">Impressora térmica fotográfica</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">8</span><span class="item-label">Impressoras DCP Brother</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">4</span><span class="item-label">Tablets</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">∞</span><span class="item-label">Internet dedicada e repetidores de sinal</span></div><span class="item-count">sob demanda</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">6</span><span class="item-label">Amplificadores de áudio</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">18</span><span class="item-label">Headphones</span></div><span class="item-count">unid.</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Suporte antifurto para tablets</span></div><span class="item-count">disponível</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Cabos de rede</span></div><span class="item-count">disponível</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Switch de rede</span></div><span class="item-count">disponível</span></div>
+            <div class="item"><div class="item-main"><span class="item-icon">✓</span><span class="item-label">Periféricos, extensões e adaptadores em geral</span></div><span class="item-count">disponível</span></div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="notice">
+        <div class="notice-icon">+</div>
+        <div>
+          <h3 class="notice-title">Precisa de mais quantidade?</h3>
+          <p>
+            Em caso de necessidade de maiores volumes, podemos atender sob demanda.
+            Fale com um consultor para avaliar a escala do seu projeto e garantir a estrutura ideal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="cta-section">
+    <div class="shell">
+      <span class="eyebrow mono" style="justify-content:center; color: var(--terrua-light);">Consultoria</span>
+      <h2>Monte a estrutura ideal para o seu projeto.</h2>
+      <p>
+        Conte com a combinação de acervo Terruá + FOHAT para entregar uma operação completa, do primeiro contato ao pós-evento.
+      </p>
+      <div class="cta-actions">
+        <a class="button button-primary" href="https://wa.me/5561996318953" target="_blank" rel="noopener">
+          Falar com consultor
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <a class="button button-secondary" href="/briefing" target="_top">
+          Iniciar briefing
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div class="footer-logos">
+        <img src="/assets/asset-71ebbd977666e2a3.svg" alt="FOHAT">
+        <span class="brand-divider"></span>
+        <img class="logo-terrua-light" src="/assets/asset-9631564798c53f0b.png" alt="Terruá">
+      </div>
+      <span>Acervo compartilhado Terruá × FOHAT</span>
+    </div>
+  </footer>
+
+</body>
+</html>
