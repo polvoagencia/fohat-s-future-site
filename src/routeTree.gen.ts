@@ -15,6 +15,7 @@ import { Route as CasesTelaBrasilRouteImport } from './routes/cases-tela-brasil'
 import { Route as CasesRouteImport } from './routes/cases'
 import { Route as BriefingRouteImport } from './routes/briefing'
 import { Route as AcervoTerruaFohatRouteImport } from './routes/acervo-terrua-fohat'
+import { Route as AcervoCompartilhadoRouteImport } from './routes/acervo-compartilhado'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
 
@@ -48,6 +49,11 @@ const AcervoTerruaFohatRoute = AcervoTerruaFohatRouteImport.update({
   path: '/acervo-terrua-fohat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcervoCompartilhadoRoute = AcervoCompartilhadoRouteImport.update({
+  id: '/acervo-compartilhado',
+  path: '/acervo-compartilhado',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,6 +67,7 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/acervo-compartilhado': typeof AcervoCompartilhadoRoute
   '/acervo-terrua-fohat': typeof AcervoTerruaFohatRoute
   '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/acervo-compartilhado': typeof AcervoCompartilhadoRoute
   '/acervo-terrua-fohat': typeof AcervoTerruaFohatRoute
   '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/acervo-compartilhado': typeof AcervoCompartilhadoRoute
   '/acervo-terrua-fohat': typeof AcervoTerruaFohatRoute
   '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/acervo-compartilhado'
     | '/acervo-terrua-fohat'
     | '/briefing'
     | '/cases'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/acervo-compartilhado'
     | '/acervo-terrua-fohat'
     | '/briefing'
     | '/cases'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/acervo-compartilhado'
     | '/acervo-terrua-fohat'
     | '/briefing'
     | '/cases'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcervoCompartilhadoRoute: typeof AcervoCompartilhadoRoute
   AcervoTerruaFohatRoute: typeof AcervoTerruaFohatRoute
   BriefingRoute: typeof BriefingRoute
   CasesRoute: typeof CasesRoute
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcervoTerruaFohatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/acervo-compartilhado': {
+      id: '/acervo-compartilhado'
+      path: '/acervo-compartilhado'
+      fullPath: '/acervo-compartilhado'
+      preLoaderRoute: typeof AcervoCompartilhadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcervoCompartilhadoRoute: AcervoCompartilhadoRoute,
   AcervoTerruaFohatRoute: AcervoTerruaFohatRoute,
   BriefingRoute: BriefingRoute,
   CasesRoute: CasesRoute,
@@ -208,3 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
