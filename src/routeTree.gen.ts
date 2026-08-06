@@ -14,6 +14,7 @@ import { Route as CatalogoDeLocacaoRouteImport } from './routes/catalogo-de-loca
 import { Route as CasesTelaBrasilRouteImport } from './routes/cases-tela-brasil'
 import { Route as CasesRouteImport } from './routes/cases'
 import { Route as BriefingRouteImport } from './routes/briefing'
+import { Route as AcervoTerruaFohatRouteImport } from './routes/acervo-terrua-fohat'
 import { Route as AcervoCompartilhadoRouteImport } from './routes/acervo-compartilhado'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicLeadsRouteImport } from './routes/api/public/leads'
@@ -43,6 +44,11 @@ const BriefingRoute = BriefingRouteImport.update({
   path: '/briefing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcervoTerruaFohatRoute = AcervoTerruaFohatRouteImport.update({
+  id: '/acervo-terrua-fohat',
+  path: '/acervo-terrua-fohat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcervoCompartilhadoRoute = AcervoCompartilhadoRouteImport.update({
   id: '/acervo-compartilhado',
   path: '/acervo-compartilhado',
@@ -62,6 +68,7 @@ const ApiPublicLeadsRoute = ApiPublicLeadsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/acervo-compartilhado': typeof AcervoCompartilhadoRoute
+  '/acervo-terrua-fohat': typeof AcervoTerruaFohatRoute
   '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
   '/cases-tela-brasil': typeof CasesTelaBrasilRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/acervo-compartilhado': typeof AcervoCompartilhadoRoute
+  '/acervo-terrua-fohat': typeof AcervoTerruaFohatRoute
   '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
   '/cases-tela-brasil': typeof CasesTelaBrasilRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/acervo-compartilhado': typeof AcervoCompartilhadoRoute
+  '/acervo-terrua-fohat': typeof AcervoTerruaFohatRoute
   '/briefing': typeof BriefingRoute
   '/cases': typeof CasesRoute
   '/cases-tela-brasil': typeof CasesTelaBrasilRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/acervo-compartilhado'
+    | '/acervo-terrua-fohat'
     | '/briefing'
     | '/cases'
     | '/cases-tela-brasil'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/acervo-compartilhado'
+    | '/acervo-terrua-fohat'
     | '/briefing'
     | '/cases'
     | '/cases-tela-brasil'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/acervo-compartilhado'
+    | '/acervo-terrua-fohat'
     | '/briefing'
     | '/cases'
     | '/cases-tela-brasil'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcervoCompartilhadoRoute: typeof AcervoCompartilhadoRoute
+  AcervoTerruaFohatRoute: typeof AcervoTerruaFohatRoute
   BriefingRoute: typeof BriefingRoute
   CasesRoute: typeof CasesRoute
   CasesTelaBrasilRoute: typeof CasesTelaBrasilRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BriefingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/acervo-terrua-fohat': {
+      id: '/acervo-terrua-fohat'
+      path: '/acervo-terrua-fohat'
+      fullPath: '/acervo-terrua-fohat'
+      preLoaderRoute: typeof AcervoTerruaFohatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/acervo-compartilhado': {
       id: '/acervo-compartilhado'
       path: '/acervo-compartilhado'
@@ -198,6 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcervoCompartilhadoRoute: AcervoCompartilhadoRoute,
+  AcervoTerruaFohatRoute: AcervoTerruaFohatRoute,
   BriefingRoute: BriefingRoute,
   CasesRoute: CasesRoute,
   CasesTelaBrasilRoute: CasesTelaBrasilRoute,
